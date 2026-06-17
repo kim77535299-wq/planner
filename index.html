@@ -2,7 +2,6 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-  <link rel="apple-touch-icon" href="icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2026 환자안전 업무 플래너</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -72,7 +71,7 @@
   .vtab.active{background:var(--navy);color:#fff;}
   .vtab.active.now::after{background:var(--gold);}
   .vtab .cnt{display:block;font-size:9px;font-weight:600;opacity:.65;margin-top:1px;}
-  .vtab-overdue{color:var(--danger);}
+  .vtab-overdue{color:var(--danger);font-size:10px;}
   .vtab-overdue:hover{background:#FCE8E8;color:var(--danger);}
   .vtab-overdue.active{background:var(--danger);color:#fff;}
   .vtab-overdue.zero{color:var(--muted);}
@@ -613,7 +612,7 @@ function buildVside(){
   const ovCount = countAllOverdue();
   const ob = document.createElement('button');
   ob.className = 'vtab vtab-overdue' + (overdueViewActive?' active':'') + (ovCount===0?' zero':'');
-  ob.innerHTML = `⚠️ 지연<span class="cnt">${ovCount}건</span>`;
+  ob.innerHTML = `⚠️<span class="cnt">지연</span><span class="cnt">${ovCount}건</span>`;
   ob.addEventListener('click', () => setOverdueView(!overdueViewActive));
   v.appendChild(ob);
   const div = document.createElement('div'); div.className = 'vside-divider'; v.appendChild(div);
