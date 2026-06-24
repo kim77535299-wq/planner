@@ -19,12 +19,7 @@
   html,body{height:100%;}
   body{font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif;background:var(--paper);color:var(--ink);line-height:1.5;display:flex;flex-direction:column;overflow:hidden;}
 
-  .sync-bar{
-    display:flex;align-items:center;gap:8px;padding:5px 14px;
-    background:#fff;border-bottom:1px solid var(--line);
-    font-size:11.5px;color:var(--muted);flex-shrink:0;
-    min-height:28px;
-  }
+  .sync-bar{display:flex;align-items:center;gap:8px;padding:5px 14px;background:#fff;border-bottom:1px solid var(--line);font-size:11.5px;color:var(--muted);flex-shrink:0;min-height:28px;}
   .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:background .3s;}
   .sync-dot.ok{background:#2ecc71;}
   .sync-dot.err{background:var(--danger);}
@@ -49,30 +44,16 @@
   .tab .tp{font-size:10px;font-weight:600;opacity:.7;margin-left:4px;}
 
   .main-wrap{flex:1;display:flex;overflow:hidden;}
-  .vside{
-    width:var(--vside-w);flex-shrink:0;background:#fff;
-    border-right:1px solid var(--line);
-    display:flex;flex-direction:column;align-items:stretch;
-    overflow-y:auto;padding:8px 0;gap:2px;
-  }
-  .vside-label{
-    font-size:9.5px;font-weight:800;color:var(--muted);
-    text-align:center;letter-spacing:.5px;padding:0 4px 4px;
-    border-bottom:1px solid var(--line);margin-bottom:4px;
-  }
-  .vtab{
-    flex-shrink:0;background:none;border:none;cursor:pointer;
-    font-family:inherit;font-size:11.5px;font-weight:700;
-    color:var(--muted);padding:9px 4px;margin:0 4px;border-radius:8px;
-    position:relative;transition:all .15s;text-align:center;
-  }
+  .vside{width:var(--vside-w);flex-shrink:0;background:#fff;border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:stretch;overflow-y:auto;padding:8px 0;gap:2px;}
+  .vside-label{font-size:9.5px;font-weight:800;color:var(--muted);text-align:center;letter-spacing:.5px;padding:0 4px 4px;border-bottom:1px solid var(--line);margin-bottom:4px;}
+  .vtab{flex-shrink:0;background:none;border:none;cursor:pointer;font-family:inherit;font-size:11.5px;font-weight:700;color:var(--muted);padding:9px 4px;margin:0 4px;border-radius:8px;position:relative;transition:all .15s;text-align:center;}
   .vtab:hover{background:var(--blue-pale);color:var(--navy);}
   .vtab.now{color:var(--navy);}
   .vtab.now::after{content:'';position:absolute;top:6px;right:6px;width:5px;height:5px;border-radius:50%;background:var(--gold);}
   .vtab.active{background:var(--navy);color:#fff;}
   .vtab.active.now::after{background:var(--gold);}
   .vtab .cnt{display:block;font-size:9px;font-weight:600;opacity:.65;margin-top:1px;}
-  .vtab-overdue{color:var(--danger);font-size:10px;}
+  .vtab-overdue{color:var(--danger);}
   .vtab-overdue:hover{background:#FCE8E8;color:var(--danger);}
   .vtab-overdue.active{background:var(--danger);color:#fff;}
   .vtab-overdue.zero{color:var(--muted);}
@@ -95,7 +76,6 @@
   .mv-bar{height:6px;border-radius:99px;background:#E4EBF6;overflow:hidden;display:flex;margin:10px 0 18px;}
   .mv-bar .sd{background:var(--navy);transition:width .3s;}
   .mv-bar .sg{background:var(--blue-soft);transition:width .3s;}
-
   .mv-cat{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:12px;padding:14px 16px;}
   .mv-cat-head{display:flex;align-items:center;gap:9px;margin-bottom:10px;padding-bottom:9px;border-bottom:1px dashed var(--line);}
   .mv-cat-no{width:22px;height:22px;border-radius:7px;flex-shrink:0;background:var(--blue-pale);color:var(--navy);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;}
@@ -117,7 +97,6 @@
 
   .pdf-up{display:flex;align-items:center;gap:8px;margin-bottom:12px;padding:10px 12px;background:var(--blue-pale);border:1px dashed var(--blue-soft);border-radius:8px;transition:all .15s;flex-wrap:wrap;}
   .pdf-up.drag-over{background:var(--blue-soft);border-style:solid;border-color:var(--navy);box-shadow:0 0 0 3px rgba(33,67,123,.15);}
-  .pdf-up.drag-over .pdf-up-msg{color:var(--navy);font-weight:700;}
   .pdf-up-btn{background:var(--navy);color:#fff;border:none;border-radius:7px;padding:7px 12px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0;}
   .pdf-up-btn:hover{background:var(--navy-deep);}
   .pdf-up-btn:disabled{background:var(--muted);cursor:wait;}
@@ -127,7 +106,7 @@
   .pdf-up input[type="file"]{display:none;}
 
   .sum-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-bottom:22px;}
-  .sum-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 14px 12px;cursor:pointer;text-align:left;font-family:inherit;transition:box-shadow .15s, transform .15s;position:relative;}
+  .sum-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 14px 12px;cursor:pointer;text-align:left;font-family:inherit;transition:box-shadow .15s,transform .15s;position:relative;}
   .sum-card:hover{box-shadow:0 4px 14px rgba(33,67,123,.12);transform:translateY(-1px);}
   .sum-card .top{display:flex;align-items:center;gap:8px;}
   .sum-card .no{width:22px;height:22px;border-radius:7px;flex-shrink:0;background:var(--blue-pale);color:var(--navy);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;}
@@ -196,7 +175,7 @@
   .add-form.open{display:block;}
   .af-grp{margin-bottom:10px;}
   .af-grp label{display:block;font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:4px;}
-  .af-grp input[type="text"], .af-grp input[type="date"]{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:13px;color:var(--ink);background:var(--paper);}
+  .af-grp input[type="text"],.af-grp input[type="date"]{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:13px;color:var(--ink);background:var(--paper);}
   .af-grp input:focus{outline:none;border-color:var(--navy);background:#fff;}
   .af-row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
   .af-months{display:flex;flex-wrap:wrap;gap:5px;}
@@ -214,7 +193,6 @@
   .af-err.show{display:block;}
 
   .empty-msg{text-align:center;padding:30px 16px;color:var(--muted);font-size:13px;background:#fff;border:1px dashed var(--line);border-radius:12px;white-space:pre-wrap;}
-
   .page-foot{display:flex;justify-content:space-between;align-items:center;margin-top:18px;}
   .nav-link{background:none;border:none;color:var(--navy);font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;padding:6px 0;}
   .nav-link:hover{text-decoration:underline;}
@@ -231,7 +209,6 @@
 </head>
 <body>
 
-<!-- 동기화 상태 표시 바 -->
 <div class="sync-bar">
   <span class="sync-dot" id="syncDot"></span>
   <span class="sync-msg" id="syncMsg">연결 중...</span>
@@ -259,417 +236,313 @@
 </div>
 
 <script>
-// ============================
-// Supabase 설정
-// ============================
 const SUPABASE_URL = 'https://oayfqapsnsaetnfocqga.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_5KKTbArswzgMK3g0igPPBw_bdyF32ZU';
 const TABLE = 'planner_state';
 
 function sbHeaders(){
-  return {
-    'Content-Type': 'application/json',
-    'apikey': SUPABASE_KEY,
-    'Authorization': 'Bearer ' + SUPABASE_KEY,
-    'Prefer': 'return=minimal'
-  };
+  return {'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Prefer':'return=minimal'};
 }
-
-function setSyncStatus(state, msg){
-  const dot = document.getElementById('syncDot');
-  const msgEl = document.getElementById('syncMsg');
-  const retry = document.getElementById('syncRetry');
-  dot.className = 'sync-dot ' + state;
-  msgEl.textContent = msg;
-  retry.style.display = state === 'err' ? '' : 'none';
+function setSyncStatus(state,msg){
+  const dot=document.getElementById('syncDot');
+  const msgEl=document.getElementById('syncMsg');
+  const retry=document.getElementById('syncRetry');
+  dot.className='sync-dot '+state;
+  msgEl.textContent=msg;
+  retry.style.display=state==='err'?'':'none';
 }
-
 async function loadFromSupabase(){
-  setSyncStatus('loading', '불러오는 중...');
+  setSyncStatus('loading','불러오는 중...');
   try{
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.main&select=*`, {
-      headers: sbHeaders()
-    });
-    if(!res.ok) throw new Error('HTTP ' + res.status);
-    const rows = await res.json();
-    if(rows && rows.length > 0){
-      const row = rows[0];
-      statuses = row.statuses || {};
-      customTasks = row.custom_tasks || {};
-      if(row.current_year) currentYear = row.current_year;
-      setSyncStatus('ok', '동기화됨 · ' + new Date().toLocaleTimeString('ko-KR', {hour:'2-digit', minute:'2-digit'}));
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.main&select=*`,{headers:sbHeaders()});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const rows=await res.json();
+    if(rows&&rows.length>0){
+      const row=rows[0];
+      statuses=row.statuses||{};
+      customTasks=row.custom_tasks||{};
+      if(row.current_year) currentYear=row.current_year;
+      setSyncStatus('ok','동기화됨 · '+new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}));
     } else {
-      // 행이 없으면 insert
       await saveToSupabase(true);
-      setSyncStatus('ok', '초기화 완료');
+      setSyncStatus('ok','초기화 완료');
     }
-    applyPlanTasks();
-    updateYearLabel();
-    refresh();
-  } catch(e){
-    console.error('로드 실패', e);
-    setSyncStatus('err', '연결 실패 · 오프라인 모드로 실행 중');
-    // fallback: localStorage
-    loadFromLocal();
-    applyPlanTasks();
-    updateYearLabel();
-    refresh();
+    applyPlanTasks(); updateYearLabel(); refresh();
+  }catch(e){
+    console.error('로드 실패',e);
+    setSyncStatus('err','연결 실패 · 오프라인 모드');
+    loadFromLocal(); applyPlanTasks(); updateYearLabel(); refresh();
   }
 }
-
-let saveTimer = null;
-async function saveToSupabase(forceInsert){
-  // 낙관적 저장: 로컬 먼저
-  try{ localStorage.setItem('psplanner2026_backup', JSON.stringify({statuses, customTasks, currentYear})); }catch(e){}
-
+let saveTimer=null;
+async function saveToSupabase(){
+  try{localStorage.setItem('psplanner2026_backup',JSON.stringify({statuses,customTasks,currentYear}));}catch(e){}
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(async () => {
-    setSyncStatus('loading', '저장 중...');
-    const body = JSON.stringify({
-      id: 'main',
-      statuses,
-      custom_tasks: customTasks,
-      current_year: currentYear,
-      updated_at: new Date().toISOString()
-    });
+  saveTimer=setTimeout(async()=>{
+    setSyncStatus('loading','저장 중...');
+    const body=JSON.stringify({id:'main',statuses,custom_tasks:customTasks,current_year:currentYear,updated_at:new Date().toISOString()});
     try{
-      // upsert
-      const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
-        method: 'POST',
-        headers: { ...sbHeaders(), 'Prefer': 'resolution=merge-duplicates,return=minimal' },
-        body
-      });
-      if(!res.ok) throw new Error('HTTP ' + res.status);
-      setSyncStatus('ok', '저장됨 · ' + new Date().toLocaleTimeString('ko-KR', {hour:'2-digit', minute:'2-digit'}));
-    } catch(e){
-      console.error('저장 실패', e);
-      setSyncStatus('err', '저장 실패 · 로컬 백업됨');
-    }
-  }, 600);
+      const res=await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`,{method:'POST',headers:{...sbHeaders(),'Prefer':'resolution=merge-duplicates,return=minimal'},body});
+      if(!res.ok) throw new Error('HTTP '+res.status);
+      setSyncStatus('ok','저장됨 · '+new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}));
+    }catch(e){setSyncStatus('err','저장 실패 · 로컬 백업됨');}
+  },600);
 }
-
 function loadFromLocal(){
-  try{
-    const raw = localStorage.getItem('psplanner2026_backup');
-    if(raw){
-      const p = JSON.parse(raw);
-      statuses = p.statuses || {};
-      customTasks = p.custom_tasks || {};
-      if(p.currentYear) currentYear = p.currentYear;
-    }
-  }catch(e){}
+  try{const raw=localStorage.getItem('psplanner2026_backup');if(raw){const p=JSON.parse(raw);statuses=p.statuses||{};customTasks=p.custom_tasks||{};if(p.currentYear)currentYear=p.currentYear;}}catch(e){}
+  if(!customTasks['material']||customTasks['material'].length===0){customTasks['material']=JSON.parse(JSON.stringify(MAT_DEFAULTS));}
 }
+function saveState(){saveToSupabase();}
 
-function saveState(){
-  saveToSupabase();
-}
-
-// ============================
-// 데이터
-// ============================
-const DATA = [
-  { id:'committee', name:'환자안전위원회', short:'위원회', meta:'연 2회 개최 · 회의록 작성',
+const DATA=[
+  {id:'committee',name:'환자안전위원회',short:'위원회',meta:'연 2회 개최 · 회의록 작성',
     tasks:[
-      {id:'cm1', label:'상반기 위원회 개최 · 회의록', when:'1월 초', months:[1]},
-      {id:'cm2', label:'하반기 위원회 개최 · 회의록', when:'7월 초', months:[7]},
+      {id:'cm1',label:'상반기 위원회 개최 · 회의록',when:'1월 초',months:[1]},
+      {id:'cm2',label:'하반기 위원회 개최 · 회의록',when:'7월 초',months:[7]},
     ]},
-  { id:'incident', name:'환자안전사고 관리', short:'사고관리', meta:'분기별: 유형별 자료 → 보고서 → 소식지 + 외부보고',
+  {id:'incident',name:'환자안전사고 관리',short:'사고관리',meta:'분기별: 유형별 자료 → 보고서 → 소식지 + 외부보고',
     tasks:[
-      {id:'incident_q', label:'분기별 3종 작성', note:'유형별 자료 → 개선활동 보고서 → 완료 후 소식지', when:'분기 익월', stages:[
-        {q:'전년 4분기', steps:[{id:'in_q4p_a',label:'유형별 자료',sub:'1월',months:[1]},{id:'in_q4p_b',label:'개선활동 보고서',sub:'1월',months:[1]},{id:'in_q4p_c',label:'소식지',sub:'1월',months:[1]}]},
-        {q:'1분기', steps:[{id:'in_q1_a',label:'유형별 자료',sub:'4월',months:[4]},{id:'in_q1_b',label:'개선활동 보고서',sub:'4월',months:[4]},{id:'in_q1_c',label:'소식지',sub:'4월',months:[4]}]},
-        {q:'2분기', steps:[{id:'in_q2_a',label:'유형별 자료',sub:'7월',months:[7]},{id:'in_q2_b',label:'개선활동 보고서',sub:'7월',months:[7]},{id:'in_q2_c',label:'소식지',sub:'7월',months:[7]}]},
-        {q:'3분기', steps:[{id:'in_q3_a',label:'유형별 자료',sub:'10월',months:[10]},{id:'in_q3_b',label:'개선활동 보고서',sub:'10월',months:[10]},{id:'in_q3_c',label:'소식지',sub:'10월',months:[10]}]},
+      {id:'incident_q',label:'분기별 3종 작성',note:'유형별 자료 → 개선활동 보고서 → 완료 후 소식지',when:'분기 익월',stages:[
+        {q:'전년 4분기',steps:[{id:'in_q4p_a',label:'유형별 자료',sub:'1월',months:[1]},{id:'in_q4p_b',label:'개선활동 보고서',sub:'1월',months:[1]},{id:'in_q4p_c',label:'소식지',sub:'1월',months:[1]}]},
+        {q:'1분기',steps:[{id:'in_q1_a',label:'유형별 자료',sub:'4월',months:[4]},{id:'in_q1_b',label:'개선활동 보고서',sub:'4월',months:[4]},{id:'in_q1_c',label:'소식지',sub:'4월',months:[4]}]},
+        {q:'2분기',steps:[{id:'in_q2_a',label:'유형별 자료',sub:'7월',months:[7]},{id:'in_q2_b',label:'개선활동 보고서',sub:'7월',months:[7]},{id:'in_q2_c',label:'소식지',sub:'7월',months:[7]}]},
+        {q:'3분기',steps:[{id:'in_q3_a',label:'유형별 자료',sub:'10월',months:[10]},{id:'in_q3_b',label:'개선활동 보고서',sub:'10월',months:[10]},{id:'in_q3_c',label:'소식지',sub:'10월',months:[10]}]},
       ]},
-      {id:'nearerror', label:'근접오류 분석', note:'분기별 보고서 분석 및 현황 파악', when:'분기별', stages:[
-        {q:'1분기', steps:[{id:'ne_q1', label:'근접오류 분석', sub:'4월', months:[4]}]},
-        {q:'2분기', steps:[{id:'ne_q2', label:'근접오류 분석', sub:'7월', months:[7]}]},
-        {q:'3분기', steps:[{id:'ne_q3', label:'근접오류 분석', sub:'10월', months:[10]}]},
-        {q:'4분기', steps:[{id:'ne_q4', label:'근접오류 분석', sub:'내년 1월', months:[12]}]},
+      {id:'nearerror',label:'근접오류 분석',note:'분기별 보고서 분석 및 현황 파악',when:'분기별',stages:[
+        {q:'1분기',steps:[{id:'ne_q1',label:'근접오류 분석',sub:'4월',months:[4]}]},
+        {q:'2분기',steps:[{id:'ne_q2',label:'근접오류 분석',sub:'7월',months:[7]}]},
+        {q:'3분기',steps:[{id:'ne_q3',label:'근접오류 분석',sub:'10월',months:[10]}]},
+        {q:'4분기',steps:[{id:'ne_q4',label:'근접오류 분석',sub:'내년 1월',months:[12]}]},
       ]},
-      {id:'extreport', label:'외부보고', note:'분기별 1건 이상 · 추가 건은 아래에서 직접 추가', when:'분기별', stages:[
-        {q:'1분기', steps:[{id:'er_q1',label:'외부보고',sub:'1~3월',months:[1,2,3]}]},
-        {q:'2분기', steps:[{id:'er_q2',label:'외부보고',sub:'4~6월',months:[4,5,6]}]},
-        {q:'3분기', steps:[{id:'er_q3',label:'외부보고',sub:'7~9월',months:[7,8,9]}]},
-        {q:'4분기', steps:[{id:'er_q4',label:'외부보고',sub:'10~12월',months:[10,11,12]}]},
+      {id:'extreport',label:'외부보고',note:'분기별 1건 이상 · 추가 건은 아래에서 직접 추가',when:'분기별',stages:[
+        {q:'1분기',steps:[{id:'er_q1',label:'외부보고',sub:'1~3월',months:[1,2,3]}]},
+        {q:'2분기',steps:[{id:'er_q2',label:'외부보고',sub:'4~6월',months:[4,5,6]}]},
+        {q:'3분기',steps:[{id:'er_q3',label:'외부보고',sub:'7~9월',months:[7,8,9]}]},
+        {q:'4분기',steps:[{id:'er_q4',label:'외부보고',sub:'10~12월',months:[10,11,12]}]},
       ]},
     ]},
-  { id:'qi', name:'QI 활동', short:'QI', meta:'주제 선정 → 팀교육 → 중간 → 최종',
+  {id:'qi',name:'QI 활동',short:'QI',meta:'주제 선정 → 팀교육 → 중간 → 최종',
     tasks:[
-      {id:'qi1', label:'활동 주제 선정', note:'환자안전위원회에서 선정', when:'1월', months:[1]},
-      {id:'qi2', label:'QI 팀교육 · 첫 회의록 작성', when:'2월', months:[2]},
-      {id:'qi3', label:'회의록 · 중간보고서 작성', when:'7월', months:[7]},
-      {id:'qi4', label:'회의록 · 최종보고서 작성', when:'12월', months:[12]},
+      {id:'qi1',label:'활동 주제 선정',note:'환자안전위원회에서 선정',when:'1월',months:[1]},
+      {id:'qi2',label:'QI 팀교육 · 첫 회의록 작성',when:'2월',months:[2]},
+      {id:'qi3',label:'회의록 · 중간보고서 작성',when:'7월',months:[7]},
+      {id:'qi4',label:'회의록 · 최종보고서 작성',when:'12월',months:[12]},
     ]},
-  { id:'activity', name:'환자안전활동', short:'안전활동', meta:'월례 라운딩 · 근접오류 보고 활성화 캠페인',
+  {id:'activity',name:'환자안전활동',short:'안전활동',meta:'월례 라운딩 · 근접오류 보고 활성화 캠페인',
     tasks:[
-      {id:'round', label:'환자안전 라운딩 · 체크리스트', note:'월 1회, 보통 둘째 주 수요일 · 한 번 탭하면 완료', when:'매월', months:[1,2,3,4,5,6,7,8,9,10,11,12], toggle:true, multi:[
+      {id:'round',label:'환자안전 라운딩 · 체크리스트',note:'월 1회, 보통 둘째 주 수요일 · 한 번 탭하면 완료',when:'매월',months:[1,2,3,4,5,6,7,8,9,10,11,12],toggle:true,multi:[
         {id:'rd1',label:'1월',months:[1]},{id:'rd2',label:'2월',months:[2]},{id:'rd3',label:'3월',months:[3]},{id:'rd4',label:'4월',months:[4]},{id:'rd5',label:'5월',months:[5]},{id:'rd6',label:'6월',months:[6]},{id:'rd7',label:'7월',months:[7]},{id:'rd8',label:'8월',months:[8]},{id:'rd9',label:'9월',months:[9]},{id:'rd10',label:'10월',months:[10]},{id:'rd11',label:'11월',months:[11]},{id:'rd12',label:'12월',months:[12]},
       ]},
-      {id:'cp1', label:'캠페인 계획서 작성', when:'2월', months:[2]},
-      {id:'cp2', label:'캠페인 홍보 · 보고서 접수 시작', when:'3월', months:[3]},
-      {id:'cp3', label:'근접오류 전직원 교육', note:'올해 전직원 교육은 근접오류만 진행 (낙상·질향상은 온라인 대체)', when:'6월', months:[6]},
+      {id:'cp1',label:'캠페인 계획서 작성',when:'2월',months:[2]},
+      {id:'cp2',label:'캠페인 홍보 · 보고서 접수 시작',when:'3월',months:[3]},
+      {id:'cp3',label:'근접오류 전직원 교육',note:'올해 전직원 교육은 근접오류만 진행 (낙상·질향상은 온라인 대체)',when:'6월',months:[6]},
     ]},
-  { id:'indicator', name:'지표관리', short:'지표', meta:'분기별 지표 3종 — 낙상 · 손위생 · 격리강박',
+  {id:'indicator',name:'지표관리',short:'지표',meta:'분기별 지표 3종 — 낙상 · 손위생 · 격리강박',
     tasks:[
-      {id:'fall', label:'낙상사고보고율', note:'분기별 보고서 작성', when:'분기 익월', stages:[
-        {q:'전년 4분기', steps:[{id:'fa1',label:'보고서 작성',sub:'1월',months:[1]}]},
-        {q:'1분기', steps:[{id:'fa2',label:'보고서 작성',sub:'4월',months:[4]}]},
-        {q:'2분기', steps:[{id:'fa3',label:'보고서 작성',sub:'7월',months:[7]}]},
-        {q:'3분기', steps:[{id:'fa4',label:'보고서 작성',sub:'10월',months:[10]}]},
-        {q:'4분기', steps:[{id:'fa5',label:'보고서 작성',sub:'내년 1월',months:[12]}]},
+      {id:'fall',label:'낙상사고보고율',note:'분기별 보고서 작성',when:'분기 익월',stages:[
+        {q:'전년 4분기',steps:[{id:'fa1',label:'보고서 작성',sub:'1월',months:[1]}]},
+        {q:'1분기',steps:[{id:'fa2',label:'보고서 작성',sub:'4월',months:[4]}]},
+        {q:'2분기',steps:[{id:'fa3',label:'보고서 작성',sub:'7월',months:[7]}]},
+        {q:'3분기',steps:[{id:'fa4',label:'보고서 작성',sub:'10월',months:[10]}]},
+        {q:'4분기',steps:[{id:'fa5',label:'보고서 작성',sub:'내년 1월',months:[12]}]},
       ]},
-      {id:'hh', label:'손위생 수행률', note:'1·2·3병동 모니터링(분기 중간달 2주) → 조사표 수합(익월 10일) → 보고서', when:'분기별', stages:[
-        {q:'1분기', steps:[{id:'hh1a',label:'모니터링',sub:'2월',months:[2]},{id:'hh2a',label:'조사표 수합',sub:'~3/10',months:[3]},{id:'hhr1',label:'보고서 작성',sub:'3월',months:[3]}]},
-        {q:'2분기', steps:[{id:'hh1b',label:'모니터링',sub:'5월',months:[5]},{id:'hh2b',label:'조사표 수합',sub:'~6/10',months:[6]},{id:'hhr2',label:'보고서 작성',sub:'6월',months:[6]}]},
-        {q:'3분기', steps:[{id:'hh1c',label:'모니터링',sub:'8월',months:[8]},{id:'hh2c',label:'조사표 수합',sub:'~9/10',months:[9]},{id:'hhr3',label:'보고서 작성',sub:'9월',months:[9]}]},
-        {q:'4분기', steps:[{id:'hh1d',label:'모니터링',sub:'11월',months:[11]},{id:'hh2d',label:'조사표 수합',sub:'~12/10',months:[12]},{id:'hhr4',label:'보고서 작성',sub:'12월',months:[12]}]},
+      {id:'hh',label:'손위생 수행률',note:'1·2·3병동 모니터링(분기 중간달 2주) → 조사표 수합(익월 10일) → 보고서',when:'분기별',stages:[
+        {q:'1분기',steps:[{id:'hh1a',label:'모니터링',sub:'2월',months:[2]},{id:'hh2a',label:'조사표 수합',sub:'~3/10',months:[3]},{id:'hhr1',label:'보고서 작성',sub:'3월',months:[3]}]},
+        {q:'2분기',steps:[{id:'hh1b',label:'모니터링',sub:'5월',months:[5]},{id:'hh2b',label:'조사표 수합',sub:'~6/10',months:[6]},{id:'hhr2',label:'보고서 작성',sub:'6월',months:[6]}]},
+        {q:'3분기',steps:[{id:'hh1c',label:'모니터링',sub:'8월',months:[8]},{id:'hh2c',label:'조사표 수합',sub:'~9/10',months:[9]},{id:'hhr3',label:'보고서 작성',sub:'9월',months:[9]}]},
+        {q:'4분기',steps:[{id:'hh1d',label:'모니터링',sub:'11월',months:[11]},{id:'hh2d',label:'조사표 수합',sub:'~12/10',months:[12]},{id:'hhr4',label:'보고서 작성',sub:'12월',months:[12]}]},
       ]},
-      {id:'iso', label:'격리·강박 지침 준수율', note:'2병동 수간호사 점검표 수령(분기 익월 10일) → 보고서 작성', when:'분기 익월', stages:[
-        {q:'전년 4분기', steps:[{id:'is1',label:'점검표 수령',sub:'~1/10',months:[1]},{id:'isr1',label:'보고서 작성',sub:'1월',months:[1]}]},
-        {q:'1분기', steps:[{id:'is2',label:'점검표 수령',sub:'~4/10',months:[4]},{id:'isr2',label:'보고서 작성',sub:'4월',months:[4]}]},
-        {q:'2분기', steps:[{id:'is3',label:'점검표 수령',sub:'~7/10',months:[7]},{id:'isr3',label:'보고서 작성',sub:'7월',months:[7]}]},
-        {q:'3분기', steps:[{id:'is4',label:'점검표 수령',sub:'~10/10',months:[10]},{id:'isr4',label:'보고서 작성',sub:'10월',months:[10]}]},
-        {q:'4분기', steps:[{id:'is5',label:'점검표 수령',sub:'내년 ~1/10',months:[12]},{id:'isr5',label:'보고서 작성',sub:'내년 1월',months:[12]}]},
+      {id:'iso',label:'격리·강박 지침 준수율',note:'2병동 수간호사 점검표 수령(분기 익월 10일) → 보고서 작성',when:'분기 익월',stages:[
+        {q:'전년 4분기',steps:[{id:'is1',label:'점검표 수령',sub:'~1/10',months:[1]},{id:'isr1',label:'보고서 작성',sub:'1월',months:[1]}]},
+        {q:'1분기',steps:[{id:'is2',label:'점검표 수령',sub:'~4/10',months:[4]},{id:'isr2',label:'보고서 작성',sub:'4월',months:[4]}]},
+        {q:'2분기',steps:[{id:'is3',label:'점검표 수령',sub:'~7/10',months:[7]},{id:'isr3',label:'보고서 작성',sub:'7월',months:[7]}]},
+        {q:'3분기',steps:[{id:'is4',label:'점검표 수령',sub:'~10/10',months:[10]},{id:'isr4',label:'보고서 작성',sub:'10월',months:[10]}]},
+        {q:'4분기',steps:[{id:'is5',label:'점검표 수령',sub:'내년 ~1/10',months:[12]},{id:'isr5',label:'보고서 작성',sub:'내년 1월',months:[12]}]},
       ]},
     ]},
-  { id:'satisfaction', name:'의료서비스만족도', short:'만족도', meta:'연간 조사 → 결과보고 → 개선활동 → 보고서',
+  {id:'satisfaction',name:'의료서비스만족도',short:'만족도',meta:'연간 조사 → 결과보고 → 개선활동 → 보고서',
     tasks:[
-      {id:'sat1', label:'결과보고서 결재', note:'전년 10월 조사분', when:'~1월', months:[1]},
-      {id:'sat2', label:'개선활동 실시', when:'1~6월', months:[1,2,3,4,5,6]},
-      {id:'sat3', label:'개선활동 보고서 작성', when:'~7월', months:[7]},
-      {id:'sat4', label:'만족도 조사 실시', when:'10월', months:[10]},
+      {id:'sat1',label:'결과보고서 결재',note:'전년 10월 조사분',when:'~1월',months:[1]},
+      {id:'sat2',label:'개선활동 실시',when:'1~6월',months:[1,2,3,4,5,6]},
+      {id:'sat3',label:'개선활동 보고서 작성',when:'~7월',months:[7]},
+      {id:'sat4',label:'만족도 조사 실시',when:'10월',months:[10]},
     ]},
-  { id:'edu', name:'환자안전교육', short:'교육', meta:'받는 교육 + 진행하는 교육',
+  {id:'edu',name:'환자안전교육',short:'교육',meta:'받는 교육 + 진행하는 교육',
     tasks:[
-      {id:'ed1', label:'업무별 교육 진행', note:'지표담당자 · QI팀 · 모니터링 요원 교육', when:'2월', months:[2]},
-      {id:'ed2', label:'신규직원교육 자료 제작', note:'아직 미제작 · 7월 교육 전까지', when:'~6월', months:[6]},
-      {id:'ed3', label:'상반기 신규직원교육 시행', when:'7월 초', months:[7]},
-      {id:'ed4', label:'전담인력 법정교육 접수', when:'9/30', months:[9]},
-      {id:'ed5', label:'온라인 교육 수강', when:'10/29', months:[10]},
-      {id:'ed6', label:'전담인력 법정교육 수강', when:'10/30', months:[10]},
-      {id:'ed7', label:'하반기 신규직원교육 준비', note:'시행은 내년 1월', when:'12월~', months:[12]},
+      {id:'ed1',label:'업무별 교육 진행',note:'지표담당자 · QI팀 · 모니터링 요원 교육',when:'2월',months:[2]},
+      {id:'ed2',label:'신규직원교육 자료 제작',note:'아직 미제작 · 7월 교육 전까지',when:'~6월',months:[6]},
+      {id:'ed3',label:'상반기 신규직원교육 시행',when:'7월 초',months:[7]},
+      {id:'ed4',label:'전담인력 법정교육 접수',when:'9/30',months:[9]},
+      {id:'ed5',label:'온라인 교육 수강',when:'10/29',months:[10]},
+      {id:'ed6',label:'전담인력 법정교육 수강',when:'10/30',months:[10]},
+      {id:'ed7',label:'하반기 신규직원교육 준비',note:'시행은 내년 1월',when:'12월~',months:[12]},
     ]},
-  { id:'fmea', name:'FMEA', short:'FMEA', meta:'7~11월 진행 · 회의록 3회 + 분석보고서',
+  {id:'fmea',name:'FMEA',short:'FMEA',meta:'7~11월 진행 · 회의록 3회 + 분석보고서',
     tasks:[
-      {id:'fm1', label:'주제 선정', note:'상반기 근접오류 보고서 분석', when:'7월', months:[7]},
-      {id:'fm2', label:'회의록 작성 (3회)', when:'7·9·11월', months:[7,9,11], multi:[
+      {id:'fm1',label:'주제 선정',note:'상반기 근접오류 보고서 분석',when:'7월',months:[7]},
+      {id:'fm2',label:'회의록 작성 (3회)',when:'7·9·11월',months:[7,9,11],multi:[
         {id:'fm2a',label:'사전(7월)',months:[7]},{id:'fm2b',label:'중간(9월)',months:[9]},{id:'fm2c',label:'최종(11월)',months:[11]},
       ]},
-      {id:'fm3', label:'분석보고서 작성', when:'11월', months:[11]},
-      {id:'fm4', label:'FMEA 팀 서명 받기', when:'11월', months:[11]},
+      {id:'fm3',label:'분석보고서 작성',when:'11월',months:[11]},
+      {id:'fm4',label:'FMEA 팀 서명 받기',when:'11월',months:[11]},
     ]},
-  { id:'plan', name:'연간계획서', short:'계획서', meta:'12월 시작 → 1월 마무리 · KOPS 등록 · 승인',
-    tasks:[] },
-  { id:'material', name:'자료 제작', short:'자료제작', meta:'제작 자료 관리 · 추가/수정 가능',
-    isMaterial:true,
-    tasks:[
-      {id:'mat1', label:'환자간 폭행예방 포스터', note:'배포부서: 간호과', when:'수시', months:[1,2,3,4,5,6,7,8,9,10,11,12]},
-      {id:'mat2', label:'폭행예방 PPT', note:'배포부서: 간호과', when:'수시', months:[1,2,3,4,5,6,7,8,9,10,11,12]},
-      {id:'mat3', label:'신규직원 환자안전사고 보고 교육 자료', note:'배포부서: 반기별 신규입사자', when:'수시', months:[1,2,3,4,5,6,7,8,9,10,11,12]},
-      {id:'mat4', label:'환자안전의날 포스터', note:'배포부서: 간호과', when:'수시', months:[1,2,3,4,5,6,7,8,9,10,11,12]},
-    ]},
-  { id:'kops_alert', name:'KOPS 주의경보 자체점검', short:'KOPS경보',
+  {id:'material',name:'자료 제작',short:'자료제작',meta:'제작 자료 관리 · 자료 추가 가능',isMaterial:true,tasks:[]},
+  {id:'plan',name:'연간계획서',short:'계획서',meta:'12월 시작 → 1월 마무리 · KOPS 등록 · 승인',tasks:[]},
+  {id:'kops_alert',name:'KOPS 주의경보 자체점검',short:'KOPS경보',
     meta:'발령 시마다 자체점검 등록 · 공유 → 서명 → 자체점검 등록',
     emptyMsg:'아직 등록된 주의경보가 없어요\n발령 시 아래 "주의경보 등록"으로 추가하세요',
-    isKops:true, tasks:[]},
+    isKops:true,tasks:[]},
 ];
 
-const NOW_MONTH = new Date().getMonth() + 1;
-const TODAY = new Date(); TODAY.setHours(0,0,0,0);
-let currentYear = 2026;
-let statuses = {};
-let customTasks = {};
-let currentPage = 0;
-let monthViewActive = null;
-let overdueViewActive = false;
-let scrollTimer = null;
+const NOW_MONTH=new Date().getMonth()+1;
+// 자료제작 기본 항목 (커스텀으로 관리)
+const MAT_DEFAULTS=[
+  {id:'mat1',label:'환자간 폭행예방 포스터',note:'배포부서: 간호과',when:'수시',months:[1,2,3,4,5,6,7,8,9,10,11,12],toggle:false,custom:true},
+  {id:'mat2',label:'폭행예방 PPT',note:'배포부서: 간호과',when:'수시',months:[1,2,3,4,5,6,7,8,9,10,11,12],toggle:false,custom:true},
+  {id:'mat3',label:'신규직원 환자안전사고 보고 교육 자료',note:'배포부서: 반기별 신규입사자',when:'수시',months:[1,2,3,4,5,6,7,8,9,10,11,12],toggle:false,custom:true},
+  {id:'mat4',label:'환자안전의날 포스터',note:'배포부서: 간호과',when:'수시',months:[1,2,3,4,5,6,7,8,9,10,11,12],toggle:false,custom:true},
+];
+const TODAY=new Date();TODAY.setHours(0,0,0,0);
+let currentYear=2026;
+let statuses={};
+let customTasks={};
+let currentPage=0;
+let monthViewActive=null;
+let overdueViewActive=false;
+let scrollTimer=null;
 
 function buildPlanTasks(year){
-  return [
-    {id:'pl1', label:`${year}년도 연간계획서 작성 마무리`, note:`전년 12월 시작 → ${year}년 1월 마무리`, when:'~1월', months:[1]},
-    {id:'pl2', label:`KOPS 등록 · 승인받기 (${year}년도)`, when:'1월', months:[1]},
-    {id:'pl3', label:`${year+1}년도 연간계획서 작성 시작`, note:`${year}년 12월 작성 시작 → ${year+1}년 1월 마무리`, when:'12월~', months:[12]},
+  return[
+    {id:'pl1',label:`${year}년도 연간계획서 작성 마무리`,note:`전년 12월 시작 → ${year}년 1월 마무리`,when:'~1월',months:[1]},
+    {id:'pl2',label:`KOPS 등록 · 승인받기 (${year}년도)`,when:'1월',months:[1]},
+    {id:'pl3',label:`${year+1}년도 연간계획서 작성 시작`,note:`${year}년 12월 작성 시작 → ${year+1}년 1월 마무리`,when:'12월~',months:[12]},
   ];
 }
-function applyPlanTasks(){
-  const cat = DATA.find(c=>c.id==='plan');
-  if(cat) cat.tasks = buildPlanTasks(currentYear);
-}
-function updateYearLabel(){
-  const el = document.getElementById('planTitle');
-  if(el) el.textContent = `${currentYear} 환자안전 업무 플래너`;
-  document.title = `${currentYear} 환자안전 업무 플래너`;
-}
+function applyPlanTasks(){const cat=DATA.find(c=>c.id==='plan');if(cat)cat.tasks=buildPlanTasks(currentYear);}
+function updateYearLabel(){const el=document.getElementById('planTitle');if(el)el.textContent=`${currentYear} 환자안전 업무 플래너`;document.title=`${currentYear} 환자안전 업무 플래너`;}
 function nextYearMode(){
-  const ok = confirm(
-    `${currentYear+1}년 플래너로 전환할까요?\n\n` +
-    `· 모든 체크 상태가 초기화됩니다\n` +
-    `· KOPS 주의경보 항목은 자동 삭제됩니다\n` +
-    `· 직접 추가한 일반 업무는 그대로 유지됩니다\n\n` +
-    `되돌릴 수 없어요.`
-  );
-  if(!ok) return;
+  const ok=confirm(`${currentYear+1}년 플래너로 전환할까요?\n\n· 모든 체크 상태가 초기화됩니다\n· KOPS 주의경보 항목은 자동 삭제됩니다\n· 직접 추가한 일반 업무는 그대로 유지됩니다\n\n되돌릴 수 없어요.`);
+  if(!ok)return;
   currentYear++;
-  statuses = {};
-  Object.keys(customTasks).forEach(catId => {
-    customTasks[catId] = customTasks[catId].filter(t => !t.isKops);
-    if(customTasks[catId].length === 0) delete customTasks[catId];
-  });
-  applyPlanTasks();
-  updateYearLabel();
-  saveState();
-  refresh();
+  statuses={};
+  Object.keys(customTasks).forEach(catId=>{customTasks[catId]=customTasks[catId].filter(t=>!t.isKops);if(customTasks[catId].length===0)delete customTasks[catId];});
+  applyPlanTasks();updateYearLabel();saveState();refresh();
 }
 
-// ---- KOPS ----
 function expandKops(t){
-  return { ...t,
-    stages: [{
-      q: t.dueDate ? '등록기한 '+fmtDateShort(t.dueDate) : '진행',
-      steps: [
-        {id:t.id+'_share', label:'공유', sub:'1단계', months:t.months, dueDate:t.dueDate},
-        {id:t.id+'_sign',  label:'서명', sub:'2단계', months:t.months, dueDate:t.dueDate},
-        {id:t.id+'_reg',   label:'자체점검 등록', sub:t.dueDate?'~'+fmtDateShort(t.dueDate):'3단계', months:t.months, dueDate:t.dueDate},
-      ]
-    }]
-  };
+  return{...t,stages:[{q:t.dueDate?'등록기한 '+fmtDateShort(t.dueDate):'진행',steps:[
+    {id:t.id+'_share',label:'공유',sub:'1단계',months:t.months,dueDate:t.dueDate},
+    {id:t.id+'_sign',label:'서명',sub:'2단계',months:t.months,dueDate:t.dueDate},
+    {id:t.id+'_reg',label:'자체점검 등록',sub:t.dueDate?'~'+fmtDateShort(t.dueDate):'3단계',months:t.months,dueDate:t.dueDate},
+  ]}]};
 }
-function fmtDateShort(d){
-  if(!d) return '';
-  const p = d.split('-');
-  if(p.length<3) return d;
-  return parseInt(p[1])+'/'+parseInt(p[2]);
-}
+function fmtDateShort(d){if(!d)return '';const p=d.split('-');if(p.length<3)return d;return parseInt(p[1])+'/'+parseInt(p[2]);}
 
-// ---- PDF ----
-function setupPdfWorker(){
-  if(window.pdfjsLib && !pdfjsLib.GlobalWorkerOptions.workerSrc){
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-  }
-}
+function setupPdfWorker(){if(window.pdfjsLib&&!pdfjsLib.GlobalWorkerOptions.workerSrc)pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';}
 async function extractPdfText(file){
   setupPdfWorker();
-  if(!window.pdfjsLib) throw new Error('PDF 라이브러리를 불러올 수 없어요');
-  const buffer = await file.arrayBuffer();
-  const pdf = await pdfjsLib.getDocument({data: buffer}).promise;
-  let text = '';
-  const maxPages = Math.min(pdf.numPages, 5);
-  for(let i=1; i<=maxPages; i++){
-    const page = await pdf.getPage(i);
-    const content = await page.getTextContent();
-    text += content.items.map(it => it.str).join(' ') + '\n';
-  }
-  let meta = {};
-  try { const m = await pdf.getMetadata(); meta = m && m.info ? m.info : {}; } catch(e) {}
-  return { text: text.trim(), meta };
+  if(!window.pdfjsLib)throw new Error('PDF 라이브러리를 불러올 수 없어요');
+  const buffer=await file.arrayBuffer();
+  const pdf=await pdfjsLib.getDocument({data:buffer}).promise;
+  let text='';
+  const maxPages=Math.min(pdf.numPages,5);
+  for(let i=1;i<=maxPages;i++){const page=await pdf.getPage(i);const content=await page.getTextContent();text+=content.items.map(it=>it.str).join(' ')+'\n';}
+  let meta={};
+  try{const m=await pdf.getMetadata();meta=m&&m.info?m.info:{};}catch(e){}
+  return{text:text.trim(),meta};
 }
-function parseKoreanDate(text){
-  const m = text.match(/(20\d{2})\s*[년.\-\/]\s*(\d{1,2})\s*[월.\-\/]\s*(\d{1,2})/);
-  if(!m) return '';
-  return `${m[1]}-${String(parseInt(m[2])).padStart(2,'0')}-${String(parseInt(m[3])).padStart(2,'0')}`;
-}
+function parseKoreanDate(text){const m=text.match(/(20\d{2})\s*[년.\-\/]\s*(\d{1,2})\s*[월.\-\/]\s*(\d{1,2})/);if(!m)return '';return `${m[1]}-${String(parseInt(m[2])).padStart(2,'0')}-${String(parseInt(m[3])).padStart(2,'0')}`;}
 function parseKopsInfo(text){
-  const out = {title:'', issueDate:'', dueDate:''};
-  const norm = (text || '').replace(/\s+/g, ' ').trim();
-  if(!norm) return out;
-  const issuePatterns = [
-    /발령일자?\s*[:：]?\s*(20\d{2}\s*[\-.\/년]\s*\d{1,2}\s*[\-.\/월]\s*\d{1,2})/,
-    /발행일자?\s*[:：]?\s*(20\d{2}\s*[\-.\/년]\s*\d{1,2}\s*[\-.\/월]\s*\d{1,2})/,
-  ];
-  for(const p of issuePatterns){ const m = norm.match(p); if(m){ out.issueDate = parseKoreanDate(m[1]); if(out.issueDate) break; } }
-  const explicitDue = [
-    /(?:자체)?점검\s*(?:결과)?\s*(?:등록|회신|제출)\s*기한\s*[:：]?\s*(20\d{2}\s*[\-.\/년]\s*\d{1,2}\s*[\-.\/월]\s*\d{1,2})/,
-    /등록\s*기한\s*[:：]?\s*(20\d{2}\s*[\-.\/년]\s*\d{1,2}\s*[\-.\/월]\s*\d{1,2})/,
-    /회신\s*기한\s*[:：]?\s*(20\d{2}\s*[\-.\/년]\s*\d{1,2}\s*[\-.\/월]\s*\d{1,2})/,
-  ];
-  for(const p of explicitDue){ const m = norm.match(p); if(m){ out.dueDate = parseKoreanDate(m[1]); if(out.dueDate) break; } }
-  if(!out.dueDate){ const untilMatches = [...norm.matchAll(/(20\d{2})\s*년\s*(\d{1,2})\s*월\s*(\d{1,2})\s*일?\s*까지/g)]; if(untilMatches.length){ const m = untilMatches[0]; out.dueDate = `${m[1]}-${String(parseInt(m[2])).padStart(2,'0')}-${String(parseInt(m[3])).padStart(2,'0')}`; } }
-  if(!out.dueDate){ const m = norm.match(/(20\d{2}[\-.\/]\d{1,2}[\-.\/]\d{1,2})\s*까지/); if(m) out.dueDate = parseKoreanDate(m[1]); }
-  let m = norm.match(/주의경보\s+([^\n]{3,80}?)\s*발령일/);
-  if(m && m[1].trim()) out.title = m[1].trim().replace(/\s+/g,' ');
-  if(!out.title){ m = norm.match(/No\.\s*(PSA[_\-][^\s]+)\s+(?:환자안전\s*)?주의경보\s+([^\n]{3,80}?)\s*발령일/); if(m) out.title = `[${m[1]}] ${m[2]}`.trim().replace(/\s+/g,' '); }
-  if(out.title && out.title.length > 80) out.title = out.title.slice(0,80).trim();
+  const out={title:'',issueDate:'',dueDate:''};
+  const norm=(text||'').replace(/\s+/g,' ').trim();
+  if(!norm)return out;
+  const issuePatterns=[/발령일자?\s*[:：]?\s*(20\d{2}\s*[\-.\/년]\s*\d{1,2}\s*[\-.\/월]\s*\d{1,2})/,/발행일자?\s*[:：]?\s*(20\d{2}\s*[\-.\/년]\s*\d{1,2}\s*[\-.\/월]\s*\d{1,2})/];
+  for(const p of issuePatterns){const m=norm.match(p);if(m){out.issueDate=parseKoreanDate(m[1]);if(out.issueDate)break;}}
+  const explicitDue=[/(?:자체)?점검\s*(?:결과)?\s*(?:등록|회신|제출)\s*기한\s*[:：]?\s*(20\d{2}\s*[\-.\/년]\s*\d{1,2}\s*[\-.\/월]\s*\d{1,2})/,/등록\s*기한\s*[:：]?\s*(20\d{2}\s*[\-.\/년]\s*\d{1,2}\s*[\-.\/월]\s*\d{1,2})/];
+  for(const p of explicitDue){const m=norm.match(p);if(m){out.dueDate=parseKoreanDate(m[1]);if(out.dueDate)break;}}
+  if(!out.dueDate){const untilMatches=[...norm.matchAll(/(20\d{2})\s*년\s*(\d{1,2})\s*월\s*(\d{1,2})\s*일?\s*까지/g)];if(untilMatches.length){const m=untilMatches[0];out.dueDate=`${m[1]}-${String(parseInt(m[2])).padStart(2,'0')}-${String(parseInt(m[3])).padStart(2,'0')}`;}}
+  if(!out.dueDate){const m=norm.match(/(20\d{2}[\-.\/]\d{1,2}[\-.\/]\d{1,2})\s*까지/);if(m)out.dueDate=parseKoreanDate(m[1]);}
+  let m=norm.match(/주의경보\s+([^\n]{3,80}?)\s*발령일/);
+  if(m&&m[1].trim())out.title=m[1].trim().replace(/\s+/g,' ');
+  if(out.title&&out.title.length>80)out.title=out.title.slice(0,80).trim();
   return out;
 }
-function parseKopsFromMeta(meta, fileName){
-  const out = {title:'', issueDate:'', dueDate:''};
-  if(meta && meta.Title){ let t = String(meta.Title).replace(/^(국문|영문|한글)_+/, '').replace(/^\[[^\]]+\]\s*/, '').replace(/_+\d+(_+\d+)*$/, '').replace(/_+/g, ' ').trim(); if(t) out.title = t; }
-  if(fileName){ let m = fileName.match(/(20\d{2})[_\-.\s]+(\d{1,2})[_\-.\s]+(\d{1,2})/); if(m) out.issueDate = `${m[1]}-${String(parseInt(m[2])).padStart(2,'0')}-${String(parseInt(m[3])).padStart(2,'0')}`; }
-  if(!out.issueDate && meta && meta.CreationDate){ const m = String(meta.CreationDate).match(/D?:?(\d{4})(\d{2})(\d{2})/); if(m) out.issueDate = `${m[1]}-${m[2]}-${m[3]}`; }
+function parseKopsFromMeta(meta,fileName){
+  const out={title:'',issueDate:'',dueDate:''};
+  if(meta&&meta.Title){let t=String(meta.Title).replace(/^(국문|영문|한글)_+/,'').replace(/^\[[^\]]+\]\s*/,'').replace(/_+\d+(_+\d+)*$/,'').replace(/_+/g,' ').trim();if(t)out.title=t;}
+  if(fileName){let m=fileName.match(/(20\d{2})[_\-.\s]+(\d{1,2})[_\-.\s]+(\d{1,2})/);if(m)out.issueDate=`${m[1]}-${String(parseInt(m[2])).padStart(2,'0')}-${String(parseInt(m[3])).padStart(2,'0')}`;}
+  if(!out.issueDate&&meta&&meta.CreationDate){const m=String(meta.CreationDate).match(/D?:?(\d{4})(\d{2})(\d{2})/);if(m)out.issueDate=`${m[1]}-${m[2]}-${m[3]}`;}
   return out;
 }
-function mergeKopsInfo(...sources){ const out = {title:'', issueDate:'', dueDate:''}; for(const s of sources){ if(!s) continue; if(!out.title && s.title) out.title = s.title; if(!out.issueDate && s.issueDate) out.issueDate = s.issueDate; if(!out.dueDate && s.dueDate) out.dueDate = s.dueDate; } return out; }
-function addMonths(dateStr, months){ const d = new Date(dateStr); if(isNaN(d)) return ''; const day = d.getDate(); d.setDate(1); d.setMonth(d.getMonth() + months); const lastDay = new Date(d.getFullYear(), d.getMonth()+1, 0).getDate(); d.setDate(Math.min(day, lastDay)); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
-function monthsBetween(start, end){ if(!start || !end) return []; const s = new Date(start), e = new Date(end); if(isNaN(s)||isNaN(e)) return []; const out = new Set(); let cur = new Date(s.getFullYear(), s.getMonth(), 1); let guard = 0; while(cur <= e && guard < 36){ out.add(cur.getMonth()+1); cur.setMonth(cur.getMonth()+1); guard++; } return [...out].sort((a,b)=>a-b); }
-function daysLeft(dueDate){ if(!dueDate) return null; const d = new Date(dueDate); if(isNaN(d)) return null; d.setHours(0,0,0,0); return Math.ceil((d - TODAY) / 86400000); }
-function isOverdue(unit){ if(stat(unit.id) === 2) return false; if(unit.dueDate){ const d = new Date(unit.dueDate); if(!isNaN(d)){ d.setHours(0,0,0,0); return d < TODAY; } } const maxM = Math.max(...unit.months); return maxM < NOW_MONTH; }
-function overdueInfo(unit){ if(unit.dueDate){ const d = new Date(unit.dueDate); if(!isNaN(d)){ d.setHours(0,0,0,0); const days = Math.floor((TODAY - d) / 86400000); return { label: `기한 ${days}일 초과`, sortKey: -days }; } } const maxM = Math.max(...unit.months); const diff = NOW_MONTH - maxM; return { label: `${maxM}월 마감 (${diff}개월 경과)`, sortKey: -diff*30 }; }
-function countAllOverdue(){ let n = 0; DATA.forEach(c => allUnits(c).forEach(u => { if(isOverdue(u)) n++; })); return n; }
+function mergeKopsInfo(...sources){const out={title:'',issueDate:'',dueDate:''};for(const s of sources){if(!s)continue;if(!out.title&&s.title)out.title=s.title;if(!out.issueDate&&s.issueDate)out.issueDate=s.issueDate;if(!out.dueDate&&s.dueDate)out.dueDate=s.dueDate;}return out;}
+function addMonths(dateStr,months){const d=new Date(dateStr);if(isNaN(d))return '';const day=d.getDate();d.setDate(1);d.setMonth(d.getMonth()+months);const lastDay=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();d.setDate(Math.min(day,lastDay));return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function monthsBetween(start,end){if(!start||!end)return [];const s=new Date(start),e=new Date(end);if(isNaN(s)||isNaN(e))return [];const out=new Set();let cur=new Date(s.getFullYear(),s.getMonth(),1);let guard=0;while(cur<=e&&guard<36){out.add(cur.getMonth()+1);cur.setMonth(cur.getMonth()+1);guard++;}return [...out].sort((a,b)=>a-b);}
+function daysLeft(dueDate){if(!dueDate)return null;const d=new Date(dueDate);if(isNaN(d))return null;d.setHours(0,0,0,0);return Math.ceil((d-TODAY)/86400000);}
+function isOverdue(unit){if(stat(unit.id)===2)return false;if(unit.dueDate){const d=new Date(unit.dueDate);if(!isNaN(d)){d.setHours(0,0,0,0);return d<TODAY;}}const maxM=Math.max(...unit.months);return maxM<NOW_MONTH;}
+function overdueInfo(unit){if(unit.dueDate){const d=new Date(unit.dueDate);if(!isNaN(d)){d.setHours(0,0,0,0);const days=Math.floor((TODAY-d)/86400000);return{label:`기한 ${days}일 초과`,sortKey:-days};}}const maxM=Math.max(...unit.months);const diff=NOW_MONTH-maxM;return{label:`${maxM}월 마감 (${diff}개월 경과)`,sortKey:-diff*30};}
+function countAllOverdue(){let n=0;DATA.forEach(c=>allUnits(c).forEach(u=>{if(isOverdue(u))n++;}));return n;}
 
-function getCatTasks(cat){ const base = cat.tasks; const custom = (customTasks[cat.id] || []).map(t => t.isKops ? expandKops(t) : t); return [...base, ...custom]; }
-function allUnits(cat){ const u = []; getCatTasks(cat).forEach(t => { if(t.divider) return; if(t.stages){ t.stages.forEach(st => st.steps.forEach(s => u.push({...s, toggle:true, parent:`${t.label}${st.q?' '+st.q:''}`, cat}))); } else if(t.multi){ t.multi.forEach(m => u.push({...m, toggle:!!t.toggle, parent:t.label, cat})); } else { u.push({...t, toggle:!!t.toggle, parent:null, cat}); } }); return u; }
-function stat(id){ return statuses[id] || 0; }
-function cycle(id, toggle){ if(toggle) statuses[id] = stat(id) === 2 ? 0 : 2; else statuses[id] = (stat(id) + 1) % 3; saveState(); refresh(); }
-function counts(units){ let done=0, doing=0; units.forEach(u => { const s = stat(u.id); if(s===2) done++; else if(s===1) doing++; }); return {done, doing, total: units.length}; }
-function pctOf(c){ return c.total ? Math.round((c.done + c.doing*0.5)/c.total*100) : 0; }
+function getCatTasks(cat){const base=cat.tasks;const custom=(customTasks[cat.id]||[]).map(t=>t.isKops?expandKops(t):t);return[...base,...custom];}
+function allUnits(cat){const u=[];getCatTasks(cat).forEach(t=>{if(t.divider)return;if(t.stages){t.stages.forEach(st=>st.steps.forEach(s=>u.push({...s,toggle:true,parent:`${t.label}${st.q?' '+st.q:''}`,cat})));}else if(t.multi){t.multi.forEach(m=>u.push({...m,toggle:!!t.toggle,parent:t.label,cat}));}else{u.push({...t,toggle:!!t.toggle,parent:null,cat});}});return u;}
+function stat(id){return statuses[id]||0;}
+function cycle(id,toggle){if(toggle)statuses[id]=stat(id)===2?0:2;else statuses[id]=(stat(id)+1)%3;saveState();refresh();}
+function counts(units){let done=0,doing=0;units.forEach(u=>{const s=stat(u.id);if(s===2)done++;else if(s===1)doing++;});return{done,doing,total:units.length};}
+function pctOf(c){return c.total?Math.round((c.done+c.doing*0.5)/c.total*100):0;}
 
 function buildVside(){
-  const v = document.getElementById('vside');
-  v.innerHTML = '';
-  const urgentLbl = document.createElement('div'); urgentLbl.className = 'vside-label'; urgentLbl.textContent = '긴급'; v.appendChild(urgentLbl);
-  const ovCount = countAllOverdue();
-  const ob = document.createElement('button');
-  ob.className = 'vtab vtab-overdue' + (overdueViewActive?' active':'') + (ovCount===0?' zero':'');
-  ob.innerHTML = `⚠️<span class="cnt">지연</span><span class="cnt">${ovCount}건</span>`;
-  ob.addEventListener('click', () => setOverdueView(!overdueViewActive));
+  const v=document.getElementById('vside');v.innerHTML='';
+  const urgentLbl=document.createElement('div');urgentLbl.className='vside-label';urgentLbl.textContent='긴급';v.appendChild(urgentLbl);
+  const ovCount=countAllOverdue();
+  const ob=document.createElement('button');
+  ob.className='vtab vtab-overdue'+(overdueViewActive?' active':'')+(ovCount===0?' zero':'');
+  ob.innerHTML=`⚠️<span class="cnt">지연</span><span class="cnt">${ovCount}건</span>`;
+  ob.addEventListener('click',()=>setOverdueView(!overdueViewActive));
   v.appendChild(ob);
-  const div = document.createElement('div'); div.className = 'vside-divider'; v.appendChild(div);
-  const monthLbl = document.createElement('div'); monthLbl.className = 'vside-label'; monthLbl.textContent = '월별'; v.appendChild(monthLbl);
+  const div=document.createElement('div');div.className='vside-divider';v.appendChild(div);
+  const monthLbl=document.createElement('div');monthLbl.className='vside-label';monthLbl.textContent='월별';v.appendChild(monthLbl);
   for(let m=1;m<=12;m++){
-    const b = document.createElement('button');
-    b.className = 'vtab' + (m===NOW_MONTH?' now':'') + (m===monthViewActive?' active':'');
-    b.dataset.m = m;
-    let n=0; DATA.forEach(c => allUnits(c).forEach(u => { if(u.months.includes(m)) n++; }));
-    b.innerHTML = `${m}월<span class="cnt">${n}건</span>`;
-    b.addEventListener('click', ()=>{ if(monthViewActive === m) setMonthView(null); else setMonthView(m); });
+    const b=document.createElement('button');
+    b.className='vtab'+(m===NOW_MONTH?' now':'')+(m===monthViewActive?' active':'');
+    b.dataset.m=m;
+    let n=0;DATA.forEach(c=>allUnits(c).forEach(u=>{if(u.months.includes(m))n++;}));
+    b.innerHTML=`${m}월<span class="cnt">${n}건</span>`;
+    b.addEventListener('click',()=>{if(monthViewActive===m)setMonthView(null);else setMonthView(m);});
     v.appendChild(b);
   }
 }
-
 function buildTabs(){
-  const box = document.getElementById('tabs'); box.innerHTML = '';
-  const names = ['요약', ...DATA.map(c => c.short)];
-  names.forEach((nm, i) => {
-    const b = document.createElement('button');
-    b.className = 'tab' + (!monthViewActive && !overdueViewActive && i===currentPage ? ' active' : '');
-    b.id = 'tab-' + i;
-    if(i===0){ b.textContent = '📋 ' + nm; }
-    else { const c = counts(allUnits(DATA[i-1])); b.innerHTML = nm + `<span class="tp">${c.total?pctOf(c)+'%':'—'}</span>`; }
-    b.addEventListener('click', ()=>{ setMonthView(null); setOverdueView(false); goPage(i); });
+  const box=document.getElementById('tabs');box.innerHTML='';
+  const names=['요약',...DATA.map(c=>c.short)];
+  names.forEach((nm,i)=>{
+    const b=document.createElement('button');
+    b.className='tab'+(!monthViewActive&&!overdueViewActive&&i===currentPage?' active':'');
+    b.id='tab-'+i;
+    if(i===0){b.textContent='📋 '+nm;}
+    else{const c=counts(allUnits(DATA[i-1]));b.innerHTML=nm+`<span class="tp">${c.total?pctOf(c)+'%':'—'}</span>`;}
+    b.addEventListener('click',()=>{setMonthView(null);setOverdueView(false);goPage(i);});
     box.appendChild(b);
   });
 }
-function goPage(i){ const pager = document.getElementById('pager'); pager.scrollTo({left: i * pager.clientWidth, behavior:'smooth'}); }
-function syncTab(){ if(monthViewActive || overdueViewActive) return; const pager = document.getElementById('pager'); const i = Math.round(pager.scrollLeft / pager.clientWidth); if(i !== currentPage){ currentPage = i; document.querySelectorAll('.tab').forEach((t,idx)=>t.classList.toggle('active', idx===i)); const tab = document.getElementById('tab-'+i); if(tab) tab.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'}); } }
-function setMonthView(m){ monthViewActive = m; if(m) overdueViewActive = false; document.getElementById('pager').classList.toggle('hidden', !!m || overdueViewActive); document.getElementById('monthView').classList.toggle('on', !!m); document.getElementById('overdueView').classList.toggle('on', overdueViewActive); buildVside(); buildTabs(); if(m) renderMonthView(m); }
-function setOverdueView(on){ overdueViewActive = !!on; if(on) monthViewActive = null; document.getElementById('pager').classList.toggle('hidden', !!monthViewActive || overdueViewActive); document.getElementById('monthView').classList.toggle('on', !!monthViewActive); document.getElementById('overdueView').classList.toggle('on', overdueViewActive); buildVside(); buildTabs(); if(on) renderOverdueView(); }
+function goPage(i){const pager=document.getElementById('pager');pager.scrollTo({left:i*pager.clientWidth,behavior:'smooth'});}
+function syncTab(){if(monthViewActive||overdueViewActive)return;const pager=document.getElementById('pager');const i=Math.round(pager.scrollLeft/pager.clientWidth);if(i!==currentPage){currentPage=i;document.querySelectorAll('.tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));const tab=document.getElementById('tab-'+i);if(tab)tab.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});}}
+function setMonthView(m){monthViewActive=m;if(m)overdueViewActive=false;document.getElementById('pager').classList.toggle('hidden',!!m||overdueViewActive);document.getElementById('monthView').classList.toggle('on',!!m);document.getElementById('overdueView').classList.toggle('on',overdueViewActive);buildVside();buildTabs();if(m)renderMonthView(m);}
+function setOverdueView(on){overdueViewActive=!!on;if(on)monthViewActive=null;document.getElementById('pager').classList.toggle('hidden',!!monthViewActive||overdueViewActive);document.getElementById('monthView').classList.toggle('on',!!monthViewActive);document.getElementById('overdueView').classList.toggle('on',overdueViewActive);buildVside();buildTabs();if(on)renderOverdueView();}
 
-function renderOverall(){ const units = []; DATA.forEach(c => units.push(...allUnits(c))); const c = counts(units); document.getElementById('overallPct').textContent = c.total ? pctOf(c)+'%' : '0%'; document.getElementById('overallLbl').textContent = `완료 ${c.done}/${c.total}`; }
+function renderOverall(){const units=[];DATA.forEach(c=>units.push(...allUnits(c)));const c=counts(units);document.getElementById('overallPct').textContent=c.total?pctOf(c)+'%':'0%';document.getElementById('overallLbl').textContent=`완료 ${c.done}/${c.total}`;}
 
 function statusBtn(unit){
-  const s = stat(unit.id);
-  const b = document.createElement('button');
-  b.className = 'st-btn'; b.dataset.s = s;
-  if(unit.toggle) b.textContent = s===2 ? '완료 ✓' : '시작전';
-  else b.textContent = ['시작전','진행중','완료 ✓'][s];
-  b.addEventListener('click', ()=>cycle(unit.id, unit.toggle));
+  const s=stat(unit.id);
+  const b=document.createElement('button');
+  b.className='st-btn';b.dataset.s=s;
+  if(unit.toggle)b.textContent=s===2?'완료 ✓':'시작전';
+  else b.textContent=['시작전','진행중','완료 ✓'][s];
+  b.addEventListener('click',()=>cycle(unit.id,unit.toggle));
   return b;
 }
 
 function buildSummaryPage(){
-  const page = document.createElement('div'); page.className = 'page';
-  page.innerHTML = `<div class="page-inner">
+  const page=document.createElement('div');page.className='page';
+  page.innerHTML=`<div class="page-inner">
     <div class="page-head"><h2>전체 현황</h2><span class="meta">카드를 누르면 해당 업무로 이동</span></div>
     <div class="quick-hint">왼쪽 <b>세로 탭에서 월을 누르면</b> 그 달에 해야 할 업무를 모아서 볼 수 있어요</div>
     <div class="sum-grid" id="sumGrid"></div>
@@ -684,202 +557,253 @@ function buildSummaryPage(){
   return page;
 }
 function renderSummary(){
-  const grid = document.getElementById('sumGrid'); grid.innerHTML = '';
-  DATA.forEach((cat, idx) => {
-    const c = counts(allUnits(cat)); const p = c.total ? pctOf(c) : 0;
-    const card = document.createElement('button');
-    const isFull = c.total>0 && c.done===c.total;
-    card.className = 'sum-card' + (isFull ? ' full' : '') + (c.total===0 ? ' empty' : '');
-    card.innerHTML = `<div class="top"><span class="no">${idx+1}</span><span class="nm">${cat.name}</span></div><div class="pct">${c.total?p+'%':'—'}<small>${c.total?`완료 ${c.done}/${c.total}${c.doing?` · 진행중 ${c.doing}`:''}`:'등록 항목 없음'}</small></div><div class="bar"><span class="sd" style="width:${c.total?(c.done/c.total*100):0}%"></span><span class="sg" style="width:${c.total?(c.doing/c.total*100):0}%"></span></div>`;
-    card.addEventListener('click', ()=>goPage(idx+1));
+  const grid=document.getElementById('sumGrid');grid.innerHTML='';
+  DATA.forEach((cat,idx)=>{
+    const c=counts(allUnits(cat));const p=c.total?pctOf(c):0;
+    const card=document.createElement('button');
+    const isFull=c.total>0&&c.done===c.total;
+    card.className='sum-card'+(isFull?' full':'')+(c.total===0?' empty':'');
+    card.innerHTML='<div class="top"><span class="no">'+(idx+1)+'</span><span class="nm">'+cat.name+'</span></div><div class="pct">'+(c.total?p+'%':'—')+'<small>'+(c.total?('완료 '+c.done+'/'+c.total+(c.doing?' · 진행중 '+c.doing:'')):'등록 항목 없음')+'</small></div><div class="bar"><span class="sd" style="width:'+(c.total?(c.done/c.total*100):0)+'%"></span><span class="sg" style="width:'+(c.total?(c.doing/c.total*100):0)+'%"></span></div>';
+    card.addEventListener('click',()=>goPage(idx+1));
     grid.appendChild(card);
   });
 }
 
 function renderMonthView(m){
-  const box = document.getElementById('monthView');
-  const groups = []; let totalUnits = [];
-  DATA.forEach((cat, idx) => { const units = allUnits(cat).filter(u => u.months.includes(m)); if(units.length){ groups.push({cat, idx, units}); totalUnits = totalUnits.concat(units); } });
-  const c = counts(totalUnits); const p = c.total ? pctOf(c) : 0;
-  let html = `<div class="mv-inner"><div class="mv-head"><h2>${m}월${m===NOW_MONTH?'<span class="now-mark">이번 달</span>':''}</h2><span class="meta">총 ${c.total}건 · 완료 ${c.done}건${c.doing?` · 진행중 ${c.doing}건`:''}</span></div><div class="mv-bar"><span class="sd" style="width:${c.total?(c.done/c.total*100):0}%"></span><span class="sg" style="width:${c.total?(c.doing/c.total*100):0}%"></span></div>`;
-  if(groups.length === 0){ html += `<div class="mv-empty">${m}월에 예정된 업무가 없어요</div>`; }
-  else { groups.forEach(g => { html += `<div class="mv-cat"><div class="mv-cat-head"><span class="mv-cat-no">${g.idx+1}</span><span class="mv-cat-name">${g.cat.name}</span><button class="mv-cat-open" data-go="${g.idx+1}">업무 페이지 →</button></div><div class="mv-task-list" data-cat="${g.cat.id}"></div></div>`; }); }
-  html += '</div>'; box.innerHTML = html;
-  groups.forEach(g => { const list = box.querySelector(`.mv-task-list[data-cat="${g.cat.id}"]`); g.units.forEach(u => { const row = document.createElement('div'); row.className = 'mv-task'; row.dataset.s = stat(u.id); const body = document.createElement('div'); body.className = 'mv-task-body'; body.innerHTML = `<div class="mv-task-label">${u.label}${u.sub?` <small style="color:var(--muted);font-weight:600">(${u.sub})</small>`:''}</div>`+(u.parent?`<div class="mv-task-parent">${u.parent}</div>`:''); row.appendChild(body); row.appendChild(statusBtn(u)); list.appendChild(row); }); });
-  box.querySelectorAll('[data-go]').forEach(btn => { btn.addEventListener('click', () => { setMonthView(null); goPage(+btn.dataset.go); }); });
+  const box=document.getElementById('monthView');
+  const groups=[];let totalUnits=[];
+  DATA.forEach((cat,idx)=>{const units=allUnits(cat).filter(u=>u.months.includes(m));if(units.length){groups.push({cat,idx,units});totalUnits=totalUnits.concat(units);}});
+  const c=counts(totalUnits);
+  let html=`<div class="mv-inner"><div class="mv-head"><h2>${m}월${m===NOW_MONTH?'<span class="now-mark">이번 달</span>':''}</h2><span class="meta">총 ${c.total}건 · 완료 ${c.done}건${c.doing?` · 진행중 ${c.doing}건`:''}</span></div><div class="mv-bar"><span class="sd" style="width:${c.total?(c.done/c.total*100):0}%"></span><span class="sg" style="width:${c.total?(c.doing/c.total*100):0}%"></span></div>`;
+  if(groups.length===0){html+=`<div class="mv-empty">${m}월에 예정된 업무가 없어요</div>`;}
+  else{groups.forEach(g=>{html+=`<div class="mv-cat"><div class="mv-cat-head"><span class="mv-cat-no">${g.idx+1}</span><span class="mv-cat-name">${g.cat.name}</span><button class="mv-cat-open" data-go="${g.idx+1}">업무 페이지 →</button></div><div class="mv-task-list" data-cat="${g.cat.id}"></div></div>`;});}
+  html+='</div>';box.innerHTML=html;
+  groups.forEach(g=>{const list=box.querySelector(`.mv-task-list[data-cat="${g.cat.id}"]`);g.units.forEach(u=>{const row=document.createElement('div');row.className='mv-task';row.dataset.s=stat(u.id);const body=document.createElement('div');body.className='mv-task-body';body.innerHTML=`<div class="mv-task-label">${u.label}${u.sub?` <small style="color:var(--muted);font-weight:600">(${u.sub})</small>`:''}</div>`+(u.parent?`<div class="mv-task-parent">${u.parent}</div>`:'');row.appendChild(body);row.appendChild(statusBtn(u));list.appendChild(row);});});
+  box.querySelectorAll('[data-go]').forEach(btn=>{btn.addEventListener('click',()=>{setMonthView(null);goPage(+btn.dataset.go);});});
 }
 
 function renderOverdueView(){
-  const box = document.getElementById('overdueView');
-  const groups = []; let totalCount = 0;
-  DATA.forEach((cat, idx) => { const units = allUnits(cat).filter(u => isOverdue(u)); if(units.length){ units.sort((a,b) => overdueInfo(a).sortKey - overdueInfo(b).sortKey); groups.push({cat, idx, units}); totalCount += units.length; } });
-  let html = `<div class="mv-inner"><div class="mv-head ov-head"><h2>⚠️ 지연된 업무</h2><span class="meta">마감이 지났는데 완료되지 않은 업무 · 총 ${totalCount}건</span></div>`;
-  if(groups.length === 0){ html += `<div class="ov-empty"><span class="icon">✨</span>지연된 업무가 없어요<br><small style="color:var(--muted)">잘 챙기고 있네요</small></div>`; }
-  else { groups.forEach(g => { html += `<div class="mv-cat"><div class="mv-cat-head"><span class="mv-cat-no">${g.idx+1}</span><span class="mv-cat-name">${g.cat.name}</span><button class="mv-cat-open" data-go="${g.idx+1}">업무 페이지 →</button></div><div class="mv-task-list ov-list" data-cat="${g.cat.id}"></div></div>`; }); }
-  html += '</div>'; box.innerHTML = html;
-  groups.forEach(g => { const list = box.querySelector(`.ov-list[data-cat="${g.cat.id}"]`); g.units.forEach(u => { const info = overdueInfo(u); const row = document.createElement('div'); row.className = 'mv-task ov-task'; row.dataset.s = stat(u.id); const body = document.createElement('div'); body.className = 'mv-task-body'; body.innerHTML = `<div class="mv-task-label"><span class="ov-due">${info.label}</span>${u.label}${u.sub?` <small style="color:var(--muted);font-weight:600">(${u.sub})</small>`:''}</div>`+(u.parent?`<div class="mv-task-parent">${u.parent}</div>`:''); row.appendChild(body); row.appendChild(statusBtn(u)); list.appendChild(row); }); });
-  box.querySelectorAll('[data-go]').forEach(btn => { btn.addEventListener('click', () => { setOverdueView(false); goPage(+btn.dataset.go); }); });
+  const box=document.getElementById('overdueView');
+  const groups=[];let totalCount=0;
+  DATA.forEach((cat,idx)=>{const units=allUnits(cat).filter(u=>isOverdue(u));if(units.length){units.sort((a,b)=>overdueInfo(a).sortKey-overdueInfo(b).sortKey);groups.push({cat,idx,units});totalCount+=units.length;}});
+  let html=`<div class="mv-inner"><div class="mv-head ov-head"><h2>⚠️ 지연된 업무</h2><span class="meta">마감이 지났는데 완료되지 않은 업무 · 총 ${totalCount}건</span></div>`;
+  if(groups.length===0){html+=`<div class="ov-empty"><span class="icon">✨</span>지연된 업무가 없어요<br><small style="color:var(--muted)">잘 챙기고 있네요</small></div>`;}
+  else{groups.forEach(g=>{html+=`<div class="mv-cat"><div class="mv-cat-head"><span class="mv-cat-no">${g.idx+1}</span><span class="mv-cat-name">${g.cat.name}</span><button class="mv-cat-open" data-go="${g.idx+1}">업무 페이지 →</button></div><div class="mv-task-list ov-list" data-cat="${g.cat.id}"></div></div>`;});}
+  html+='</div>';box.innerHTML=html;
+  groups.forEach(g=>{const list=box.querySelector(`.ov-list[data-cat="${g.cat.id}"]`);g.units.forEach(u=>{const info=overdueInfo(u);const row=document.createElement('div');row.className='mv-task ov-task';row.dataset.s=stat(u.id);const body=document.createElement('div');body.className='mv-task-body';body.innerHTML=`<div class="mv-task-label"><span class="ov-due">${info.label}</span>${u.label}${u.sub?` <small style="color:var(--muted);font-weight:600">(${u.sub})</small>`:''}</div>`+(u.parent?`<div class="mv-task-parent">${u.parent}</div>`:'');row.appendChild(body);row.appendChild(statusBtn(u));list.appendChild(row);});});
+  box.querySelectorAll('[data-go]').forEach(btn=>{btn.addEventListener('click',()=>{setOverdueView(false);goPage(+btn.dataset.go);});});
+}
+
+function buildMaterialFormHTML(){
+  return `<div class="af-grp"><label>자료 주제 *</label><input type="text" class="af-mat-title" placeholder="예: 낙상예방 포스터"></div><div class="af-grp"><label>메모 (선택)</label><input type="text" class="af-mat-note" placeholder="추가 메모"></div><div class="af-grp"><label>배포부서 (선택)</label><input type="text" class="af-mat-dept" placeholder="예: 간호과, 전 부서"></div>`;
+}
+function buildStdFormHTML(){
+  return `<div class="af-grp"><label>업무명 *</label><input type="text" class="af-name" placeholder="예: 임시 위원회 자료 준비"></div><div class="af-grp"><label>시기 (선택)</label><input type="text" class="af-when" placeholder="예: 9/15까지"></div><div class="af-grp"><label>메모 (선택)</label><input type="text" class="af-note" placeholder="추가 메모"></div><div class="af-grp"><label>해당 월 *</label><div class="af-months"></div></div><div class="af-grp"><label class="af-toggle"><input type="checkbox" class="af-onetap" checked>한 번 탭으로 완료 (해제하면 시작전→진행중→완료 3단계)</label></div>`;
+}
+function buildKopsFormHTML(){
+  return `<div class="pdf-up"><button type="button" class="pdf-up-btn" data-act="pdf">📄 PDF 선택</button><span class="pdf-up-msg">발령 공문 PDF를 끌어다 놓거나 버튼을 눌러 선택하세요 · 제목·발령일·등록기한이 자동 입력돼요</span><input type="file" class="pdf-up-file" accept="application/pdf"></div><div class="af-grp"><label>주의경보 제목 *</label><input type="text" class="af-kops-title" placeholder="예: KOPS-2026-12호 고위험약물 투약오류"></div><div class="af-row2"><div class="af-grp"><label>발령일 *</label><input type="date" class="af-kops-issue"></div><div class="af-grp"><label>자체점검 등록기한 *</label><input type="date" class="af-kops-due"></div></div><div class="af-grp"><label>해당부서</label><input type="text" class="af-kops-dept" placeholder="예: 간호부, 약제팀"></div>`;
 }
 
 function buildCatPage(cat){
-  const page = document.createElement('div'); page.className = 'page'; page.dataset.cat = cat.id;
-  const formHTML = cat.isKops ? buildKopsFormHTML() : cat.isMaterial ? buildMaterialFormHTML() : buildStdFormHTML();
-  const btnLabel = cat.isKops ? '+ 주의경보 등록' : cat.isMaterial ? '+ 자료 추가' : '+ 새 업무 추가';
-  page.innerHTML = `<div class="page-inner"><div class="page-head"><h2>${cat.name}</h2><span class="meta">${cat.meta}</span></div><div class="page-bar"><span class="sd"></span><span class="sg"></span></div><div class="task-list"></div><div class="add-wrap"><button class="add-btn" data-act="open">${btnLabel}</button><div class="add-form">${formHTML}<div class="af-err"></div><div class="af-buttons"><button class="af-cancel" data-act="cancel">취소</button><button class="af-save" data-act="save">저장</button></div></div></div><div class="page-foot"><button class="nav-link" data-go="0">← 요약으로</button></div></div>`;
-  page.querySelector('[data-go]').addEventListener('click', ()=>goPage(0));
-  const form = page.querySelector('.add-form');
-  const addBtn = page.querySelector('.add-btn[data-act="open"]');
-  const errBox = page.querySelector('.af-err');
-  let lastAutoDue = null;
-  let monthsBox = null;
+  const page=document.createElement('div');page.className='page';page.dataset.cat=cat.id;
+  const formHTML=cat.isKops?buildKopsFormHTML():cat.isMaterial?buildMaterialFormHTML():buildStdFormHTML();
+  const btnLabel=cat.isKops?'+ 주의경보 등록':cat.isMaterial?'+ 자료 추가':'+ 새 업무 추가';
+  page.innerHTML=`<div class="page-inner"><div class="page-head"><h2>${cat.name}</h2><span class="meta">${cat.meta}</span></div><div class="page-bar"><span class="sd"></span><span class="sg"></span></div><div class="task-list"></div><div class="add-wrap"><button class="add-btn" data-act="open">${btnLabel}</button><div class="add-form">${formHTML}<div class="af-err"></div><div class="af-buttons"><button class="af-cancel" data-act="cancel">취소</button><button class="af-save" data-act="save">저장</button></div></div></div><div class="page-foot"><button class="nav-link" data-go="0">← 요약으로</button></div></div>`;
+  page.querySelector('[data-go]').addEventListener('click',()=>goPage(0));
+  const form=page.querySelector('.add-form');
+  const addBtn=page.querySelector('.add-btn[data-act="open"]');
+  const errBox=page.querySelector('.af-err');
+  let lastAutoDue=null;
+  let monthsBox=null;
 
   if(cat.isKops){
-    const issueInput = page.querySelector('.af-kops-issue');
-    const dueInput = page.querySelector('.af-kops-due');
-    const onIssueChange = () => { if(!issueInput.value) return; const auto = addMonths(issueInput.value, 3); if(!dueInput.value || dueInput.value === lastAutoDue){ dueInput.value = auto; lastAutoDue = auto; } };
-    issueInput.addEventListener('change', onIssueChange);
-    issueInput.addEventListener('input', onIssueChange);
-    const pdfBtn = page.querySelector('[data-act="pdf"]');
-    const pdfFile = page.querySelector('.pdf-up-file');
-    const pdfMsg = page.querySelector('.pdf-up-msg');
-    const pdfUp = page.querySelector('.pdf-up');
-    const titleInput = page.querySelector('.af-kops-title');
+    const issueInput=page.querySelector('.af-kops-issue');
+    const dueInput=page.querySelector('.af-kops-due');
+    const onIssueChange=()=>{if(!issueInput.value)return;const auto=addMonths(issueInput.value,3);if(!dueInput.value||dueInput.value===lastAutoDue){dueInput.value=auto;lastAutoDue=auto;}};
+    issueInput.addEventListener('change',onIssueChange);issueInput.addEventListener('input',onIssueChange);
+    const pdfBtn=page.querySelector('[data-act="pdf"]');
+    const pdfFile=page.querySelector('.pdf-up-file');
+    const pdfMsg=page.querySelector('.pdf-up-msg');
+    const pdfUp=page.querySelector('.pdf-up');
+    const titleInput=page.querySelector('.af-kops-title');
     async function processPdfFile(file){
-      if(!file) return;
-      if(file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')){ pdfMsg.className='pdf-up-msg err'; pdfMsg.textContent='PDF 파일만 지원해요'; return; }
-      pdfBtn.disabled=true; pdfMsg.className='pdf-up-msg'; pdfMsg.textContent=`${file.name} 분석 중...`;
+      if(!file)return;
+      if(file.type!=='application/pdf'&&!file.name.toLowerCase().endsWith('.pdf')){pdfMsg.className='pdf-up-msg err';pdfMsg.textContent='PDF 파일만 지원해요';return;}
+      pdfBtn.disabled=true;pdfMsg.className='pdf-up-msg';pdfMsg.textContent=`${file.name} 분석 중...`;
       try{
-        const result = await extractPdfText(file);
-        const textLen = result.text.length;
-        const infoFromText = parseKopsInfo(result.text);
-        const infoFromMeta = parseKopsFromMeta(result.meta, file.name);
-        const info = mergeKopsInfo(infoFromMeta, infoFromText);
-        const filled = [];
-        if(info.title && !titleInput.value){ titleInput.value=info.title; filled.push('제목'); }
-        if(info.issueDate && !issueInput.value){ issueInput.value=info.issueDate; filled.push('발령일'); }
-        if(info.dueDate){ dueInput.value=info.dueDate; lastAutoDue=info.dueDate; filled.push('등록기한'); }
-        else if(info.issueDate && !dueInput.value){ dueInput.value=addMonths(info.issueDate,3); lastAutoDue=dueInput.value; filled.push('등록기한(자동)'); }
-        if(filled.length){ pdfMsg.className='pdf-up-msg ok'; pdfMsg.textContent=`자동 입력: ${filled.join(', ')} · 확인 후 저장하세요`+(textLen<30?' (그래픽 PDF: 파일명·문서정보 사용)':''); }
-        else { pdfMsg.className='pdf-up-msg err'; pdfMsg.textContent=textLen<30?'그래픽 PDF라 자동 인식 불가. 직접 입력해주세요':'정보를 찾지 못했어요. 직접 입력해주세요'; }
-      }catch(err){ pdfMsg.className='pdf-up-msg err'; pdfMsg.textContent='PDF 분석 실패: '+(err.message||err); }
-      finally{ pdfBtn.disabled=false; pdfFile.value=''; }
+        const result=await extractPdfText(file);const textLen=result.text.length;
+        const infoFromText=parseKopsInfo(result.text);const infoFromMeta=parseKopsFromMeta(result.meta,file.name);
+        const info=mergeKopsInfo(infoFromMeta,infoFromText);const filled=[];
+        if(info.title&&!titleInput.value){titleInput.value=info.title;filled.push('제목');}
+        if(info.issueDate&&!issueInput.value){issueInput.value=info.issueDate;filled.push('발령일');}
+        if(info.dueDate){dueInput.value=info.dueDate;lastAutoDue=info.dueDate;filled.push('등록기한');}
+        else if(info.issueDate&&!dueInput.value){dueInput.value=addMonths(info.issueDate,3);lastAutoDue=dueInput.value;filled.push('등록기한(자동)');}
+        if(filled.length){pdfMsg.className='pdf-up-msg ok';pdfMsg.textContent=`자동 입력: ${filled.join(', ')} · 확인 후 저장하세요`+(textLen<30?' (그래픽 PDF: 파일명·문서정보 사용)':'');}
+        else{pdfMsg.className='pdf-up-msg err';pdfMsg.textContent=textLen<30?'그래픽 PDF라 자동 인식 불가. 직접 입력해주세요':'정보를 찾지 못했어요. 직접 입력해주세요';}
+      }catch(err){pdfMsg.className='pdf-up-msg err';pdfMsg.textContent='PDF 분석 실패: '+(err.message||err);}
+      finally{pdfBtn.disabled=false;pdfFile.value='';}
     }
-    pdfBtn.addEventListener('click', () => pdfFile.click());
-    pdfFile.addEventListener('change', (e) => processPdfFile(e.target.files[0]));
-    ['dragenter','dragover'].forEach(ev => { pdfUp.addEventListener(ev, (e) => { e.preventDefault(); e.stopPropagation(); pdfUp.classList.add('drag-over'); }); });
-    ['dragleave','dragend'].forEach(ev => { pdfUp.addEventListener(ev, (e) => { e.preventDefault(); e.stopPropagation(); if(ev==='dragleave' && pdfUp.contains(e.relatedTarget)) return; pdfUp.classList.remove('drag-over'); }); });
-    pdfUp.addEventListener('drop', (e) => { e.preventDefault(); e.stopPropagation(); pdfUp.classList.remove('drag-over'); processPdfFile(e.dataTransfer.files[0]); });
-  } else {
-    monthsBox = page.querySelector('.af-months');
-    const allChip = document.createElement('button'); allChip.className='af-mchip all'; allChip.textContent='연중'; allChip.dataset.all='1'; monthsBox.appendChild(allChip);
-    for(let m=1;m<=12;m++){ const c=document.createElement('button'); c.className='af-mchip'; c.dataset.m=m; c.textContent=m+'월'; monthsBox.appendChild(c); }
-    monthsBox.addEventListener('click', e => { const c=e.target.closest('.af-mchip'); if(!c) return; if(c.dataset.all){ const turnOn=!c.classList.contains('on'); monthsBox.querySelectorAll('.af-mchip').forEach(x=>x.classList.toggle('on',turnOn)); } else { c.classList.toggle('on'); const allOn=[...monthsBox.querySelectorAll('.af-mchip[data-m]')].every(x=>x.classList.contains('on')); monthsBox.querySelector('.af-mchip.all').classList.toggle('on',allOn); } });
+    pdfBtn.addEventListener('click',()=>pdfFile.click());
+    pdfFile.addEventListener('change',(e)=>processPdfFile(e.target.files[0]));
+    ['dragenter','dragover'].forEach(ev=>{pdfUp.addEventListener(ev,(e)=>{e.preventDefault();e.stopPropagation();pdfUp.classList.add('drag-over');});});
+    ['dragleave','dragend'].forEach(ev=>{pdfUp.addEventListener(ev,(e)=>{e.preventDefault();e.stopPropagation();if(ev==='dragleave'&&pdfUp.contains(e.relatedTarget))return;pdfUp.classList.remove('drag-over');});});
+    pdfUp.addEventListener('drop',(e)=>{e.preventDefault();e.stopPropagation();pdfUp.classList.remove('drag-over');processPdfFile(e.dataTransfer.files[0]);});
+  } else if(!cat.isMaterial){
+    monthsBox=page.querySelector('.af-months');
+    const allChip=document.createElement('button');allChip.className='af-mchip all';allChip.textContent='연중';allChip.dataset.all='1';monthsBox.appendChild(allChip);
+    for(let m=1;m<=12;m++){const c=document.createElement('button');c.className='af-mchip';c.dataset.m=m;c.textContent=m+'월';monthsBox.appendChild(c);}
+    monthsBox.addEventListener('click',e=>{const c=e.target.closest('.af-mchip');if(!c)return;if(c.dataset.all){const turnOn=!c.classList.contains('on');monthsBox.querySelectorAll('.af-mchip').forEach(x=>x.classList.toggle('on',turnOn));}else{c.classList.toggle('on');const allOn=[...monthsBox.querySelectorAll('.af-mchip[data-m]')].every(x=>x.classList.contains('on'));monthsBox.querySelector('.af-mchip.all').classList.toggle('on',allOn);}});
   }
 
-  function clearForm(){ page.querySelectorAll('.add-form input').forEach(i=>{ if(i.type==='checkbox') i.checked=i.classList.contains('af-onetap'); else i.value=''; }); if(monthsBox) monthsBox.querySelectorAll('.af-mchip').forEach(c=>c.classList.remove('on')); errBox.classList.remove('show'); lastAutoDue=null; }
-  function openForm(){ form.classList.add('open'); addBtn.style.display='none'; const first=form.querySelector('input[type="text"], input[type="date"]'); if(first) first.focus(); }
-  function closeForm(){ form.classList.remove('open'); addBtn.style.display=''; clearForm(); }
-  addBtn.addEventListener('click', openForm);
-  page.querySelector('[data-act="cancel"]').addEventListener('click', closeForm);
-  page.querySelector('[data-act="save"]').addEventListener('click', () => {
-    let newTask = null;
+  function clearForm(){page.querySelectorAll('.add-form input').forEach(i=>{if(i.type==='checkbox')i.checked=i.classList.contains('af-onetap');else i.value='';});if(monthsBox)monthsBox.querySelectorAll('.af-mchip').forEach(c=>c.classList.remove('on'));errBox.classList.remove('show');lastAutoDue=null;}
+  function openForm(){form.classList.add('open');addBtn.style.display='none';const first=form.querySelector('input[type="text"],input[type="date"]');if(first)first.focus();}
+  function closeForm(){form.classList.remove('open');addBtn.style.display='';clearForm();}
+  addBtn.addEventListener('click',openForm);
+  page.querySelector('[data-act="cancel"]').addEventListener('click',closeForm);
+  page.querySelector('[data-act="save"]').addEventListener('click',()=>{
+    let newTask=null;
     if(cat.isKops){
       const title=page.querySelector('.af-kops-title').value.trim();
       const issueDate=page.querySelector('.af-kops-issue').value;
       const dueDate=page.querySelector('.af-kops-due').value;
       const dept=page.querySelector('.af-kops-dept').value.trim();
-      if(!title){ errBox.textContent='주의경보 제목을 입력해주세요'; errBox.classList.add('show'); return; }
-      if(!issueDate){ errBox.textContent='발령일을 입력해주세요'; errBox.classList.add('show'); return; }
-      if(!dueDate){ errBox.textContent='자체점검 등록기한을 입력해주세요'; errBox.classList.add('show'); return; }
-      if(new Date(dueDate)<new Date(issueDate)){ errBox.textContent='등록기한이 발령일보다 빠를 수 없어요'; errBox.classList.add('show'); return; }
+      if(!title){errBox.textContent='주의경보 제목을 입력해주세요';errBox.classList.add('show');return;}
+      if(!issueDate){errBox.textContent='발령일을 입력해주세요';errBox.classList.add('show');return;}
+      if(!dueDate){errBox.textContent='자체점검 등록기한을 입력해주세요';errBox.classList.add('show');return;}
+      if(new Date(dueDate)<new Date(issueDate)){errBox.textContent='등록기한이 발령일보다 빠를 수 없어요';errBox.classList.add('show');return;}
       const months=monthsBetween(issueDate,dueDate);
       newTask={id:'kops_'+Date.now()+'_'+Math.floor(Math.random()*1000),label:title,issueDate,dueDate,dept,when:'등록기한 '+fmtDateShort(dueDate),months,custom:true,isKops:true};
     } else if(cat.isMaterial){
       const title=page.querySelector('.af-mat-title').value.trim();
       const note=page.querySelector('.af-mat-note').value.trim();
       const dept=page.querySelector('.af-mat-dept').value.trim();
-      if(!title){ errBox.textContent='자료 주제를 입력해주세요'; errBox.classList.add('show'); return; }
-      newTask={id:'mat_'+Date.now()+'_'+Math.floor(Math.random()*1000),label:title,note:(note?(note+(dept?(' · 배포부서: '+dept):'')):(dept?('배포부서: '+dept):undefined)),when:'수시',months:[1,2,3,4,5,6,7,8,9,10,11,12],toggle:false,custom:true,isMaterial:true};
+      if(!title){errBox.textContent='자료 주제를 입력해주세요';errBox.classList.add('show');return;}
+      const noteStr=[note,dept?'배포부서: '+dept:''].filter(Boolean).join(' · ')||undefined;
+      newTask={id:'mat_'+Date.now()+'_'+Math.floor(Math.random()*1000),label:title,note:noteStr,when:'수시',months:[1,2,3,4,5,6,7,8,9,10,11,12],toggle:false,custom:true};
     } else {
       const name=page.querySelector('.af-name').value.trim();
       const when=page.querySelector('.af-when').value.trim();
       const note=page.querySelector('.af-note').value.trim();
       const onetap=page.querySelector('.af-onetap').checked;
       const months=[...monthsBox.querySelectorAll('.af-mchip[data-m].on')].map(c=>+c.dataset.m);
-      if(!name){ errBox.textContent='업무명을 입력해주세요'; errBox.classList.add('show'); return; }
-      if(months.length===0){ errBox.textContent='해당 월을 1개 이상 선택해주세요'; errBox.classList.add('show'); return; }
+      if(!name){errBox.textContent='업무명을 입력해주세요';errBox.classList.add('show');return;}
+      if(months.length===0){errBox.textContent='해당 월을 1개 이상 선택해주세요';errBox.classList.add('show');return;}
       newTask={id:'custom_'+Date.now()+'_'+Math.floor(Math.random()*1000),label:name,when:when||'수시',note:note||undefined,months,toggle:onetap,custom:true};
     }
-    if(!customTasks[cat.id]) customTasks[cat.id]=[];
+    if(!customTasks[cat.id])customTasks[cat.id]=[];
     customTasks[cat.id].push(newTask);
-    saveState(); closeForm(); refresh();
+    saveState();closeForm();refresh();
   });
   return page;
 }
 
-function buildStdFormHTML(){ return `<div class="af-grp"><label>업무명 *</label><input type="text" class="af-name" placeholder="예: 임시 위원회 자료 준비"></div><div class="af-grp"><label>시기 (선택)</label><input type="text" class="af-when" placeholder="예: 9/15까지"></div><div class="af-grp"><label>메모 (선택)</label><input type="text" class="af-note" placeholder="추가 메모"></div><div class="af-grp"><label>해당 월 *</label><div class="af-months"></div></div><div class="af-grp"><label class="af-toggle"><input type="checkbox" class="af-onetap" checked>한 번 탭으로 완료 (해제하면 시작전→진행중→완료 3단계)</label></div>`; }
-function buildMaterialFormHTML(){ return `<div class="af-grp"><label>자료 주제 *</label><input type="text" class="af-mat-title" placeholder="예: 낙상예방 포스터"></div><div class="af-grp"><label>메모 (선택)</label><input type="text" class="af-mat-note" placeholder="추가 메모"></div><div class="af-grp"><label>배포부서 (선택)</label><input type="text" class="af-mat-dept" placeholder="예: 간호과, 전 부서"></div>`; }
-function buildKopsFormHTML(){ return `<div class="pdf-up"><button type="button" class="pdf-up-btn" data-act="pdf">📄 PDF 선택</button><span class="pdf-up-msg">발령 공문 PDF를 끌어다 놓거나 버튼을 눌러 선택하세요 · 제목·발령일·등록기한이 자동 입력돼요</span><input type="file" class="pdf-up-file" accept="application/pdf"></div><div class="af-grp"><label>주의경보 제목 *</label><input type="text" class="af-kops-title" placeholder="예: KOPS-2026-12호 고위험약물 투약오류"></div><div class="af-row2"><div class="af-grp"><label>발령일 *</label><input type="date" class="af-kops-issue"></div><div class="af-grp"><label>자체점검 등록기한 *</label><input type="date" class="af-kops-due"></div></div><div class="af-grp"><label>해당부서</label><input type="text" class="af-kops-dept" placeholder="예: 간호부, 약제팀"></div>`; }
-
 function renderCatPage(cat){
-  const page = document.querySelector(`.page[data-cat="${cat.id}"]`);
-  const c = counts(allUnits(cat));
-  page.querySelector('.page-bar .sd').style.width = c.total ? (c.done/c.total*100)+'%' : '0%';
-  page.querySelector('.page-bar .sg').style.width = c.total ? (c.doing/c.total*100)+'%' : '0%';
-  page.querySelector('.page-head .meta').textContent = `${cat.meta} · 완료 ${c.done}/${c.total}`;
-  const list = page.querySelector('.task-list'); list.innerHTML = '';
-  const tasks = getCatTasks(cat);
-  const customRaw = customTasks[cat.id] || [];
-  if(cat.tasks.length === 0 && customRaw.length === 0 && cat.emptyMsg){ const e=document.createElement('div'); e.className='empty-msg'; e.textContent=cat.emptyMsg; list.appendChild(e); return; }
-  tasks.forEach((t) => {
-    if(t.divider){ const d=document.createElement('div'); d.className='section-divider'; d.textContent=t.divider; list.appendChild(d); return; }
-    const row=document.createElement('div'); row.className='task'+(t.custom?' custom':'');
-    if(!t.multi && !t.stages) row.dataset.s=stat(t.id);
-    const inner=document.createElement('div'); inner.className='task-row';
-    const main=document.createElement('div'); main.className='task-main';
+  const page=document.querySelector(`.page[data-cat="${cat.id}"]`);
+  const c=counts(allUnits(cat));
+  page.querySelector('.page-bar .sd').style.width=c.total?(c.done/c.total*100)+'%':'0%';
+  page.querySelector('.page-bar .sg').style.width=c.total?(c.doing/c.total*100)+'%':'0%';
+  page.querySelector('.page-head .meta').textContent=`${cat.meta} · 완료 ${c.done}/${c.total}`;
+  const list=page.querySelector('.task-list');list.innerHTML='';
+  const tasks=getCatTasks(cat);
+  const customRaw=customTasks[cat.id]||[];
+  if(cat.tasks.length===0&&customRaw.length===0&&cat.emptyMsg){const e=document.createElement('div');e.className='empty-msg';e.textContent=cat.emptyMsg;list.appendChild(e);return;}
+  tasks.forEach(t=>{
+    if(t.divider){const d=document.createElement('div');d.className='section-divider';d.textContent=t.divider;list.appendChild(d);return;}
+    const row=document.createElement('div');row.className='task'+(t.custom?' custom':'');
+    if(!t.multi&&!t.stages)row.dataset.s=stat(t.id);
+    const inner=document.createElement('div');inner.className='task-row';
+    const main=document.createElement('div');main.className='task-main';
     if(t.isKops){
-      const dl=daysLeft(t.dueDate); const allDone=t.stages[0].steps.every(s=>stat(s.id)===2);
-      let whenClass='task-when'; let whenText=t.when;
-      if(allDone){ whenClass+=' done'; whenText='완료 ✓'; }
-      else if(dl!==null && dl<=7){ whenClass+=' urgent'; whenText=dl<0?`기한 ${Math.abs(dl)}일 초과`:(dl===0?'오늘 마감':`D-${dl}`); }
+      const dl=daysLeft(t.dueDate);const allDone=t.stages[0].steps.every(s=>stat(s.id)===2);
+      let whenClass='task-when';let whenText=t.when;
+      if(allDone){whenClass+=' done';whenText='완료 ✓';}
+      else if(dl!==null&&dl<=7){whenClass+=' urgent';whenText=dl<0?`기한 ${Math.abs(dl)}일 초과`:(dl===0?'오늘 마감':`D-${dl}`);}
       main.innerHTML=`<span class="${whenClass}">${whenText}</span><div class="task-label">${t.label}</div><div class="kops-meta">${t.issueDate?`<span><b>발령일</b>${t.issueDate}</span>`:''}${t.dueDate?`<span><b>등록기한</b>${t.dueDate}</span>`:''}${t.dept?`<span><b>해당부서</b>${t.dept}</span>`:''}</div>`;
     } else {
       main.innerHTML=`<span class="task-when">${t.when}</span><div class="task-label">${t.label}</div>`+(t.note?`<div class="task-note">${t.note}</div>`:'');
     }
     inner.appendChild(main);
-    if(t.custom){ const del=document.createElement('button'); del.className='del-btn'; del.textContent='✕'; del.title='삭제'; del.addEventListener('click',()=>{ if(confirm(`"${t.label}" 항목을 삭제할까요?`)){ customTasks[cat.id]=customTasks[cat.id].filter(x=>x.id!==t.id); if(t.isKops){['_share','_sign','_reg'].forEach(suf=>delete statuses[t.id+suf]);}else{delete statuses[t.id];} saveState(); refresh(); } }); inner.appendChild(del); }
+    if(t.custom){
+      const del=document.createElement('button');del.className='del-btn';del.textContent='✕';del.title='삭제';
+      del.addEventListener('click',()=>{if(confirm('"'+t.label+'" 항목을 삭제할까요?')){customTasks[cat.id]=customTasks[cat.id].filter(x=>x.id!==t.id);if(t.isKops){['_share','_sign','_reg'].forEach(suf=>delete statuses[t.id+suf]);}else{delete statuses[t.id];}saveState();refresh();}});
+      inner.appendChild(del);
+    }
+    // 자료제작: 제목 클릭시 인라인 편집
+    if(cat.isMaterial&&t.custom){
+      const labelEl=main.querySelector('.task-label');
+      if(labelEl){
+        labelEl.style.cursor='pointer';
+        labelEl.title='클릭하여 수정';
+        labelEl.addEventListener('click',()=>{
+          const noteEl=main.querySelector('.task-note');
+          const curLabel=t.label;
+          const curNote=t.note||'';
+          // 배포부서 파싱
+          const deptMatch=curNote.match(/배포부서:\s*([^·]+)/);
+          const memoMatch=curNote.replace(/·?\s*배포부서:[^·]*/,'').trim();
+          const curDept=deptMatch?deptMatch[1].trim():'';
+          const curMemo=memoMatch;
+          const editDiv=document.createElement('div');
+          editDiv.style.cssText='margin-top:8px;display:flex;flex-direction:column;gap:6px;';
+          editDiv.innerHTML=
+            '<input type="text" class="edit-title" style="width:100%;padding:7px 10px;border:1px solid var(--navy);border-radius:8px;font-family:inherit;font-size:13px;" value="'+curLabel.replace(/"/g,'&quot;')+'" placeholder="자료 주제">'+
+            '<input type="text" class="edit-note" style="width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:12px;" value="'+curMemo.replace(/"/g,'&quot;')+'" placeholder="메모 (선택)">'+
+            '<input type="text" class="edit-dept" style="width:100%;padding:7px 10px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:12px;" value="'+curDept.replace(/"/g,'&quot;')+'" placeholder="배포부서 (선택)">'+
+            '<div style="display:flex;gap:6px;">'+
+            '<button class="edit-save" style="flex:1;background:var(--navy);color:#fff;border:none;border-radius:8px;padding:8px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;">저장</button>'+
+            '<button class="edit-cancel" style="flex:1;background:var(--paper);color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:8px;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;">취소</button>'+
+            '</div>';
+          labelEl.style.display='none';
+          if(noteEl)noteEl.style.display='none';
+          main.appendChild(editDiv);
+          editDiv.querySelector('.edit-title').focus();
+          editDiv.querySelector('.edit-cancel').addEventListener('click',()=>{
+            editDiv.remove();labelEl.style.display='';if(noteEl)noteEl.style.display='';
+          });
+          editDiv.querySelector('.edit-save').addEventListener('click',()=>{
+            const newTitle=editDiv.querySelector('.edit-title').value.trim();
+            const newMemo=editDiv.querySelector('.edit-note').value.trim();
+            const newDept=editDiv.querySelector('.edit-dept').value.trim();
+            if(!newTitle)return;
+            const newNote=[newMemo,newDept?'배포부서: '+newDept:''].filter(Boolean).join(' · ')||undefined;
+            const idx=customTasks[cat.id].findIndex(x=>x.id===t.id);
+            if(idx!==-1){customTasks[cat.id][idx].label=newTitle;customTasks[cat.id][idx].note=newNote;}
+            saveState();refresh();
+          });
+        });
+      }
+    }
     if(t.stages){
       row.appendChild(inner);
-      const table=document.createElement('div'); table.className='stage-table';
-      t.stages.forEach(st => { const allDone=st.steps.every(s=>stat(s.id)===2); const sr=document.createElement('div'); sr.className='stage-row'+(allDone?' done':''); const qb=document.createElement('span'); qb.className='q-badge'; qb.textContent=(allDone?'✓ ':'')+st.q; sr.appendChild(qb); const steps=document.createElement('div'); steps.className='steps'; st.steps.forEach((s,i)=>{ if(i>0){const a=document.createElement('span');a.className='arrow';a.textContent='›';steps.appendChild(a);} const sv=stat(s.id); const btn=document.createElement('button'); btn.className='step'+(s.months.includes(NOW_MONTH)?' now':''); btn.dataset.s=sv; btn.innerHTML=`<span>${sv===2?'✓ ':''}${s.label}</span><small>${s.sub||''}</small>`; btn.addEventListener('click',()=>cycle(s.id,true)); steps.appendChild(btn); }); sr.appendChild(steps); table.appendChild(sr); });
+      const table=document.createElement('div');table.className='stage-table';
+      t.stages.forEach(st=>{const allDone=st.steps.every(s=>stat(s.id)===2);const sr=document.createElement('div');sr.className='stage-row'+(allDone?' done':'');const qb=document.createElement('span');qb.className='q-badge';qb.textContent=(allDone?'✓ ':'')+st.q;sr.appendChild(qb);const steps=document.createElement('div');steps.className='steps';st.steps.forEach((s,i)=>{if(i>0){const a=document.createElement('span');a.className='arrow';a.textContent='›';steps.appendChild(a);}const sv=stat(s.id);const btn=document.createElement('button');btn.className='step'+(s.months.includes(NOW_MONTH)?' now':'');btn.dataset.s=sv;btn.innerHTML=`<span>${sv===2?'✓ ':''}${s.label}</span><small>${s.sub||''}</small>`;btn.addEventListener('click',()=>cycle(s.id,true));steps.appendChild(btn);});sr.appendChild(steps);table.appendChild(sr);});
       row.appendChild(table);
-      const hint=document.createElement('div'); hint.className='chip-hint'; hint.textContent='단계를 탭하면 완료 표시 (다시 탭하면 해제)'; row.appendChild(hint);
+      const hint=document.createElement('div');hint.className='chip-hint';hint.textContent='단계를 탭하면 완료 표시 (다시 탭하면 해제)';row.appendChild(hint);
     } else if(t.multi){
       row.appendChild(inner);
-      const chips=document.createElement('div'); chips.className='chips';
-      t.multi.forEach(m=>{ const s=stat(m.id); const chip=document.createElement('button'); chip.className='chip'+(m.months.includes(NOW_MONTH)?' now':''); chip.dataset.s=s; chip.textContent=(s===2?'✓ ':'')+m.label; chip.addEventListener('click',()=>cycle(m.id,!!t.toggle)); chips.appendChild(chip); });
+      const chips=document.createElement('div');chips.className='chips';
+      t.multi.forEach(m=>{const s=stat(m.id);const chip=document.createElement('button');chip.className='chip'+(m.months.includes(NOW_MONTH)?' now':'');chip.dataset.s=s;chip.textContent=(s===2?'✓ ':'')+m.label;chip.addEventListener('click',()=>cycle(m.id,!!t.toggle));chips.appendChild(chip);});
       row.appendChild(chips);
-      if(!t.toggle){ const hint=document.createElement('div'); hint.className='chip-hint'; hint.textContent='탭할 때마다 시작전 → 진행중 → 완료'; row.appendChild(hint); }
+      if(!t.toggle){const hint=document.createElement('div');hint.className='chip-hint';hint.textContent='탭할 때마다 시작전 → 진행중 → 완료';row.appendChild(hint);}
     } else {
-      inner.appendChild(statusBtn({...t, toggle:!!t.toggle})); row.appendChild(inner);
+      inner.appendChild(statusBtn({...t,toggle:!!t.toggle}));row.appendChild(inner);
     }
     list.appendChild(row);
   });
 }
 
-function refresh(){ buildTabs(); buildVside(); renderOverall(); renderSummary(); DATA.forEach(renderCatPage); if(monthViewActive) renderMonthView(monthViewActive); if(overdueViewActive) renderOverdueView(); }
+function refresh(){buildTabs();buildVside();renderOverall();renderSummary();DATA.forEach(renderCatPage);if(monthViewActive)renderMonthView(monthViewActive);if(overdueViewActive)renderOverdueView();}
 
 function init(){
-  applyPlanTasks(); updateYearLabel();
-  const pager = document.getElementById('pager');
+  applyPlanTasks();updateYearLabel();
+  const pager=document.getElementById('pager');
   pager.appendChild(buildSummaryPage());
-  DATA.forEach(cat => pager.appendChild(buildCatPage(cat)));
-  pager.addEventListener('scroll', ()=>{ clearTimeout(scrollTimer); scrollTimer=setTimeout(syncTab,80); });
-  document.body.addEventListener('click', (e) => {
-    if(e.target.id==='resetBtn'){ if(confirm('모든 체크 상태를 초기화할까요? 직접 추가한 업무 항목도 같이 사라져요. 되돌릴 수 없어요.')){ statuses={}; customTasks={}; saveState(); refresh(); } }
-    if(e.target.id==='nextYearBtn'){ nextYearMode(); }
+  DATA.forEach(cat=>pager.appendChild(buildCatPage(cat)));
+  pager.addEventListener('scroll',()=>{clearTimeout(scrollTimer);scrollTimer=setTimeout(syncTab,80);});
+  document.body.addEventListener('click',(e)=>{
+    if(e.target.id==='resetBtn'){if(confirm('모든 체크 상태를 초기화할까요? 직접 추가한 업무 항목도 같이 사라져요. 되돌릴 수 없어요.')){statuses={};customTasks={};saveState();refresh();}}
+    if(e.target.id==='nextYearBtn'){nextYearMode();}
   });
-  // 초기 렌더링 후 Supabase에서 데이터 로드
   refresh();
   loadFromSupabase();
 }
