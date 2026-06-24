@@ -461,6 +461,14 @@ const DATA = [
     ]},
   { id:'plan', name:'연간계획서', short:'계획서', meta:'12월 시작 → 1월 마무리 · KOPS 등록 · 승인',
     tasks:[] },
+  { id:'material', name:'자료 제작', short:'자료제작', meta:'제작 자료 관리 · 추가/수정 가능',
+    isMaterial:true,
+    tasks:[
+      {id:'mat1', label:'환자간 폭행예방 포스터', note:'배포부서: 간호과', when:'수시', months:[1,2,3,4,5,6,7,8,9,10,11,12]},
+      {id:'mat2', label:'폭행예방 PPT', note:'배포부서: 간호과', when:'수시', months:[1,2,3,4,5,6,7,8,9,10,11,12]},
+      {id:'mat3', label:'신규직원 환자안전사고 보고 교육 자료', note:'배포부서: 반기별 신규입사자', when:'수시', months:[1,2,3,4,5,6,7,8,9,10,11,12]},
+      {id:'mat4', label:'환자안전의날 포스터', note:'배포부서: 간호과', when:'수시', months:[1,2,3,4,5,6,7,8,9,10,11,12]},
+    ]},
   { id:'kops_alert', name:'KOPS 주의경보 자체점검', short:'KOPS경보',
     meta:'발령 시마다 자체점검 등록 · 공유 → 서명 → 자체점검 등록',
     emptyMsg:'아직 등록된 주의경보가 없어요\n발령 시 아래 "주의경보 등록"으로 추가하세요',
@@ -715,8 +723,8 @@ function renderOverdueView(){
 
 function buildCatPage(cat){
   const page = document.createElement('div'); page.className = 'page'; page.dataset.cat = cat.id;
-  const formHTML = cat.isKops ? buildKopsFormHTML() : buildStdFormHTML();
-  const btnLabel = cat.isKops ? '+ 주의경보 등록' : '+ 새 업무 추가';
+  const formHTML = cat.isKops ? buildKopsFormHTML() : cat.isMaterial ? buildMaterialFormHTML() : buildStdFormHTML();
+  const btnLabel = cat.isKops ? '+ 주의경보 등록' : cat.isMaterial ? '+ 자료 추가' : '+ 새 업무 추가';
   page.innerHTML = `<div class="page-inner"><div class="page-head"><h2>${cat.name}</h2><span class="meta">${cat.meta}</span></div><div class="page-bar"><span class="sd"></span><span class="sg"></span></div><div class="task-list"></div><div class="add-wrap"><button class="add-btn" data-act="open">${btnLabel}</button><div class="add-form">${formHTML}<div class="af-err"></div><div class="af-buttons"><button class="af-cancel" data-act="cancel">취소</button><button class="af-save" data-act="save">저장</button></div></div></div><div class="page-foot"><button class="nav-link" data-go="0">← 요약으로</button></div></div>`;
   page.querySelector('[data-go]').addEventListener('click', ()=>goPage(0));
   const form = page.querySelector('.add-form');
@@ -786,6 +794,12 @@ function buildCatPage(cat){
       if(new Date(dueDate)<new Date(issueDate)){ errBox.textContent='등록기한이 발령일보다 빠를 수 없어요'; errBox.classList.add('show'); return; }
       const months=monthsBetween(issueDate,dueDate);
       newTask={id:'kops_'+Date.now()+'_'+Math.floor(Math.random()*1000),label:title,issueDate,dueDate,dept,when:'등록기한 '+fmtDateShort(dueDate),months,custom:true,isKops:true};
+    } else if(cat.isMaterial){
+      const title=page.querySelector('.af-mat-title').value.trim();
+      const note=page.querySelector('.af-mat-note').value.trim();
+      const dept=page.querySelector('.af-mat-dept').value.trim();
+      if(!title){ errBox.textContent='자료 주제를 입력해주세요'; errBox.classList.add('show'); return; }
+      newTask={id:'mat_'+Date.now()+'_'+Math.floor(Math.random()*1000),label:title,note:(note?(note+(dept?(' · 배포부서: '+dept):'')):(dept?('배포부서: '+dept):undefined)),when:'수시',months:[1,2,3,4,5,6,7,8,9,10,11,12],toggle:false,custom:true,isMaterial:true};
     } else {
       const name=page.querySelector('.af-name').value.trim();
       const when=page.querySelector('.af-when').value.trim();
@@ -804,6 +818,7 @@ function buildCatPage(cat){
 }
 
 function buildStdFormHTML(){ return `<div class="af-grp"><label>업무명 *</label><input type="text" class="af-name" placeholder="예: 임시 위원회 자료 준비"></div><div class="af-grp"><label>시기 (선택)</label><input type="text" class="af-when" placeholder="예: 9/15까지"></div><div class="af-grp"><label>메모 (선택)</label><input type="text" class="af-note" placeholder="추가 메모"></div><div class="af-grp"><label>해당 월 *</label><div class="af-months"></div></div><div class="af-grp"><label class="af-toggle"><input type="checkbox" class="af-onetap" checked>한 번 탭으로 완료 (해제하면 시작전→진행중→완료 3단계)</label></div>`; }
+function buildMaterialFormHTML(){ return `<div class="af-grp"><label>자료 주제 *</label><input type="text" class="af-mat-title" placeholder="예: 낙상예방 포스터"></div><div class="af-grp"><label>메모 (선택)</label><input type="text" class="af-mat-note" placeholder="추가 메모"></div><div class="af-grp"><label>배포부서 (선택)</label><input type="text" class="af-mat-dept" placeholder="예: 간호과, 전 부서"></div>`; }
 function buildKopsFormHTML(){ return `<div class="pdf-up"><button type="button" class="pdf-up-btn" data-act="pdf">📄 PDF 선택</button><span class="pdf-up-msg">발령 공문 PDF를 끌어다 놓거나 버튼을 눌러 선택하세요 · 제목·발령일·등록기한이 자동 입력돼요</span><input type="file" class="pdf-up-file" accept="application/pdf"></div><div class="af-grp"><label>주의경보 제목 *</label><input type="text" class="af-kops-title" placeholder="예: KOPS-2026-12호 고위험약물 투약오류"></div><div class="af-row2"><div class="af-grp"><label>발령일 *</label><input type="date" class="af-kops-issue"></div><div class="af-grp"><label>자체점검 등록기한 *</label><input type="date" class="af-kops-due"></div></div><div class="af-grp"><label>해당부서</label><input type="text" class="af-kops-dept" placeholder="예: 간호부, 약제팀"></div>`; }
 
 function renderCatPage(cat){
