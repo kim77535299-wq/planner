@@ -499,6 +499,14 @@ function buildVside(){
   ob.addEventListener('click',()=>setOverdueView(!overdueViewActive));
   v.appendChild(ob);
   const div=document.createElement('div');div.className='vside-divider';v.appendChild(div);
+  // 이번 달 버튼
+  const thisMonthBtn=document.createElement('button');
+  thisMonthBtn.className='vtab now'+(monthViewActive===NOW_MONTH?' active':'');
+  let nmCount=0;DATA.forEach(c=>allUnits(c).forEach(u=>{if(u.months.includes(NOW_MONTH))nmCount++;}));
+  thisMonthBtn.innerHTML=`이번달<span class="cnt">${nmCount}건</span>`;
+  thisMonthBtn.addEventListener('click',()=>{if(monthViewActive===NOW_MONTH)setMonthView(null);else setMonthView(NOW_MONTH);});
+  v.appendChild(thisMonthBtn);
+  const div2=document.createElement('div');div2.className='vside-divider';v.appendChild(div2);
   const monthLbl=document.createElement('div');monthLbl.className='vside-label';monthLbl.textContent='월별';v.appendChild(monthLbl);
   for(let m=1;m<=12;m++){
     const b=document.createElement('button');
