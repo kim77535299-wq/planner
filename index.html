@@ -506,8 +506,8 @@ function buildVside(){
   // 이번 달 버튼
   const thisMonthBtn=document.createElement('button');
   thisMonthBtn.className='vtab vtab-thismonth'+(monthViewActive===NOW_MONTH?' active':'');
-  let nmCount=0;DATA.forEach(c=>allUnits(c).forEach(u=>{if(u.months.includes(NOW_MONTH))nmCount++;}));
-  thisMonthBtn.innerHTML=`📅<span class="cnt">이번달</span><span class="cnt">${nmCount}건</span>`;
+  let nmRemain=0;DATA.forEach(c=>allUnits(c).forEach(u=>{if(u.months.includes(NOW_MONTH)&&stat(u.id)!==2)nmRemain++;}));
+  thisMonthBtn.innerHTML=`📅<span class="cnt">이번달</span><span class="cnt">${nmRemain}건</span>`;
   thisMonthBtn.addEventListener('click',()=>{if(monthViewActive===NOW_MONTH)setMonthView(null);else setMonthView(NOW_MONTH);});
   v.appendChild(thisMonthBtn);
   const div2=document.createElement('div');div2.className='vside-divider';v.appendChild(div2);
