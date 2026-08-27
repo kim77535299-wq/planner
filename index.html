@@ -53,6 +53,10 @@
   .vtab.active{background:var(--navy);color:#fff;}
   .vtab.active.now::after{background:var(--gold);}
   .vtab .cnt{display:block;font-size:9px;font-weight:600;opacity:.65;margin-top:1px;}
+  .vtab-thismonth{color:var(--navy);}
+  .vtab-thismonth::after{display:none !important;}
+  .vtab-thismonth:hover{background:var(--blue-pale);color:var(--navy);}
+  .vtab-thismonth.active{background:var(--navy);color:#fff;}
   .vtab-overdue{color:var(--danger);}
   .vtab-overdue:hover{background:#FCE8E8;color:var(--danger);}
   .vtab-overdue.active{background:var(--danger);color:#fff;}
@@ -501,9 +505,9 @@ function buildVside(){
   const div=document.createElement('div');div.className='vside-divider';v.appendChild(div);
   // 이번 달 버튼
   const thisMonthBtn=document.createElement('button');
-  thisMonthBtn.className='vtab now'+(monthViewActive===NOW_MONTH?' active':'');
+  thisMonthBtn.className='vtab vtab-thismonth'+(monthViewActive===NOW_MONTH?' active':'');
   let nmCount=0;DATA.forEach(c=>allUnits(c).forEach(u=>{if(u.months.includes(NOW_MONTH))nmCount++;}));
-  thisMonthBtn.innerHTML=`이번달<span class="cnt">${nmCount}건</span>`;
+  thisMonthBtn.innerHTML=`📅<span class="cnt">이번달</span><span class="cnt">${nmCount}건</span>`;
   thisMonthBtn.addEventListener('click',()=>{if(monthViewActive===NOW_MONTH)setMonthView(null);else setMonthView(NOW_MONTH);});
   v.appendChild(thisMonthBtn);
   const div2=document.createElement('div');div2.className='vside-divider';v.appendChild(div2);
