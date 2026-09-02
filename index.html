@@ -391,6 +391,7 @@ const DATA=[
       {id:'fm4',label:'FMEA 팀 서명 받기',when:'11월',months:[11]},
     ]},
   {id:'material',name:'자료 제작',short:'자료제작',meta:'제작 자료 관리 · 자료 추가 가능',isMaterial:true,tasks:[]},
+  {id:'memo',name:'메모',short:'메모',meta:'자유롭게 메모 작성',isMemo:true,tasks:[]},
   {id:'plan',name:'연간계획서',short:'계획서',meta:'12월 시작 → 1월 마무리 · KOPS 등록 · 승인',tasks:[]},
   {id:'kops_alert',name:'KOPS 주의경보 자체점검',short:'KOPS경보',
     meta:'발령 시마다 자체점검 등록 · 공유 → 서명 → 자체점검 등록',
@@ -486,7 +487,33 @@ function isOverdue(unit){if(stat(unit.id)===2)return false;if(unit.dueDate){cons
 function overdueInfo(unit){if(unit.dueDate){const d=new Date(unit.dueDate);if(!isNaN(d)){d.setHours(0,0,0,0);const days=Math.floor((TODAY-d)/86400000);return{label:`기한 ${days}일 초과`,sortKey:-days};}}const maxM=Math.max(...unit.months);const diff=NOW_MONTH-maxM;return{label:`${maxM}월 마감 (${diff}개월 경과)`,sortKey:-diff*30};}
 function countAllOverdue(){let n=0;DATA.forEach(c=>allUnits(c).forEach(u=>{if(isOverdue(u))n++;}));return n;}
 
-function getCatTasks(cat){const base=cat.tasks;const custom=(customTasks[cat.id]||[]).map(t=>t.isKops?expandKops(t):t);return[...base,...custom];}
+function getCatTasks(cat){
+  const base=cat.tasks;
+  let custom=(customTasks[cat.id]||[]).map(t=>t.isKops?expandKops(t):t);
+  if(cat.isKops){
+    // 역순 (최신이 위, 오래된게 아래)
+    custom=[...custom].reverse();
+    // 연도별 차수 계산 (원본 순서 기준 = reverse 전)
+    const origOrder=(customTasks[cat.id]||[]);
+    const yearCount={};
+    origOrder.forEach(t=>{
+      if(!t.isKops)return;
+      const y=t.issueDate?t.issueDate.slice(0,4):'unknown';
+      yearCount[y]=(yearCount[y]||0)+1;
+      t._order=yearCount[y];
+      t._year=y;
+    });
+    // expandKops된 custom에 차수 반영
+    custom=custom.map(t=>{
+      const orig=(customTasks[cat.id]||[]).find(o=>o.id===t.id);
+      if(orig&&orig._order){
+        return {...t, label:`${orig._order}차 주의경보 · ${t.label}`};
+      }
+      return t;
+    });
+  }
+  return[...base,...custom];
+}
 function allUnits(cat){const u=[];getCatTasks(cat).forEach(t=>{if(t.divider)return;if(t.stages){t.stages.forEach(st=>st.steps.forEach(s=>u.push({...s,toggle:true,parent:`${t.label}${st.q?' '+st.q:''}`,cat})));}else if(t.multi){t.multi.forEach(m=>u.push({...m,toggle:!!t.toggle,parent:t.label,cat}));}else{u.push({...t,toggle:!!t.toggle,parent:null,cat});}});return u;}
 function stat(id){return statuses[id]||0;}
 function cycle(id,toggle){if(toggle)statuses[id]=stat(id)===2?0:2;else statuses[id]=(stat(id)+1)%3;saveState();refresh();}
@@ -511,6 +538,14 @@ function buildVside(){
   thisMonthBtn.addEventListener('click',()=>{if(monthViewActive===NOW_MONTH)setMonthView(null);else setMonthView(NOW_MONTH);});
   v.appendChild(thisMonthBtn);
   const div2=document.createElement('div');div2.className='vside-divider';v.appendChild(div2);
+  // 메모 바로가기
+  const memoIdx=DATA.findIndex(c=>c.id==='memo');
+  const memoBtn=document.createElement('button');
+  memoBtn.className='vtab'+(currentPage===memoIdx+1&&!monthViewActive&&!overdueViewActive?' active':'');
+  memoBtn.innerHTML='📝<span class="cnt">메모</span>';
+  memoBtn.addEventListener('click',()=>{setMonthView(null);setOverdueView(false);goPage(memoIdx+1);});
+  v.appendChild(memoBtn);
+  const div3=document.createElement('div');div3.className='vside-divider';v.appendChild(div3);
   const monthLbl=document.createElement('div');monthLbl.className='vside-label';monthLbl.textContent='월별';v.appendChild(monthLbl);
   for(let m=1;m<=12;m++){
     const b=document.createElement('button');
@@ -606,6 +641,68 @@ function renderOverdueView(){
   box.querySelectorAll('[data-go]').forEach(btn=>{btn.addEventListener('click',()=>{setOverdueView(false);goPage(+btn.dataset.go);});});
 }
 
+function buildMemoPage(cat){
+  const page=document.createElement('div');page.className='page';page.dataset.cat=cat.id;
+  page.innerHTML=`<div class="page-inner">
+    <div class="page-head"><h2>📝 메모</h2><span class="meta">자유롭게 작성하고 저장하세요</span></div>
+    <div id="memoList" style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;"></div>
+    <div style="background:#fff;border:1.5px dashed var(--blue-soft);border-radius:12px;padding:14px;">
+      <div class="af-grp"><label>제목 (선택)</label><input type="text" id="memoTitle" style="width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:13px;background:var(--paper);" placeholder="메모 제목"></div>
+      <div class="af-grp"><label>내용 *</label><textarea id="memoContent" style="width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:13px;background:var(--paper);min-height:100px;resize:vertical;line-height:1.6;" placeholder="메모 내용을 입력하세요"></textarea></div>
+      <button id="memoSaveBtn" style="width:100%;background:var(--navy);color:#fff;border:none;border-radius:8px;padding:11px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;">저장</button>
+    </div>
+    <div class="page-foot"><button class="nav-link" data-go="0">← 요약으로</button></div>
+  </div>`;
+  page.querySelector('[data-go]').addEventListener('click',()=>goPage(0));
+
+  function renderMemos(){
+    const list=page.querySelector('#memoList');list.innerHTML='';
+    const memos=customTasks['memo']||[];
+    if(memos.length===0){
+      list.innerHTML='<div class="empty-msg">저장된 메모가 없어요
+아래에서 작성해보세요</div>';
+      return;
+    }
+    [...memos].reverse().forEach(m=>{
+      const card=document.createElement('div');
+      card.style.cssText='background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 14px;';
+      card.innerHTML=
+        (m.title?'<div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:5px;">'+m.title+'</div>':'')+
+        '<div style="font-size:13px;color:var(--ink);white-space:pre-wrap;line-height:1.6;">'+m.content+'</div>'+
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">'+
+        '<span style="font-size:10.5px;color:var(--muted);">'+m.date+'</span>'+
+        '<button class="del-btn" data-id="'+m.id+'">✕</button>'+
+        '</div>';
+      card.querySelector('.del-btn').addEventListener('click',()=>{
+        if(confirm('이 메모를 삭제할까요?')){
+          customTasks['memo']=(customTasks['memo']||[]).filter(x=>x.id!==m.id);
+          saveState();renderMemos();
+        }
+      });
+      list.appendChild(card);
+    });
+  }
+
+  page.querySelector('#memoSaveBtn').addEventListener('click',()=>{
+    const title=page.querySelector('#memoTitle').value.trim();
+    const content=page.querySelector('#memoContent').value.trim();
+    if(!content){alert('내용을 입력해주세요');return;}
+    if(!customTasks['memo'])customTasks['memo']=[];
+    customTasks['memo'].push({
+      id:'memo_'+Date.now(),
+      title:title||'',
+      content,
+      date:new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'})
+    });
+    page.querySelector('#memoTitle').value='';
+    page.querySelector('#memoContent').value='';
+    saveState();renderMemos();
+  });
+
+  renderMemos();
+  return page;
+}
+
 function buildMaterialFormHTML(){
   return `<div class="af-grp"><label>자료 주제 *</label><input type="text" class="af-mat-title" placeholder="예: 낙상예방 포스터"></div><div class="af-grp"><label>메모 (선택)</label><input type="text" class="af-mat-note" placeholder="추가 메모"></div><div class="af-grp"><label>배포부서 (선택)</label><input type="text" class="af-mat-dept" placeholder="예: 간호과, 전 부서"></div>`;
 }
@@ -618,6 +715,7 @@ function buildKopsFormHTML(){
 
 function buildCatPage(cat){
   const page=document.createElement('div');page.className='page';page.dataset.cat=cat.id;
+  if(cat.isMemo) return buildMemoPage(cat);
   const formHTML=cat.isKops?buildKopsFormHTML():cat.isMaterial?buildMaterialFormHTML():buildStdFormHTML();
   const btnLabel=cat.isKops?'+ 주의경보 등록':cat.isMaterial?'+ 자료 추가':'+ 새 업무 추가';
   page.innerHTML=`<div class="page-inner"><div class="page-head"><h2>${cat.name}</h2><span class="meta">${cat.meta}</span></div><div class="page-bar"><span class="sd"></span><span class="sg"></span></div><div class="task-list"></div><div class="add-wrap"><button class="add-btn" data-act="open">${btnLabel}</button><div class="add-form">${formHTML}<div class="af-err"></div><div class="af-buttons"><button class="af-cancel" data-act="cancel">취소</button><button class="af-save" data-act="save">저장</button></div></div></div><div class="page-foot"><button class="nav-link" data-go="0">← 요약으로</button></div></div>`;
@@ -710,6 +808,7 @@ function buildCatPage(cat){
 }
 
 function renderCatPage(cat){
+  if(cat.isMemo)return;
   const page=document.querySelector(`.page[data-cat="${cat.id}"]`);
   const c=counts(allUnits(cat));
   page.querySelector('.page-bar .sd').style.width=c.total?(c.done/c.total*100)+'%':'0%';
