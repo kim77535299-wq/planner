@@ -645,22 +645,21 @@ function buildMemoPage(cat){
   const page=document.createElement('div');page.className='page';page.dataset.cat=cat.id;
   page.innerHTML=`<div class="page-inner">
     <div class="page-head"><h2>📝 메모</h2><span class="meta">자유롭게 작성하고 저장하세요</span></div>
-    <div id="memoList" style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;"></div>
+    <div class="memo-list" style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;"></div>
     <div style="background:#fff;border:1.5px dashed var(--blue-soft);border-radius:12px;padding:14px;">
-      <div class="af-grp"><label>제목 (선택)</label><input type="text" id="memoTitle" style="width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:13px;background:var(--paper);" placeholder="메모 제목"></div>
-      <div class="af-grp"><label>내용 *</label><textarea id="memoContent" style="width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:13px;background:var(--paper);min-height:100px;resize:vertical;line-height:1.6;" placeholder="메모 내용을 입력하세요"></textarea></div>
-      <button id="memoSaveBtn" style="width:100%;background:var(--navy);color:#fff;border:none;border-radius:8px;padding:11px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;">저장</button>
+      <div class="af-grp"><label>제목 (선택)</label><input type="text" class="memo-title-input" style="width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:13px;background:var(--paper);" placeholder="메모 제목"></div>
+      <div class="af-grp"><label>내용 *</label><textarea class="memo-content-input" style="width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:13px;background:var(--paper);min-height:100px;resize:vertical;line-height:1.6;" placeholder="메모 내용을 입력하세요"></textarea></div>
+      <button class="memo-save-btn" style="width:100%;background:var(--navy);color:#fff;border:none;border-radius:8px;padding:11px;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;">저장</button>
     </div>
     <div class="page-foot"><button class="nav-link" data-go="0">← 요약으로</button></div>
   </div>`;
   page.querySelector('[data-go]').addEventListener('click',()=>goPage(0));
 
   function renderMemos(){
-    const list=page.querySelector('#memoList');list.innerHTML='';
+    const list=page.querySelector('.memo-list');list.innerHTML='';
     const memos=customTasks['memo']||[];
     if(memos.length===0){
-      list.innerHTML='<div class="empty-msg">저장된 메모가 없어요
-아래에서 작성해보세요</div>';
+      list.innerHTML='<div class="empty-msg">저장된 메모가 없어요</div>';
       return;
     }
     [...memos].reverse().forEach(m=>{
@@ -683,9 +682,9 @@ function buildMemoPage(cat){
     });
   }
 
-  page.querySelector('#memoSaveBtn').addEventListener('click',()=>{
-    const title=page.querySelector('#memoTitle').value.trim();
-    const content=page.querySelector('#memoContent').value.trim();
+  page.querySelector('.memo-save-btn').addEventListener('click',()=>{
+    const title=page.querySelector('.memo-title-input').value.trim();
+    const content=page.querySelector('.memo-content-input').value.trim();
     if(!content){alert('내용을 입력해주세요');return;}
     if(!customTasks['memo'])customTasks['memo']=[];
     customTasks['memo'].push({
@@ -694,8 +693,8 @@ function buildMemoPage(cat){
       content,
       date:new Date().toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'})
     });
-    page.querySelector('#memoTitle').value='';
-    page.querySelector('#memoContent').value='';
+    page.querySelector('.memo-title-input').value='';
+    page.querySelector('.memo-content-input').value='';
     saveState();renderMemos();
   });
 
