@@ -575,7 +575,7 @@ function syncTab(){if(monthViewActive||overdueViewActive)return;const pager=docu
 function setMonthView(m){monthViewActive=m;if(m)overdueViewActive=false;document.getElementById('pager').classList.toggle('hidden',!!m||overdueViewActive);document.getElementById('monthView').classList.toggle('on',!!m);document.getElementById('overdueView').classList.toggle('on',overdueViewActive);buildVside();buildTabs();if(m)renderMonthView(m);}
 function setOverdueView(on){overdueViewActive=!!on;if(on)monthViewActive=null;document.getElementById('pager').classList.toggle('hidden',!!monthViewActive||overdueViewActive);document.getElementById('monthView').classList.toggle('on',!!monthViewActive);document.getElementById('overdueView').classList.toggle('on',overdueViewActive);buildVside();buildTabs();if(on)renderOverdueView();}
 
-function renderOverall(){const units=[];DATA.forEach(c=>units.push(...allUnits(c)));const c=counts(units);document.getElementById('overallPct').textContent=c.total?pctOf(c)+'%':'0%';document.getElementById('overallLbl').textContent=`완료 ${c.done}/${c.total}`;}
+function renderOverall(){const units=[];DATA.filter(c=>!c.isMemo).forEach(c=>units.push(...allUnits(c)));const c=counts(units);document.getElementById('overallPct').textContent=c.total?pctOf(c)+'%':'0%';document.getElementById('overallLbl').textContent=`완료 ${c.done}/${c.total}`;}
 
 function statusBtn(unit){
   const s=stat(unit.id);
@@ -605,7 +605,7 @@ function buildSummaryPage(){
 }
 function renderSummary(){
   const grid=document.getElementById('sumGrid');grid.innerHTML='';
-  DATA.forEach((cat,idx)=>{
+  DATA.filter(cat=>!cat.isMemo).forEach((cat,idx)=>{
     const c=counts(allUnits(cat));const p=c.total?pctOf(c):0;
     const card=document.createElement('button');
     const isFull=c.total>0&&c.done===c.total;
