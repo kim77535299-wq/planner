@@ -485,7 +485,7 @@ function monthsBetween(start,end){if(!start||!end)return [];const s=new Date(sta
 function daysLeft(dueDate){if(!dueDate)return null;const d=new Date(dueDate);if(isNaN(d))return null;d.setHours(0,0,0,0);return Math.ceil((d-TODAY)/86400000);}
 function isOverdue(unit){if(stat(unit.id)===2)return false;if(unit.dueDate){const d=new Date(unit.dueDate);if(!isNaN(d)){d.setHours(0,0,0,0);return d<TODAY;}}const maxM=Math.max(...unit.months);return maxM<NOW_MONTH;}
 function overdueInfo(unit){if(unit.dueDate){const d=new Date(unit.dueDate);if(!isNaN(d)){d.setHours(0,0,0,0);const days=Math.floor((TODAY-d)/86400000);return{label:`기한 ${days}일 초과`,sortKey:-days};}}const maxM=Math.max(...unit.months);const diff=NOW_MONTH-maxM;return{label:`${maxM}월 마감 (${diff}개월 경과)`,sortKey:-diff*30};}
-function countAllOverdue(){let n=0;DATA.forEach(c=>allUnits(c).forEach(u=>{if(isOverdue(u))n++;}));return n;}
+function countAllOverdue(){let n=0;DATA.filter(c=>!c.isMemo).forEach(c=>allUnits(c).forEach(u=>{if(isOverdue(u))n++;}));return n;}
 
 function getCatTasks(cat){
   const base=cat.tasks;
@@ -514,7 +514,7 @@ function getCatTasks(cat){
   }
   return[...base,...custom];
 }
-function allUnits(cat){const u=[];getCatTasks(cat).forEach(t=>{if(t.divider)return;if(t.stages){t.stages.forEach(st=>st.steps.forEach(s=>u.push({...s,toggle:true,parent:`${t.label}${st.q?' '+st.q:''}`,cat})));}else if(t.multi){t.multi.forEach(m=>u.push({...m,toggle:!!t.toggle,parent:t.label,cat}));}else{u.push({...t,toggle:!!t.toggle,parent:null,cat});}});return u;}
+function allUnits(cat){if(cat.isMemo)return[];const u=[];getCatTasks(cat).forEach(t=>{if(t.divider)return;if(t.stages){t.stages.forEach(st=>st.steps.forEach(s=>u.push({...s,toggle:true,parent:`${t.label}${st.q?' '+st.q:''}`,cat})));}else if(t.multi){t.multi.forEach(m=>u.push({...m,toggle:!!t.toggle,parent:t.label,cat}));}else{u.push({...t,toggle:!!t.toggle,parent:null,cat});}});return u;}
 function stat(id){return statuses[id]||0;}
 function cycle(id,toggle){if(toggle)statuses[id]=stat(id)===2?0:2;else statuses[id]=(stat(id)+1)%3;saveState();refresh();}
 function counts(units){let done=0,doing=0;units.forEach(u=>{const s=stat(u.id);if(s===2)done++;else if(s===1)doing++;});return{done,doing,total:units.length};}
