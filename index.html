@@ -910,7 +910,43 @@ function renderCatPage(cat){
   });
 }
 
-function refresh(){buildTabs();buildVside();renderOverall();renderSummary();DATA.forEach(renderCatPage);if(monthViewActive)renderMonthView(monthViewActive);if(overdueViewActive)renderOverdueView();}
+function refresh(){
+  buildTabs();buildVside();renderOverall();renderSummary();
+  DATA.forEach(renderCatPage);
+  if(monthViewActive)renderMonthView(monthViewActive);
+  if(overdueViewActive)renderOverdueView();
+  // 메모 페이지 갱신
+  const memoPage=document.querySelector('.page[data-cat="memo"]');
+  if(memoPage){
+    const list=memoPage.querySelector('.memo-list');
+    if(list){
+      list.innerHTML='';
+      const memos=customTasks['memo']||[];
+      if(memos.length===0){
+        list.innerHTML='<div class="empty-msg">저장된 메모가 없어요</div>';
+      } else {
+        [...memos].reverse().forEach(m=>{
+          const card=document.createElement('div');
+          card.style.cssText='background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 14px;';
+          card.innerHTML=
+            (m.title?'<div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:5px;">'+m.title+'</div>':'')+
+            '<div style="font-size:13px;color:var(--ink);white-space:pre-wrap;line-height:1.6;">'+m.content+'</div>'+
+            '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">'+
+            '<span style="font-size:10.5px;color:var(--muted);">'+m.date+'</span>'+
+            '<button class="del-btn" data-id="'+m.id+'">✕</button>'+
+            '</div>';
+          card.querySelector('.del-btn').addEventListener('click',()=>{
+            if(confirm('이 메모를 삭제할까요?')){
+              customTasks['memo']=(customTasks['memo']||[]).filter(x=>x.id!==m.id);
+              saveState();refresh();
+            }
+          });
+          list.appendChild(card);
+        });
+      }
+    }
+  }
+}
 
 function init(){
   applyPlanTasks();updateYearLabel();
