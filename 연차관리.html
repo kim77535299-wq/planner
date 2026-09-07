@@ -476,7 +476,8 @@ function render(){
 
       const head=document.createElement('div');
       head.className='year-card-head';
-      head.innerHTML='<span class="year-label">'+y+'년</span><span class="year-count">'+fmtNum(yearUsed)+'일 사용 · '+list.length+'건</span>';
+      head.style.cursor='pointer';
+      head.innerHTML='<span class="year-label">'+y+'년</span><div style="display:flex;align-items:center;gap:8px;"><span class="year-count">'+fmtNum(yearUsed)+'일 사용 · '+list.length+'건</span><span class="ytoggle" style="color:var(--ink-soft);font-size:0.85rem;">▲</span></div>';
       card.appendChild(head);
 
       const ul=document.createElement('ul');
@@ -501,6 +502,11 @@ function render(){
         ul.appendChild(li);
       });
       card.appendChild(ul);
+      head.addEventListener('click',function(){
+        var collapsed=ul.style.display==='none';
+        ul.style.display=collapsed?'':'none';
+        head.querySelector('.ytoggle').textContent=collapsed?'▲':'▼';
+      });
       groupsEl.appendChild(card);
     });
   }
