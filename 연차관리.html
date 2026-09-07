@@ -407,6 +407,7 @@ let selectedType='full';
 function updateCollapseUI(){
   $('config-body').classList.toggle('collapsed',configCollapsed);
   $('config-toggle').classList.toggle('collapsed',configCollapsed);
+  $('config-toggle-btn').textContent=configCollapsed?'▼':'▲';
 }
 
 function render(){
