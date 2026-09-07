@@ -113,8 +113,7 @@
   .config-toggle-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
   .config-toggle-row h2{margin:0;}
   .toggle-btn{background:none;border:none;color:var(--ink-soft);font-size:0.8rem;padding:0;height:auto;cursor:pointer;}
-  .config-toggle.collapsed .toggle-btn::before{content:'▶ 설정 펼치기';}
-  .config-toggle:not(.collapsed) .toggle-btn::before{content:'▲ 접기';}
+
 
   .cum-bar-wrap{margin-top:14px;}
   .cum-bar-label{display:flex;justify-content:space-between;font-size:0.78rem;color:var(--ink-soft);margin-bottom:4px;}
@@ -151,7 +150,7 @@
   <div class="card" id="config-toggle">
     <div class="config-toggle-row">
       <h2>설정</h2>
-      <button class="toggle-btn" id="config-toggle-btn"></button>
+      <button class="toggle-btn" id="config-toggle-btn" style="background:none;border:1px solid var(--line);color:var(--ink-soft);font-size:0.8rem;padding:4px 12px;height:auto;border-radius:8px;cursor:pointer;">펼치기 / 접기</button>
     </div>
     <div class="config-body" id="config-body">
       <div class="row" style="margin-bottom:14px;">
