@@ -148,9 +148,9 @@
 
   <!-- 설정 카드 -->
   <div class="card" id="config-toggle">
-    <div class="config-toggle-row">
+    <div class="config-toggle-row" style="cursor:pointer;" id="config-toggle-row">
       <h2>설정</h2>
-      <button class="toggle-btn" id="config-toggle-btn" style="background:none;border:1px solid var(--line);color:var(--ink-soft);font-size:0.8rem;padding:4px 12px;height:auto;border-radius:8px;cursor:pointer;">펼치기 / 접기</button>
+      <span id="config-toggle-btn" style="color:var(--ink-soft);font-size:0.85rem;cursor:pointer;">▲</span>
     </div>
     <div class="config-body" id="config-body">
       <div class="row" style="margin-bottom:14px;">
@@ -198,8 +198,6 @@
     <p class="bar-caption" id="bar-caption">입사일을 먼저 등록해 주세요.</p>
 
     <div class="cum-bar-wrap">
-      <div class="cum-bar-label"><span>누적 부여</span><span id="cum-granted-label">—</span></div>
-      <div class="cum-bar-outer"><div class="cum-bar-inner" id="cum-granted-bar" style="width:0%;background:var(--sage-tint)"></div></div>
       <div class="cum-bar-label"><span>누적 사용</span><span id="cum-used-label">—</span></div>
       <div class="cum-bar-outer"><div class="cum-bar-inner" id="cum-used-bar" style="width:0%;background:var(--sage)"></div></div>
     </div>
@@ -440,9 +438,7 @@ function render(){
     $('bar-caption').textContent='입사일을 먼저 등록해 주세요.';
   }
 
-  $('cum-granted-label').textContent=fmtNum(calc.totalGranted)+'일';
-  $('cum-used-label').textContent=fmtNum(calc.totalUsed)+'일';
-  $('cum-granted-bar').style.width=calc.totalGranted>0?'100%':'0%';
+  $('cum-used-label').textContent=calc.totalGranted>0?fmtNum(calc.totalUsed)+' / '+fmtNum(calc.totalGranted)+'일':'—';
   const usedPct=calc.totalGranted>0?Math.min(100,(calc.totalUsed/calc.totalGranted)*100):0;
   $('cum-used-bar').style.width=usedPct+'%';
 
@@ -530,10 +526,8 @@ $('save-start').onclick=async()=>{
   render();
 };
 
-$('config-toggle-btn').onclick=()=>{
-  configCollapsed=!configCollapsed;
-  updateCollapseUI();
-};
+$('config-toggle-btn').onclick=()=>{configCollapsed=!configCollapsed;updateCollapseUI();};
+$('config-toggle-row').onclick=()=>{configCollapsed=!configCollapsed;updateCollapseUI();};
 
 $('save-password').onclick=async()=>{
   const pw=$('reset-password').value;
