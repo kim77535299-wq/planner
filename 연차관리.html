@@ -363,31 +363,41 @@ function computeLeave(startDate, today, firstYearOverride, records){
   if(!startDate) return {currentGranted:0,currentUsed:0,currentRemain:0,totalGranted:0,totalUsed:0};
 
   const todayD=new Date(today);
-  const currentYear=todayD.getFullYear();
-
-  // 현재 연도 부여 (최근 1년 기준: 작년 입사기념일 ~ 올해 입사기념일)
-  const currentGranted=annualGranted(startDate, currentYear, firstYearOverride);
-
-  // 현재 연도 사용
   const s=new Date(startDate);
-  const periodStart=new Date(currentYear-1, s.getMonth(), s.getDate());
-  const periodEnd=new Date(currentYear, s.getMonth(), s.getDate());
 
-  const currentUsed=records
+  // 현재 연차년도 계산 (입사기념일 기준)
+  // 예: 입사 2023-08-01 → 4년차 시작일 = 2026-08-01
+  let anniversaryYear = todayD.getFullYear();
+  const thisYearAnniv = new Date(anniversaryYear, s.getMonth(), s.getDate());
+  // 오늘이 올해 기념일 이전이면 작년 기념일이 현재 연차기간 시작
+  if(todayD < thisYearAnniv) anniversaryYear--;
+
+  const periodStart = new Date(anniversaryYear, s.getMonth(), s.getDate());
+  const periodEnd = new Date(anniversaryYear+1, s.getMonth(), s.getDate());
+
+  // 현재 연차년도 차수 (1년차=0, 2년차=1, ...)
+  const yearsOfService = anniversaryYear - s.getFullYear();
+
+  // 현재 부여 연차
+  const currentGranted = annualGranted(startDate, anniversaryYear + s.getFullYear() - s.getFullYear(), firstYearOverride);
+
+  // 현재 연차기간 사용
+  const currentUsed = records
     .filter(r=>{const d=new Date(r.date);return d>=periodStart&&d<periodEnd;})
     .reduce((sum,r)=>sum+(r.type==='half'?0.5:1),0);
 
-  const currentRemain=Math.max(0, currentGranted-currentUsed);
+  const currentRemain = Math.max(0, currentGranted - currentUsed);
 
   // 누적
-  const startYear=s.getFullYear();
-  let totalGranted=0;
-  for(let y=startYear;y<=currentYear;y++){
-    totalGranted+=annualGranted(startDate,y,firstYearOverride);
+  const startYear = s.getFullYear();
+  const currentCalYear = todayD.getFullYear();
+  let totalGranted = 0;
+  for(let y=startYear; y<=anniversaryYear+1; y++){
+    totalGranted += annualGranted(startDate, y, firstYearOverride);
   }
-  const totalUsed=records.reduce((sum,r)=>sum+(r.type==='half'?0.5:1),0);
+  const totalUsed = records.reduce((sum,r)=>sum+(r.type==='half'?0.5:1),0);
 
-  return{currentGranted,currentUsed,currentRemain,totalGranted,totalUsed};
+  return{currentGranted,currentUsed,currentRemain,totalGranted,totalUsed,periodStart,periodEnd,yearsOfService};
 }
 
 // ---- 상태 ----
@@ -422,9 +432,13 @@ function render(){
 
   const pct=calc.currentGranted>0?Math.min(100,Math.max(0,(calc.currentUsed/calc.currentGranted)*100)):0;
   $('bar-inner').style.width=pct+'%';
-  $('bar-caption').textContent=calc.currentGranted>0
-    ?fmtNum(calc.currentUsed)+' / '+fmtNum(calc.currentGranted)+'일 사용 (최근 1년)'
-    :'입사일을 먼저 등록해 주세요.';
+  if(calc.currentGranted>0 && calc.periodStart){
+    const ps=calc.periodStart.toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'});
+    const pe=calc.periodEnd.toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'});
+    $('bar-caption').textContent=fmtNum(calc.currentUsed)+' / '+fmtNum(calc.currentGranted)+'일 사용 ('+ps+' ~ '+pe+')';
+  } else {
+    $('bar-caption').textContent='입사일을 먼저 등록해 주세요.';
+  }
 
   $('cum-granted-label').textContent=fmtNum(calc.totalGranted)+'일';
   $('cum-used-label').textContent=fmtNum(calc.totalUsed)+'일';
