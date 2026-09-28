@@ -774,6 +774,31 @@
   const OLD_URL = 'https://oayfqapsnsaetnfocqga.supabase.co';
   const OLD_KEY = 'sb_publishable_5KKTbArswzgMK3g0igPPBw_bdyF32ZU';
 
+  // 예전 앱은 저장할 때마다 이 기기 브라우저에도 'leave_backup'으로 사본을 남겼어요
+  function readLocalBackup(){
+    try {
+      const raw = localStorage.getItem('leave_backup');
+      if(!raw) return null;
+      const p = JSON.parse(raw);
+      if(p && ((p.records && p.records.length) || (p.config && p.config.startDate))) return p;
+    } catch(e){}
+    return null;
+  }
+
+  async function applyBackup(p, auto){
+    const n = (p.records || []).length;
+    if(!auto){
+      if(!confirm('이 기기에 남아 있는 예전 백업(사용 내역 ' + n + '건)으로 현재 데이터를 덮어씁니다. 계속할까요?')) return;
+    }
+    config = Object.assign({ startDate: null, firstYearOverride: null, resetPassword: null }, p.config || {});
+    records = p.records || [];
+    await saveConfig();
+    await saveRecords();
+    configCollapsed = !!config.startDate;
+    render();
+    $('sync-status').textContent = '이 기기의 예전 백업에서 ' + n + '건을 불러왔어요.';
+  }
+
   async function loadFromOldStore(auto){
     try {
       const res = await fetch(OLD_URL + '/rest/v1/leave_state?id=eq.main&select=*&apikey=' + OLD_KEY, {
@@ -782,6 +807,8 @@
       if(!res.ok) throw new Error('HTTP ' + res.status);
       const rows = await res.json();
       if(!rows || rows.length === 0){
+        const bk = readLocalBackup();
+        if(bk){ await applyBackup(bk, auto); return; }
         if(!auto) $('sync-status').textContent = '예전 저장소에 데이터가 없어요.';
         return;
       }
@@ -800,15 +827,43 @@
       $('sync-status').textContent = '예전 데이터 ' + oldRecords.length + '건을 불러왔어요.';
     } catch(e){
       console.error('예전 저장소 불러오기 실패', e);
-      if(!auto) $('sync-status').textContent = '불러오기에 실패했어요. 인터넷 연결을 확인하고 다시 눌러줘.';
+      const bk = readLocalBackup();
+      if(bk){ await applyBackup(bk, auto); return; }
+      if(!auto) $('sync-status').textContent = '예전 저장소에 연결이 안 되고, 이 기기에도 남은 백업이 없어요.';
     }
   }
 
   $('old-load-btn').onclick = () => loadFromOldStore(false);
 
-  loadData().then(() => {
-    // 이 기기에 저장된 데이터가 하나도 없을 때만 자동으로 예전 데이터를 시도
-    if(!config.startDate && records.length === 0){ loadFromOldStore(true); }
+  // 예전 기록(이미지 자료 기준)을 처음 한 번만 채워 넣기
+  const SEED_FLAG = 'leave-seeded-v1';
+  const SEED = [["2023-08-17","full"],["2023-08-18","full"],["2023-08-21","full"],["2023-11-02","half"],["2023-11-23","half"],["2023-12-01","full"],["2023-12-18","full"],["2024-01-10","half"],["2024-02-29","full"],["2024-03-12","half"],["2024-04-18","half"],["2024-05-31","full"],["2024-06-07","full"],["2024-06-18","full"],["2024-07-15","full"],["2024-08-19","half"],["2024-08-20","full"],["2024-08-22","full"],["2024-09-03","half"],["2024-09-12","half"],["2024-10-31","full"],["2024-11-01","full"],["2024-11-04","full"],["2024-11-22","full"],["2024-12-05","full"],["2024-12-06","full"],["2025-02-19","full"],["2025-03-10","full"],["2025-03-28","full"],["2025-05-13","half"],["2025-05-23","half"],["2025-07-24","full"],["2025-07-25","full"],["2025-07-28","half"],["2025-07-29","half"],["2025-08-29","full"],["2025-09-26","full"],["2025-10-10","full"],["2025-11-28","full"],["2025-12-26","full"],["2026-01-16","full"],["2026-02-26","full"],["2026-03-12","half"],["2026-03-27","half"],["2026-05-04","half"],["2026-05-13","half"],["2026-07-02","half"],["2026-07-24","half"],["2026-08-07","half"],["2026-08-14","full"],["2026-09-23","half"]];
+
+  async function seedOnce(){
+    let done = false;
+    try { done = !!localStorage.getItem(SEED_FLAG); } catch(e){}
+    if(done) return false;
+    const have = new Set(records.map(r => r.date + '|' + r.type));
+    SEED.forEach((s, i) => {
+      if(!have.has(s[0] + '|' + s[1])){
+        records.push({ id: 'seed-' + i, date: s[0], type: s[1] });
+      }
+    });
+    config.startDate = '2023-08-01';
+    config.firstYearOverride = 11;
+    await saveConfig();
+    await saveRecords();
+    try { localStorage.setItem(SEED_FLAG, '1'); } catch(e){}
+    configCollapsed = true;
+    render();
+    $('sync-status').textContent = '예전 연차 기록 ' + SEED.length + '건을 채워 넣었어요.';
+    return true;
+  }
+
+  loadData().then(async () => {
+    const seeded = await seedOnce();
+    // 채워 넣을 게 없고 데이터도 비어 있을 때만 예전 저장소 시도
+    if(!seeded && !config.startDate && records.length === 0){ loadFromOldStore(true); }
   });
 })();
 </script>
