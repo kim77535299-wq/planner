@@ -274,6 +274,9 @@
   }
   .collapse-btn.collapsed{ transform: rotate(-90deg); }
   .config-body.collapsed{ display:none; }
+  .card-head-row.tight{ margin-bottom: 0; }
+  .sync-buttons{ margin-top: 14px; row-gap: 10px; }
+  #sync-box{ margin-top: 16px; }
 
   .hint{
     font-size: 0.74rem;
@@ -350,7 +353,7 @@
       <h2>입사일 설정</h2>
       <button type="button" class="collapse-btn" id="config-toggle" aria-label="접기/펼치기">▼</button>
     </div>
-    <div id="config-body">
+    <div id="config-body" class="config-body">
       <div class="row">
         <div class="field">
           <label for="start-date">입사일</label>
@@ -394,6 +397,40 @@
   </div>
 
   <div class="card">
+    <div class="card-head-row tight">
+      <h2>초기화 잠금</h2>
+      <button type="button" class="collapse-btn collapsed" id="lock-toggle" aria-label="접기/펼치기">▼</button>
+    </div>
+    <div id="lock-body" class="config-body collapsed">
+      <div class="row">
+        <div class="field" style="flex:1 1 100%;">
+          <label for="reset-password">전체 초기화 비밀번호</label>
+          <input type="password" id="reset-password" placeholder="설정하면 초기화할 때 비밀번호를 입력해야 해요">
+        </div>
+        <button class="btn-ghost" id="save-password">저장</button>
+      </div>
+      <div class="hint" id="password-status"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head-row tight">
+      <h2>PC ↔ 폰 동기화 (내보내기 / 가져오기)</h2>
+      <button type="button" class="collapse-btn collapsed" id="sync-toggle" aria-label="접기/펼치기">▼</button>
+    </div>
+    <div id="sync-body" class="config-body collapsed">
+      <div class="hint">이 앱은 기기(브라우저)마다 따로 저장돼. 다른 기기와 맞추려면, 데이터가 있는 쪽에서 "내보내기"로 코드를 복사한 다음, 다른 쪽에서 붙여넣고 "가져오기"를 눌러줘.</div>
+      <div class="row sync-buttons">
+        <button class="btn-primary" id="export-btn">내보내기 (복사)</button>
+        <button class="btn-ghost" id="import-btn">가져오기</button>
+        <button class="btn-ghost" id="old-load-btn">예전 저장소에서 불러오기</button>
+      </div>
+      <textarea id="sync-box" placeholder="여기에 내보낸 코드가 표시돼요. 다른 기기에서 가져올 땐 여기에 붙여넣고 '가져오기'를 눌러주세요."></textarea>
+      <div class="sync-status" id="sync-status"></div>
+    </div>
+  </div>
+
+  <div class="card">
     <h2>연차 사용 등록</h2>
     <div class="row">
       <div class="field">
@@ -409,30 +446,6 @@
       </div>
       <button class="btn-primary" id="add-record">추가</button>
     </div>
-  </div>
-
-  <div class="card">
-    <h2>초기화 잠금</h2>
-    <div class="row">
-      <div class="field" style="flex:1 1 100%;">
-        <label for="reset-password">전체 초기화 비밀번호</label>
-        <input type="password" id="reset-password" placeholder="설정하면 초기화할 때 비밀번호를 입력해야 해요">
-      </div>
-      <button class="btn-ghost" id="save-password">저장</button>
-    </div>
-    <div class="hint" id="password-status"></div>
-  </div>
-
-  <div class="card">
-    <h2>PC ↔ 폰 동기화 (내보내기 / 가져오기)</h2>
-    <div class="hint">이 앱은 기기(브라우저)마다 따로 저장돼. 다른 기기와 맞추려면, 데이터가 있는 쪽에서 "내보내기"로 코드를 복사한 다음, 다른 쪽에서 붙여넣고 "가져오기"를 눌러줘.</div>
-    <div class="row" style="margin-top:12px;">
-      <button class="btn-primary" id="export-btn">내보내기 (복사)</button>
-      <button class="btn-ghost" id="import-btn">가져오기</button>
-      <button class="btn-ghost" id="old-load-btn">예전 저장소에서 불러오기</button>
-    </div>
-    <textarea id="sync-box" placeholder="여기에 내보낸 코드가 표시돼요. 다른 기기에서 가져올 땐 여기에 붙여넣고 '가져오기'를 눌러주세요."></textarea>
-    <div class="sync-status" id="sync-status"></div>
   </div>
 
   <div class="section-title">사용 내역</div>
@@ -553,6 +566,7 @@
   function updateCollapseUI(){
     $('config-body').classList.toggle('collapsed', configCollapsed);
     $('config-toggle').classList.toggle('collapsed', configCollapsed);
+    $('config-toggle').parentElement.classList.toggle('tight', configCollapsed);
   }
 
   function render(){
@@ -735,6 +749,20 @@
     configCollapsed = false;
     render();
   };
+
+  function bindCollapse(toggleId, bodyId, startCollapsed){
+    const t = $(toggleId), b = $(bodyId), head = t.parentElement;
+    let c = startCollapsed;
+    const apply = () => {
+      b.classList.toggle('collapsed', c);
+      t.classList.toggle('collapsed', c);
+      head.classList.toggle('tight', c);
+    };
+    t.onclick = () => { c = !c; apply(); };
+    apply();
+  }
+  bindCollapse('lock-toggle', 'lock-body', true);
+  bindCollapse('sync-toggle', 'sync-body', true);
 
   $('export-btn').onclick = async () => {
     const payload = JSON.stringify({ config, records });
