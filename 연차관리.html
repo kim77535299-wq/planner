@@ -429,6 +429,7 @@
     <div class="row" style="margin-top:12px;">
       <button class="btn-primary" id="export-btn">내보내기 (복사)</button>
       <button class="btn-ghost" id="import-btn">가져오기</button>
+      <button class="btn-ghost" id="old-load-btn">예전 저장소에서 불러오기</button>
     </div>
     <textarea id="sync-box" placeholder="여기에 내보낸 코드가 표시돼요. 다른 기기에서 가져올 땐 여기에 붙여넣고 '가져오기'를 눌러주세요."></textarea>
     <div class="sync-status" id="sync-status"></div>
@@ -769,7 +770,46 @@
     }
   };
 
-  loadData();
+  // 예전 버전(온라인 저장소)에 저장돼 있던 데이터를 읽어오기 (읽기 전용, 예전 데이터는 건드리지 않음)
+  const OLD_URL = 'https://oayfqapsnsaetnfocqga.supabase.co';
+  const OLD_KEY = 'sb_publishable_5KKTbArswzgMK3g0igPPBw_bdyF32ZU';
+
+  async function loadFromOldStore(auto){
+    try {
+      const res = await fetch(OLD_URL + '/rest/v1/leave_state?id=eq.main&select=*&apikey=' + OLD_KEY, {
+        headers: { 'apikey': OLD_KEY, 'Authorization': 'Bearer ' + OLD_KEY }
+      });
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      const rows = await res.json();
+      if(!rows || rows.length === 0){
+        if(!auto) $('sync-status').textContent = '예전 저장소에 데이터가 없어요.';
+        return;
+      }
+      const row = rows[0];
+      const oldRecords = row.records || [];
+      const oldConfig = row.config || {};
+      if(!auto){
+        if(!confirm('예전 저장소의 데이터(사용 내역 ' + oldRecords.length + '건)로 현재 데이터를 덮어씁니다. 계속할까요?')) return;
+      }
+      config = Object.assign({ startDate: null, firstYearOverride: null, resetPassword: null }, oldConfig);
+      records = oldRecords;
+      await saveConfig();
+      await saveRecords();
+      configCollapsed = !!config.startDate;
+      render();
+      $('sync-status').textContent = '예전 데이터 ' + oldRecords.length + '건을 불러왔어요.';
+    } catch(e){
+      console.error('예전 저장소 불러오기 실패', e);
+      if(!auto) $('sync-status').textContent = '불러오기에 실패했어요. 인터넷 연결을 확인하고 다시 눌러줘.';
+    }
+  }
+
+  $('old-load-btn').onclick = () => loadFromOldStore(false);
+
+  loadData().then(() => {
+    // 이 기기에 저장된 데이터가 하나도 없을 때만 자동으로 예전 데이터를 시도
+    if(!config.startDate && records.length === 0){ loadFromOldStore(true); }
+  });
 })();
 </script>
 </body>
