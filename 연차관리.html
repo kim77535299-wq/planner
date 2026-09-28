@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>연차 관리</title>
-<link rel="apple-touch-icon" href="icon-leave.png">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAD5ElEQVR4nO3czXnTQBSGUcFDAbRAdtQB7VABLOkAyqGW1EAHsCEPxtiJfkbSnW/O2SeR5r4ay4mcV+8+fP41QYjXZx8AtCRoogiaKIImiqCJImiiCJoogiaKoIkiaKIImiiCJoqgiSJoogiaKIImiqCJImiiCJoogiaKoIkiaKIImiiCJoqgiSJoogiaKIImiqCJImiiCJoogiaKoIkiaKIImiiCJoqgiSJoogiaKIImiqCJImiiCJoogiaKoIny5uwDWOrx289VX/fw6W3z71nRHuf53Pespougk4Lr0eX6V4+7/C2HmGupPo/SQVdfvFFVnkvZoCsvGnXnUzLoqovFvyrOqVzQFReJ+6rNq1TQ1RaHeSrNrVTQsJWgiVIm6EovWyxXZX5lgt7bvQWvMohWRjnPe4YJepr+H2rqkEc5z1u6eJajpVGGO8p5XhtqhyafoIkiaKIImiiCJoqgiSJoogiaKIImiqCJImiiCJoogiZKnaft3n8/+wjY7MvZB2CHJougiSJoogiaKIImiqCJImiiCJoogiaKoIkiaKIIOsTDx/Ofo6hA0AGeYha1oLt3HfHoUQs60MhRC7pjz4X78PHLkGELulNzYx0takF3aGmkI0Ut6M6sifPxx9cdjqQmQXdEzC8TNFEE3Qm78zyC7oCY5xN0cWJeRtCFiXk5QRcl5nUETRRBF2R3Xk/QxYh5G0EXIubtBF2EmNsQdKfEfJugCxjp8c69CfqGIwNzq9GWoK8c+QlqMbcn6AtHfoJazPsQ9B/3AtsjajHvR9AznP2mTczzCXqaF2yrqM++ONINH/SSwLbG6FZjf0MHvSawtVGL+RhDB702mCP+L4aY1xk66GnaP2oxH2v4oKdpW9Te5NUi6D+27Iotf4dtd95G0BdaRi3mcwj6SouoxXweQd+wx+3HXj+Pfwn6jqMiE3Nbgn7G44+vguuMoGfYK2oXS3uCnql1fGLeh6AXaBWhmPcj6IW2xijmfQl6hbVRinl/gl5JnDUJeoMlUbsAjiHojeaEKubjCLqBp2Cvw/WHmeO9OfsAUtyLmmPZoYkiaKIImiiCJkqZoH3YtG9V5lcmaGhB0EQpFXSVly2WqTS3UkFPU63F4WXV5lUuaNiiZNDVrnpuqzinkkFPU83F4q+q83n17sPnX2cfxEs88FNH1ZCflN2hL1VfxFH0MIcuduhrduzj9BDxpS6Dhnu6uOWAuQRNFEETRdBEETRRBE0UQRNF0EQRNFEETRRBE0XQRBE0UQRNFEETRdBEETRRBE0UQRNF0EQRNFEETRRBE0XQRBE0UQRNFEETRdBEETRRBE2U3zCHDwRy66b2AAAAAElFTkSuQmCC">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAAD5ElEQVR4nO3czXnTQBSGUcFDAbRAdtQB7VABLOkAyqGW1EAHsCEPxtiJfkbSnW/O2SeR5r4ay4mcV+8+fP41QYjXZx8AtCRoogiaKIImiqCJImiiCJoogiaKoIkiaKIImiiCJoqgiSJoogiaKIImiqCJImiiCJoogiaKoIkiaKIImiiCJoqgiSJoogiaKIImiqCJImiiCJoogiaKoIkiaKIImiiCJoqgiSJoogiaKIImiqCJImiiCJoogiaKoIny5uwDWOrx289VX/fw6W3z71nRHuf53Pespougk4Lr0eX6V4+7/C2HmGupPo/SQVdfvFFVnkvZoCsvGnXnUzLoqovFvyrOqVzQFReJ+6rNq1TQ1RaHeSrNrVTQsJWgiVIm6EovWyxXZX5lgt7bvQWvMohWRjnPe4YJepr+H2rqkEc5z1u6eJajpVGGO8p5XhtqhyafoIkiaKIImiiCJoqgiSJoogiaKIImiqCJImiiCJoogiZKnaft3n8/+wjY7MvZB2CHJougiSJoogiaKIImiqCJImiiCJoogiaKoIkiaKIIOsTDx/Ofo6hA0AGeYha1oLt3HfHoUQs60MhRC7pjz4X78PHLkGELulNzYx0takF3aGmkI0Ut6M6sifPxx9cdjqQmQXdEzC8TNFEE3Qm78zyC7oCY5xN0cWJeRtCFiXk5QRcl5nUETRRBF2R3Xk/QxYh5G0EXIubtBF2EmNsQdKfEfJugCxjp8c69CfqGIwNzq9GWoK8c+QlqMbcn6AtHfoJazPsQ9B/3AtsjajHvR9AznP2mTczzCXqaF2yrqM++ONINH/SSwLbG6FZjf0MHvSawtVGL+RhDB702mCP+L4aY1xk66GnaP2oxH2v4oKdpW9Te5NUi6D+27Iotf4dtd95G0BdaRi3mcwj6SouoxXweQd+wx+3HXj+Pfwn6jqMiE3Nbgn7G44+vguuMoGfYK2oXS3uCnql1fGLeh6AXaBWhmPcj6IW2xijmfQl6hbVRinl/gl5JnDUJeoMlUbsAjiHojeaEKubjCLqBp2Cvw/WHmeO9OfsAUtyLmmPZoYkiaKIImiiCJkqZoH3YtG9V5lcmaGhB0EQpFXSVly2WqTS3UkFPU63F4WXV5lUuaNiiZNDVrnpuqzinkkFPU83F4q+q83n17sPnX2cfxEs88FNH1ZCflN2hL1VfxFH0MIcuduhrduzj9BDxpS6Dhnu6uOWAuQRNFEETRdBEETRRBE0UQRNF0EQRNFEETRRBE0XQRBE0UQRNFEETRdBEETRRBE0UQRNF0EQRNFEETRRBE0XQRBE0UQRNFEETRdBEETRRBE2U3zCHDwRy66b2AAAAAElFTkSuQmCC">
 <style>
   :root{
     --bg: #F7F9FC;
@@ -32,585 +33,744 @@
     color: var(--ink);
     font-family: 'Pretendard Variable', Pretendard, -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif;
     line-height:1.5;
-    padding: 0 0 80px;
+    padding: 32px 16px 80px;
   }
-
-  .sync-bar{
-    display:flex;align-items:center;gap:8px;padding:6px 16px;
-    background:#fff;border-bottom:1px solid var(--line);
-    font-size:11.5px;color:var(--ink-soft);
-  }
-  .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--ink-soft);flex-shrink:0;transition:background .3s;}
-  .sync-dot.ok{background:#2ecc71;}
-  .sync-dot.err{background:#C73E3E;}
-  .sync-dot.loading{background:#E89B2B;animation:pulse 1s infinite;}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-  .sync-msg{flex:1;}
-  .sync-retry{background:none;border:1px solid var(--line);color:var(--sage);font-family:inherit;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;cursor:pointer;}
-
-  .wrap{ max-width: 720px; margin: 0 auto; padding: 24px 16px; }
+  .wrap{ max-width: 720px; margin: 0 auto; }
   .masthead{
-    display:flex;align-items:baseline;justify-content:space-between;
-    margin-bottom: 20px;padding: 20px 22px;
-    background: var(--sage);border-radius: var(--radius);
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom: 20px;
+    padding: 20px 22px;
+    background: var(--sage);
+    border-radius: var(--radius);
   }
-  .masthead h1{font-size:1.5rem;font-weight:800;margin:0;letter-spacing:-0.02em;color:#fff;}
-  .masthead span{font-size:0.8rem;color:var(--blue-soft);}
-
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
-  .card h2{font-size:0.95rem;font-weight:700;margin:0 0 14px;color:var(--sage-deep);}
-
-  .row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;}
-  .field{display:flex;flex-direction:column;gap:6px;flex:1 1 140px;}
-  .field label{font-size:0.78rem;color:var(--ink-soft);line-height:1;}
-  input[type="date"],select{
-    border:1px solid var(--line);border-radius:8px;padding:0 10px;
-    height:40px;line-height:38px;font-size:0.92rem;background:#fff;
-    color:var(--ink);font-family:inherit;box-sizing:border-box;
-    -webkit-appearance:none;appearance:none;display:block;width:100%;
+  .masthead h1{
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.02em;
+    color: #fff;
   }
-  input[type="date"]:focus,select:focus{outline:2px solid var(--sage);outline-offset:1px;}
-  button{font-family:inherit;font-size:0.88rem;font-weight:600;border-radius:8px;border:none;padding:0 16px;height:40px;cursor:pointer;}
-  .btn-primary{background:var(--sage-deep);color:#fff;}
-  .btn-primary:hover{background:var(--sage);}
-  .btn-ghost{background:transparent;color:var(--ink-soft);border:1px solid var(--line);}
-  .btn-ghost:hover{border-color:var(--ink-soft);}
-  .btn-danger-text{background:none;color:var(--danger);padding:4px 8px;font-size:0.82rem;}
+  .masthead span{
+    font-size: 0.8rem;
+    color: var(--blue-soft);
+  }
 
-  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
-  .stat{background:var(--sage-tint);border-radius:10px;padding:14px 12px;text-align:center;}
-  .stat .num{font-size:1.7rem;font-weight:700;color:var(--sage-deep);line-height:1.1;}
-  .stat .lbl{font-size:0.74rem;color:var(--ink-soft);margin-top:4px;}
-  .stat.warn{background:var(--sage);}
-  .stat.warn .num{color:var(--gold);}
-  .stat.warn .lbl{color:var(--blue-soft);}
+  .card{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .card h2{
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0 0 14px;
+    color: var(--sage-deep);
+  }
 
-  .bar-outer{height:8px;background:var(--sage-tint);border-radius:99px;margin-top:16px;overflow:hidden;}
-  .bar-inner{height:100%;background:var(--sage);transition:width 0.3s ease;}
-  .bar-caption{font-size:0.76rem;color:var(--ink-soft);margin-top:6px;}
+  .row{
+    display:flex;
+    gap: 10px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+  }
+  .field{ display:flex; flex-direction:column; gap:6px; flex: 1 1 140px; }
+  .field label{ font-size: 0.78rem; color: var(--ink-soft); line-height:1; }
+  input[type="date"], select{
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0 10px;
+    height: 40px;
+    line-height: 38px;
+    font-size: 0.92rem;
+    background: #fff;
+    color: var(--ink);
+    font-family: inherit;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    appearance: none;
+    display: block;
+    width: 100%;
+  }
+  input[type="date"]:focus, select:focus{
+    outline: 2px solid var(--sage);
+    outline-offset: 1px;
+  }
+  button{
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    padding: 0 16px;
+    height: 40px;
+    cursor: pointer;
+  }
+  .btn-primary{ background: var(--sage-deep); color: #fff; }
+  .btn-primary:hover{ background: var(--sage); }
+  .btn-ghost{ background: transparent; color: var(--ink-soft); border: 1px solid var(--line); }
+  .btn-ghost:hover{ border-color: var(--ink-soft); }
+  .btn-danger-text{ background:none; color: var(--danger); padding: 4px 8px; font-size: 0.82rem; }
 
-  .service-line{font-size:0.86rem;color:var(--ink-soft);margin-bottom:4px;}
-  .service-line b{color:var(--ink);}
+  .stats{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .stat{
+    background: var(--sage-tint);
+    border-radius: 10px;
+    padding: 14px 12px;
+    text-align:center;
+  }
+  .stat .num{
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--sage-deep);
+    line-height:1.1;
+  }
+  .stat .lbl{
+    font-size: 0.74rem;
+    color: var(--ink-soft);
+    margin-top: 4px;
+  }
+  .stat.warn{ background: var(--sage); }
+  .stat.warn .num{ color: var(--gold); }
+  .stat.warn .lbl{ color: var(--blue-soft); }
 
-  .type-toggle{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;width:100%;flex:none;height:40px;box-sizing:border-box;}
-  .type-toggle button{flex:1;height:100%;line-height:40px;border-radius:0;background:#fff;color:var(--ink-soft);font-weight:600;padding:0 6px;}
-  .type-toggle button.active{background:var(--sage-deep);color:#fff;}
+  .bar-outer{
+    height: 8px;
+    background: var(--sage-tint);
+    border-radius: 99px;
+    margin-top: 16px;
+    overflow: hidden;
+  }
+  .bar-inner{
+    height: 100%;
+    background: var(--sage);
+    transition: width 0.3s ease;
+  }
+  .bar-caption{
+    font-size: 0.76rem;
+    color: var(--ink-soft);
+    margin-top: 6px;
+  }
 
-  ul.history{list-style:none;margin:0;padding:0;}
-  ul.history li{display:flex;align-items:center;justify-content:space-between;padding:10px 4px;border-bottom:1px solid var(--line);font-size:0.9rem;}
-  ul.history li:last-child{border-bottom:none;}
-  .h-left{display:flex;align-items:center;gap:10px;}
-  .tag{font-size:0.72rem;font-weight:700;padding:3px 8px;border-radius:99px;}
-  .tag.full{background:var(--sage-tint);color:var(--sage-deep);}
-  .tag.half{background:var(--gold-tint);color:#8A6D00;}
-  .empty{color:var(--ink-soft);font-size:0.86rem;text-align:center;padding:20px 0;}
-  .foot-actions{display:flex;justify-content:flex-end;margin-top:8px;}
+  .service-line{
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+  .service-line b{ color: var(--ink); }
 
-  .note{font-size:0.74rem;color:var(--ink-soft);margin-top:10px;line-height:1.6;}
-  .note b{color:var(--ink);}
+  .type-toggle{
+    display:flex;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow:hidden;
+    width: 100%;
+    flex: none;
+    height: 40px;
+    box-sizing: border-box;
+  }
+  .type-toggle button{
+    flex:1;
+    height: 100%;
+    line-height: 40px;
+    border-radius:0;
+    background: #fff;
+    color: var(--ink-soft);
+    font-weight:600;
+    padding: 0 6px;
+  }
+  .type-toggle button.active{
+    background: var(--sage-deep);
+    color: #fff;
+  }
 
-  .config-body.collapsed{display:none;}
-  .config-toggle-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
-  .config-toggle-row h2{margin:0;}
-  .toggle-btn{background:none;border:none;color:var(--ink-soft);font-size:0.8rem;padding:0;height:auto;cursor:pointer;}
+  ul.history{ list-style:none; margin:0; padding:0; }
+  ul.history li{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 10px 4px;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.9rem;
+  }
+  ul.history li:last-child{ border-bottom:none; }
+  .h-left{ display:flex; align-items:center; gap:10px; }
+  .tag{
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 99px;
+  }
+  .tag.full{ background: var(--sage-tint); color: var(--sage-deep); }
+  .tag.half{ background: var(--gold-tint); color: #8A6D00; }
+  .empty{
+    color: var(--ink-soft);
+    font-size: 0.86rem;
+    text-align:center;
+    padding: 20px 0;
+  }
+  .foot-actions{
+    display:flex;
+    justify-content:flex-end;
+    margin-top: 8px;
+  }
+  .note{
+    font-size: 0.74rem;
+    color: var(--ink-soft);
+    margin-top: 10px;
+    line-height:1.5;
+  }
+  .loading{ font-size:0.85rem; color:var(--ink-soft); }
 
+  .section-title{
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--sage-deep);
+    margin: 4px 4px 10px;
+  }
+  .year-card-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom: 8px;
+  }
+  .year-card-head .year-label{
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--sage-deep);
+  }
+  .year-card-head .year-count{
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
 
-  .cum-bar-wrap{margin-top:14px;}
-  .cum-bar-label{display:flex;justify-content:space-between;font-size:0.78rem;color:var(--ink-soft);margin-bottom:4px;}
-  .cum-bar-outer{height:8px;background:var(--sage-tint);border-radius:99px;overflow:hidden;margin-bottom:6px;}
-  .cum-bar-inner{height:100%;border-radius:99px;}
+  .card-head-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom: 14px;
+  }
+  .card-head-row h2{ margin:0; }
+  .collapse-btn{
+    background: transparent;
+    border: none;
+    padding: 0;
+    height: 28px;
+    width: 28px;
+    min-width: 28px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  .collapse-btn.collapsed{ transform: rotate(-90deg); }
+  .config-body.collapsed{ display:none; }
 
-  .year-card-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
-  .year-label{font-size:0.95rem;font-weight:700;color:var(--sage-deep);}
-  .year-count{font-size:0.8rem;color:var(--ink-soft);}
+  .hint{
+    font-size: 0.74rem;
+    color: var(--ink-soft);
+    margin-top: 6px;
+    line-height:1.5;
+  }
 
-  .sync-section{background:var(--sage-tint);border-radius:10px;padding:14px;margin-top:14px;}
-  .sync-section h3{font-size:0.85rem;font-weight:700;color:var(--sage-deep);margin:0 0 10px;}
-  .sync-section textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:0.75rem;font-family:monospace;resize:vertical;min-height:60px;color:var(--ink);}
-  .sync-status{font-size:0.76rem;color:var(--sage-deep);margin-top:6px;}
+  .cum-section{
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+  .cum-row{ margin-bottom: 12px; }
+  .cum-row:last-child{ margin-bottom: 0; }
+  .cum-label{
+    display:flex;
+    justify-content:space-between;
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+  .cum-label b{ color: var(--ink); font-weight:700; }
+  .cum-bar-outer{
+    height: 10px;
+    background: var(--sage-tint);
+    border-radius: 99px;
+    overflow:hidden;
+  }
+  .cum-bar-inner{
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.3s ease;
+  }
+  .cum-bar-inner.granted{ background: var(--blue-soft); }
+  .cum-bar-inner.used{ background: var(--sage); }
 
-  .password-status{font-size:0.76rem;color:var(--ink-soft);margin-top:8px;}
+  textarea{
+    width: 100%;
+    min-height: 90px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 0.82rem;
+    font-family: 'Pretendard Variable', Pretendard, monospace;
+    color: var(--ink);
+    background: var(--sage-tint);
+    resize: vertical;
+    box-sizing: border-box;
+  }
+  .sync-actions{
+    display:flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .sync-status{
+    font-size: 0.78rem;
+    color: var(--sage-deep);
+    margin-top: 8px;
+    min-height: 1.2em;
+  }
 </style>
 </head>
 <body>
-
-<div class="sync-bar">
-  <span class="sync-dot" id="syncDot"></span>
-  <span class="sync-msg" id="syncMsg">연결 중...</span>
-  <button class="sync-retry" id="syncRetry" style="display:none" onclick="loadFromSupabase()">재시도</button>
-</div>
-
 <div class="wrap">
   <div class="masthead">
-    <h1>🗓 연차 관리</h1>
-    <span id="year-label">2026년</span>
+    <h1>연차 관리</h1>
+    <span id="today-label"></span>
   </div>
 
-  <!-- 설정 카드 -->
-  <div class="card" id="config-toggle">
-    <div class="config-toggle-row" style="cursor:pointer;" id="config-toggle-row">
-      <h2>설정</h2>
-      <span id="config-toggle-btn" style="color:var(--ink-soft);font-size:0.85rem;cursor:pointer;">▲</span>
+  <div class="card" id="config-card">
+    <div class="card-head-row">
+      <h2>입사일 설정</h2>
+      <button type="button" class="collapse-btn" id="config-toggle" aria-label="접기/펼치기">▼</button>
     </div>
-    <div class="config-body" id="config-body">
-      <div class="row" style="margin-bottom:14px;">
-        <div class="field">
-          <label>입사일</label>
-          <input type="date" id="start-date">
-        </div>
-        <div class="field">
-          <label>1년차 연차 수동 입력 <span style="font-size:0.7rem">(비워두면 자동)</span></label>
-          <input type="number" id="first-year-override" min="0" max="15" step="0.5"
-            style="border:1px solid var(--line);border-radius:8px;padding:0 10px;height:40px;font-size:0.92rem;background:#fff;color:var(--ink);font-family:inherit;box-sizing:border-box;display:block;width:100%;"
-            placeholder="예: 11">
-        </div>
-        <button class="btn-primary" id="save-start" style="flex:0 0 auto;margin-top:20px;">저장</button>
-      </div>
-      <p class="service-line" id="service-line">입사일을 입력하면 근속기간과 연차가 자동 계산됩니다.</p>
-      <div class="note">
-        <b>연차 계산 방식</b><br>
-        입사 1년 미만: 매월 1일 발생 (최대 11일)<br>
-        2년차: 15일 / 3~4년차: 16일 / 5~6년차: 17일 … (2년마다 1일 추가, 최대 25일)
-      </div>
-      <hr style="border:none;border-top:1px solid var(--line);margin:14px 0;">
+    <div id="config-body">
       <div class="row">
         <div class="field">
-          <label>초기화 비밀번호 설정 (선택)</label>
-          <input type="password" id="reset-password"
-            style="border:1px solid var(--line);border-radius:8px;padding:0 10px;height:40px;font-size:0.92rem;background:#fff;color:var(--ink);font-family:inherit;box-sizing:border-box;display:block;width:100%;"
-            placeholder="비워두면 비밀번호 없이 초기화">
+          <label for="start-date">입사일</label>
+          <input type="date" id="start-date">
         </div>
-        <button class="btn-ghost" id="save-password" style="flex:0 0 auto;margin-top:20px;">저장</button>
+        <button class="btn-primary" id="save-start">저장</button>
       </div>
-      <p class="password-status" id="password-status"></p>
+      <div class="row" style="margin-top:12px;">
+        <div class="field" style="flex:1 1 100%;">
+          <label for="first-year-override">입사 첫해 실제 발생 연차 (만근 못했을 때만 입력)</label>
+          <input type="number" id="first-year-override" min="0" max="11" step="0.5" placeholder="비워두면 자동 계산(최대 11개)">
+        </div>
+      </div>
+      <div class="hint">입사 첫해에 개근 못한 달이 있어서 실제로 11개보다 적게 받았다면, 실제로 발생한 개수를 여기에 입력해줘. 비워두면 매달 개근했다고 가정하고 자동 계산돼.</div>
+      <div class="service-line" id="service-line" style="margin-top:12px;"></div>
     </div>
   </div>
 
-  <!-- 현황 카드 -->
-  <div class="card">
-    <h2>이번 연도 현황 <span style="font-weight:400;color:var(--ink-soft);font-size:0.82rem">(최근 1년 기준)</span></h2>
+  <div class="card" id="summary-card">
+    <h2>연차 현황 (최근 1년 기준)</h2>
     <div class="stats">
-      <div class="stat"><div class="num" id="stat-granted">—</div><div class="lbl">부여</div></div>
-      <div class="stat"><div class="num" id="stat-used">—</div><div class="lbl">사용</div></div>
-      <div class="stat warn"><div class="num" id="stat-remain">—</div><div class="lbl">잔여</div></div>
+      <div class="stat"><div class="num" id="stat-granted">-</div><div class="lbl">발생 연차</div></div>
+      <div class="stat"><div class="num" id="stat-used">-</div><div class="lbl">사용 연차</div></div>
+      <div class="stat warn"><div class="num" id="stat-remain">-</div><div class="lbl">잔여 연차</div></div>
     </div>
     <div class="bar-outer"><div class="bar-inner" id="bar-inner" style="width:0%"></div></div>
-    <p class="bar-caption" id="bar-caption">입사일을 먼저 등록해 주세요.</p>
+    <div class="bar-caption" id="bar-caption"></div>
 
-    <div class="cum-bar-wrap">
-      <div class="cum-bar-label"><span>누적 사용</span><span id="cum-used-label">—</span></div>
-      <div class="cum-bar-outer"><div class="cum-bar-inner" id="cum-used-bar" style="width:0%;background:var(--sage)"></div></div>
+    <div class="cum-section">
+      <div class="cum-row">
+        <div class="cum-label"><span>총 발생 개수 (입사일부터 누적)</span><b id="cum-granted-label">-</b></div>
+        <div class="cum-bar-outer"><div class="cum-bar-inner granted" id="cum-granted-bar" style="width:0%"></div></div>
+      </div>
+      <div class="cum-row">
+        <div class="cum-label"><span>총 사용 개수 (입사일부터 누적)</span><b id="cum-used-label">-</b></div>
+        <div class="cum-bar-outer"><div class="cum-bar-inner used" id="cum-used-bar" style="width:0%"></div></div>
+      </div>
     </div>
+
+    <div class="note">근로기준법 제60조 기준: 입사 1년 미만은 개근 시 매월 1일(최대 11일), 1년 이상은 15일이며 3년차부터 매 2년마다 1일 가산(최대 25일)으로 자동 계산됩니다. 위 3개 숫자는 현재 진행 중인 1년 주기 기준이고, 아래 막대그래프는 입사일부터 지금까지의 전체 누적입니다.</div>
   </div>
 
-  <!-- 사용 등록 카드 -->
   <div class="card">
     <h2>연차 사용 등록</h2>
     <div class="row">
       <div class="field">
-        <label>사용 날짜</label>
+        <label for="use-date">사용 날짜</label>
         <input type="date" id="use-date">
       </div>
       <div class="field">
         <label>구분</label>
         <div class="type-toggle">
-          <button data-type="full" class="active">연차</button>
-          <button data-type="half">반차</button>
+          <button type="button" class="active" data-type="full">연차</button>
+          <button type="button" data-type="half">반차</button>
         </div>
       </div>
-      <button class="btn-primary" id="add-record" style="flex:0 0 auto;margin-top:20px;">등록</button>
+      <button class="btn-primary" id="add-record">추가</button>
     </div>
   </div>
 
-  <!-- 사용 내역 -->
-  <div id="history-groups"></div>
-
-  <!-- 초기화 -->
-  <div class="foot-actions">
-    <button class="btn-danger-text" id="reset-all">전체 초기화</button>
-  </div>
-
-  <!-- 내보내기/가져오기 -->
-  <div class="card" style="margin-top:8px;">
-    <h2>백업 / 복원</h2>
-    <div class="sync-section">
-      <h3>데이터 내보내기 · 가져오기</h3>
-      <div class="row" style="margin-bottom:8px;">
-        <button class="btn-ghost" id="export-btn" style="flex:1;">내보내기 (코드 생성)</button>
-        <button class="btn-ghost" id="import-btn" style="flex:1;">가져오기 (코드 붙여넣기)</button>
+  <div class="card">
+    <h2>초기화 잠금</h2>
+    <div class="row">
+      <div class="field" style="flex:1 1 100%;">
+        <label for="reset-password">전체 초기화 비밀번호</label>
+        <input type="password" id="reset-password" placeholder="설정하면 초기화할 때 비밀번호를 입력해야 해요">
       </div>
-      <textarea id="sync-box" placeholder="내보내기 코드가 여기 표시됩니다 / 가져올 코드를 여기에 붙여넣으세요"></textarea>
-      <p class="sync-status" id="sync-status"></p>
+      <button class="btn-ghost" id="save-password">저장</button>
     </div>
+    <div class="hint" id="password-status"></div>
+  </div>
+
+  <div class="card">
+    <h2>PC ↔ 폰 동기화 (내보내기 / 가져오기)</h2>
+    <div class="hint">이 앱은 기기(브라우저)마다 따로 저장돼. 다른 기기와 맞추려면, 데이터가 있는 쪽에서 "내보내기"로 코드를 복사한 다음, 다른 쪽에서 붙여넣고 "가져오기"를 눌러줘.</div>
+    <div class="row" style="margin-top:12px;">
+      <button class="btn-primary" id="export-btn">내보내기 (복사)</button>
+      <button class="btn-ghost" id="import-btn">가져오기</button>
+    </div>
+    <textarea id="sync-box" placeholder="여기에 내보낸 코드가 표시돼요. 다른 기기에서 가져올 땐 여기에 붙여넣고 '가져오기'를 눌러주세요."></textarea>
+    <div class="sync-status" id="sync-status"></div>
+  </div>
+
+  <div class="section-title">사용 내역</div>
+  <div id="history-groups"></div>
+  <div class="foot-actions">
+    <button class="btn-ghost" id="reset-all">전체 초기화</button>
   </div>
 </div>
 
 <script>
-const SUPABASE_URL = 'https://oayfqapsnsaetnfocqga.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_5KKTbArswzgMK3g0igPPBw_bdyF32ZU';
-const TABLE = 'leave_state';
+(function(){
+  const CONFIG_KEY = 'leave-config';
+  const RECORDS_KEY = 'leave-records';
 
-function sbHeaders(){
-  return {'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Prefer':'return=minimal','x-client-info':'supabase-js/2.0.0'};
-}
-function setSyncStatus(state,msg){
-  const dot=document.getElementById('syncDot');
-  const msgEl=document.getElementById('syncMsg');
-  const retry=document.getElementById('syncRetry');
-  dot.className='sync-dot '+state;
-  msgEl.textContent=msg;
-  retry.style.display=state==='err'?'':'none';
-}
+  let config = { startDate: null, firstYearOverride: null, resetPassword: null };
+  let records = []; // {id, date, type: 'full'|'half'}
+  let selectedType = 'full';
+  let configCollapsed = false;
 
-async function loadFromSupabase(){
-  setSyncStatus('loading','불러오는 중...');
-  try{
-    const res=await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.main&select=*&apikey=${SUPABASE_KEY}`,{headers:sbHeaders()});
-    if(!res.ok) throw new Error('HTTP '+res.status);
-    const rows=await res.json();
-    if(rows&&rows.length>0){
-      const row=rows[0];
-      config=row.config||{startDate:null,firstYearOverride:null,resetPassword:null};
-      records=row.records||[];
-      setSyncStatus('ok','동기화됨 · '+new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}));
+  const $ = (id) => document.getElementById(id);
+
+  const todayStr = new Date().toISOString().slice(0,10);
+  $('today-label').textContent = '오늘 ' + todayStr;
+  $('use-date').value = todayStr;
+
+  function fmtNum(n){
+    return (Math.round(n*10)/10).toString();
+  }
+
+  function addYears(date, n){
+    const d = new Date(date.getTime());
+    d.setFullYear(d.getFullYear() + n);
+    return d;
+  }
+
+  // 입사일 기준 몇 번째 근속연도가 완료되었는지 (0 = 1년 미만)
+  function yearsCompleted(startDate, refDate){
+    const start = new Date(startDate + 'T00:00:00');
+    const ref = new Date(refDate + 'T00:00:00');
+    let years = ref.getFullYear() - start.getFullYear();
+    const anniv = addYears(start, years);
+    if(anniv > ref) years -= 1;
+    return Math.max(0, years);
+  }
+
+  function monthsElapsed(startDate, refDate){
+    const start = new Date(startDate + 'T00:00:00');
+    const ref = new Date(refDate + 'T00:00:00');
+    let months = (ref.getFullYear() - start.getFullYear()) * 12 + (ref.getMonth() - start.getMonth());
+    if(ref.getDate() < start.getDate()) months -= 1;
+    return Math.max(0, months);
+  }
+
+  // idx번째 근속기간(0=입사~1년, 1=1년~2년...)에 발생하는 연차 개수
+  function grantForPeriod(idx, startDate, refDate, firstYearOverride){
+    if(idx === 0){
+      if(firstYearOverride !== null && firstYearOverride !== undefined && firstYearOverride !== ''){
+        return Number(firstYearOverride);
+      }
+      const cur = yearsCompleted(startDate, refDate);
+      if(cur > 0){
+        return 11; // 첫해가 이미 지났고 별도 입력이 없으면 개근 가정
+      }
+      return Math.min(monthsElapsed(startDate, refDate), 11);
+    }
+    const bonus = Math.floor((idx - 1) / 2);
+    return Math.min(15 + bonus, 25);
+  }
+
+  function periodRange(startDate, idx){
+    const start = new Date(startDate + 'T00:00:00');
+    return { start: addYears(start, idx), end: addYears(start, idx + 1) };
+  }
+
+  function computeLeave(startDate, refDate, firstYearOverride, recordList){
+    if(!startDate){
+      return { currentIdx:0, currentGranted:0, currentUsed:0, currentRemain:0, totalGranted:0, totalUsed:0 };
+    }
+    const currentIdx = yearsCompleted(startDate, refDate);
+    const currentGranted = grantForPeriod(currentIdx, startDate, refDate, firstYearOverride);
+    const range = periodRange(startDate, currentIdx);
+    const rangeStartStr = range.start.toISOString().slice(0,10);
+    const rangeEndStr = range.end.toISOString().slice(0,10);
+
+    let currentUsed = 0;
+    let totalUsed = 0;
+    recordList.forEach(r => {
+      const w = r.type === 'half' ? 0.5 : 1;
+      totalUsed += w;
+      if(r.date >= rangeStartStr && r.date < rangeEndStr){
+        currentUsed += w;
+      }
+    });
+
+    let totalGranted = 0;
+    for(let i = 0; i <= currentIdx; i++){
+      totalGranted += grantForPeriod(i, startDate, refDate, firstYearOverride);
+    }
+
+    return {
+      currentIdx, currentGranted, currentUsed,
+      currentRemain: currentGranted - currentUsed,
+      totalGranted, totalUsed
+    };
+  }
+
+  function serviceLabel(startDate, refDate){
+    const start = new Date(startDate + 'T00:00:00');
+    const ref = new Date(refDate + 'T00:00:00');
+    let years = ref.getFullYear() - start.getFullYear();
+    let months = ref.getMonth() - start.getMonth();
+    let days = ref.getDate() - start.getDate();
+    if(days < 0){ months -= 1; }
+    if(months < 0){ years -= 1; months += 12; }
+    return years + '년 ' + months + '개월';
+  }
+
+  function updateCollapseUI(){
+    $('config-body').classList.toggle('collapsed', configCollapsed);
+    $('config-toggle').classList.toggle('collapsed', configCollapsed);
+  }
+
+  function render(){
+    if(config.startDate){
+      $('start-date').value = config.startDate;
+      $('service-line').innerHTML = '근속기간 <b>' + serviceLabel(config.startDate, todayStr) + '</b> (입사일 ' + config.startDate + ')';
     } else {
-      await saveToSupabase();
-      setSyncStatus('ok','초기화 완료');
+      $('service-line').textContent = '입사일을 입력하면 근속기간과 연차가 자동 계산됩니다.';
     }
-    configCollapsed=!!config.startDate;
-    render();
-  }catch(e){
-    console.error('로드 실패',e);
-    setSyncStatus('err','연결 실패 · 오프라인 모드');
-    loadFromLocal();
-    render();
-  }
-}
+    $('first-year-override').value = (config.firstYearOverride === null || config.firstYearOverride === undefined) ? '' : config.firstYearOverride;
 
-let saveTimer=null;
-async function saveToSupabase(){
-  try{localStorage.setItem('leave_backup',JSON.stringify({config,records}));}catch(e){}
-  clearTimeout(saveTimer);
-  saveTimer=setTimeout(async()=>{
-    setSyncStatus('loading','저장 중...');
-    const body=JSON.stringify({id:'main',config,records,updated_at:new Date().toISOString()});
-    try{
-      const res=await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?apikey=${SUPABASE_KEY}`,{method:'POST',headers:{...sbHeaders(),'Prefer':'resolution=merge-duplicates,return=minimal'},body});
-      if(!res.ok) throw new Error('HTTP '+res.status);
-      setSyncStatus('ok','저장됨 · '+new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}));
-    }catch(e){setSyncStatus('err','저장 실패 · 로컬 백업됨');}
-  },600);
-}
+    const calc = computeLeave(config.startDate, todayStr, config.firstYearOverride, records);
 
-function loadFromLocal(){
-  try{
-    const raw=localStorage.getItem('leave_backup');
-    if(raw){const p=JSON.parse(raw);config=p.config||{};records=p.records||[];}
-  }catch(e){}
-  configCollapsed=!!config.startDate;
-}
+    $('stat-granted').textContent = fmtNum(calc.currentGranted);
+    $('stat-used').textContent = fmtNum(calc.currentUsed);
+    $('stat-remain').textContent = fmtNum(calc.currentRemain);
 
-// ---- 연차 계산 로직 ----
-const todayStr = new Date().toISOString().slice(0,10);
+    const pct = calc.currentGranted > 0 ? Math.min(100, Math.max(0, (calc.currentUsed / calc.currentGranted) * 100)) : 0;
+    $('bar-inner').style.width = pct + '%';
+    $('bar-caption').textContent = calc.currentGranted > 0
+      ? fmtNum(calc.currentUsed) + ' / ' + fmtNum(calc.currentGranted) + '일 사용 (최근 1년)'
+      : '입사일을 먼저 등록해 주세요.';
 
-function $(id){ return document.getElementById(id); }
+    $('cum-granted-label').textContent = fmtNum(calc.totalGranted) + '일';
+    $('cum-used-label').textContent = fmtNum(calc.totalUsed) + '일';
+    $('cum-granted-bar').style.width = calc.totalGranted > 0 ? '100%' : '0%';
+    const usedPct = calc.totalGranted > 0 ? Math.min(100, (calc.totalUsed / calc.totalGranted) * 100) : 0;
+    $('cum-used-bar').style.width = usedPct + '%';
 
-function fmtNum(n){
-  if(n === null || n === undefined || isNaN(n)) return '—';
-  return Number.isInteger(n) ? String(n) : n.toFixed(1);
-}
+    $('password-status').textContent = config.resetPassword
+      ? '비밀번호가 설정되어 있어요. 초기화 시 입력해야 해요.'
+      : '비밀번호가 설정되어 있지 않아요. 지금은 확인창만 뜨고 바로 초기화돼요.';
 
-function serviceLabel(startDate, today){
-  if(!startDate) return '';
-  const s=new Date(startDate), t=new Date(today);
-  let years=t.getFullYear()-s.getFullYear();
-  let months=t.getMonth()-s.getMonth();
-  if(months<0){years--;months+=12;}
-  if(years>0) return years+'년 '+months+'개월';
-  return months+'개월';
-}
+    updateCollapseUI();
 
-function annualGranted(startDate, year, firstYearOverride){
-  const s=new Date(startDate);
-  const startYear=s.getFullYear();
-  const startMonth=s.getMonth();
-  const startDay=s.getDate();
+    const groupsEl = $('history-groups');
+    groupsEl.innerHTML = '';
+    if(records.length === 0){
+      const empty = document.createElement('div');
+      empty.className = 'card empty';
+      empty.textContent = '등록된 사용 내역이 없습니다.';
+      groupsEl.appendChild(empty);
+    } else {
+      const byYear = {};
+      records.forEach(r => {
+        const y = r.date.slice(0,4);
+        if(!byYear[y]) byYear[y] = [];
+        byYear[y].push(r);
+      });
+      const years = Object.keys(byYear).sort((a,b) => b.localeCompare(a));
+      years.forEach(y => {
+        const list = byYear[y].slice().sort((a,b) => b.date.localeCompare(a.date));
+        const yearUsed = list.reduce((sum, r) => sum + (r.type === 'half' ? 0.5 : 1), 0);
 
-  // 해당 연도 1/1 기준 근속년수
-  const yearsOfService=year-startYear;
+        const card = document.createElement('div');
+        card.className = 'card';
 
-  if(yearsOfService<=0){
-    // 입사 첫해: 월별 1일씩 (입사월 다음달부터)
-    if(firstYearOverride!==null && firstYearOverride!==undefined) return firstYearOverride;
-    let months=0;
-    for(let m=0;m<12;m++){
-      const grant=new Date(startYear, startMonth+m+1, startDay);
-      if(grant.getFullYear()<=year) months++;
+        const head = document.createElement('div');
+        head.className = 'year-card-head';
+        head.innerHTML = '<span class="year-label">' + y + '년</span><span class="year-count">' + fmtNum(yearUsed) + '일 사용 · ' + list.length + '건</span>';
+        card.appendChild(head);
+
+        const ul = document.createElement('ul');
+        ul.className = 'history';
+        list.forEach(r => {
+          const li = document.createElement('li');
+          const left = document.createElement('div');
+          left.className = 'h-left';
+          const tag = document.createElement('span');
+          tag.className = 'tag ' + r.type;
+          tag.textContent = r.type === 'half' ? '반차' : '연차';
+          const dateSpan = document.createElement('span');
+          dateSpan.textContent = r.date;
+          left.appendChild(tag);
+          left.appendChild(dateSpan);
+
+          const delBtn = document.createElement('button');
+          delBtn.className = 'btn-danger-text';
+          delBtn.textContent = '삭제';
+          delBtn.onclick = () => deleteRecord(r.id);
+
+          li.appendChild(left);
+          li.appendChild(delBtn);
+          ul.appendChild(li);
+        });
+        card.appendChild(ul);
+        groupsEl.appendChild(card);
+      });
     }
-    return Math.min(months, 11);
-  } else if(yearsOfService===1){
-    return 15;
-  } else {
-    // 3년차부터 2년마다 1일 추가
-    const extra=Math.floor((yearsOfService-1)/2);
-    return Math.min(15+extra, 25);
-  }
-}
-
-function computeLeave(startDate, today, firstYearOverride, records){
-  if(!startDate) return {currentGranted:0,currentUsed:0,currentRemain:0,totalGranted:0,totalUsed:0};
-
-  const todayD=new Date(today);
-  const s=new Date(startDate);
-
-  // 현재 연차년도 계산 (입사기념일 기준)
-  // 예: 입사 2023-08-01 → 4년차 시작일 = 2026-08-01
-  let anniversaryYear = todayD.getFullYear();
-  const thisYearAnniv = new Date(anniversaryYear, s.getMonth(), s.getDate());
-  // 오늘이 올해 기념일 이전이면 작년 기념일이 현재 연차기간 시작
-  if(todayD < thisYearAnniv) anniversaryYear--;
-
-  const periodStart = new Date(anniversaryYear, s.getMonth(), s.getDate());
-  const periodEnd = new Date(anniversaryYear+1, s.getMonth(), s.getDate());
-
-  // 현재 연차년도 차수 (1년차=0, 2년차=1, ...)
-  const yearsOfService = anniversaryYear - s.getFullYear();
-
-  // 현재 부여 연차
-  const currentGranted = annualGranted(startDate, anniversaryYear + s.getFullYear() - s.getFullYear(), firstYearOverride);
-
-  // 현재 연차기간 사용
-  const currentUsed = records
-    .filter(r=>{const d=new Date(r.date);return d>=periodStart&&d<periodEnd;})
-    .reduce((sum,r)=>sum+(r.type==='half'?0.5:1),0);
-
-  const currentRemain = Math.max(0, currentGranted - currentUsed);
-
-  // 누적
-  const startYear = s.getFullYear();
-  const currentCalYear = todayD.getFullYear();
-  let totalGranted = 0;
-  for(let y=startYear; y<=anniversaryYear+1; y++){
-    totalGranted += annualGranted(startDate, y, firstYearOverride);
-  }
-  const totalUsed = records.reduce((sum,r)=>sum+(r.type==='half'?0.5:1),0);
-
-  return{currentGranted,currentUsed,currentRemain,totalGranted,totalUsed,periodStart,periodEnd,yearsOfService};
-}
-
-// ---- 상태 ----
-let config={startDate:null,firstYearOverride:null,resetPassword:null};
-let records=[];
-let configCollapsed=false;
-let selectedType='full';
-
-function updateCollapseUI(){
-  $('config-body').classList.toggle('collapsed',configCollapsed);
-  $('config-toggle').classList.toggle('collapsed',configCollapsed);
-  $('config-toggle-btn').textContent=configCollapsed?'▼':'▲';
-}
-
-function render(){
-  $('year-label').textContent=new Date().getFullYear()+'년';
-
-  if(config.startDate){
-    $('start-date').value=config.startDate;
-    $('service-line').innerHTML='근속기간 <b>'+serviceLabel(config.startDate,todayStr)+'</b> (입사일 '+config.startDate+')';
-  } else {
-    $('service-line').textContent='입사일을 입력하면 근속기간과 연차가 자동 계산됩니다.';
   }
 
-  const fy=config.firstYearOverride;
-  $('first-year-override').value=(fy===null||fy===undefined)?'':fy;
+  async function loadData(){
+    try {
+      const c = localStorage.getItem(CONFIG_KEY);
+      if(c){ config = JSON.parse(c); }
+    } catch(e){ /* 저장된 설정 없음 */ }
 
-  const calc=computeLeave(config.startDate,todayStr,config.firstYearOverride,records);
+    try {
+      const r = localStorage.getItem(RECORDS_KEY);
+      if(r){ records = JSON.parse(r); }
+    } catch(e){ /* 저장된 내역 없음 */ }
 
-  $('stat-granted').textContent=fmtNum(calc.currentGranted);
-  $('stat-used').textContent=fmtNum(calc.currentUsed);
-  $('stat-remain').textContent=fmtNum(calc.currentRemain);
-
-  const pct=calc.currentGranted>0?Math.min(100,Math.max(0,(calc.currentUsed/calc.currentGranted)*100)):0;
-  $('bar-inner').style.width=pct+'%';
-  if(calc.currentGranted>0 && calc.periodStart){
-    const ps=calc.periodStart.toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'});
-    const pe=calc.periodEnd.toLocaleDateString('ko-KR',{year:'numeric',month:'long',day:'numeric'});
-    $('bar-caption').textContent=fmtNum(calc.currentUsed)+' / '+fmtNum(calc.currentGranted)+'일 사용 ('+ps+' ~ '+pe+')';
-  } else {
-    $('bar-caption').textContent='입사일을 먼저 등록해 주세요.';
+    configCollapsed = !!config.startDate;
+    render();
   }
 
-  $('cum-used-label').textContent=calc.totalGranted>0?fmtNum(calc.totalUsed)+' / '+fmtNum(calc.totalGranted)+'일':'—';
-  const usedPct=calc.totalGranted>0?Math.min(100,(calc.totalUsed/calc.totalGranted)*100):0;
-  $('cum-used-bar').style.width=usedPct+'%';
-
-  $('password-status').textContent=config.resetPassword
-    ?'비밀번호가 설정되어 있어요. 초기화 시 입력해야 해요.'
-    :'비밀번호가 설정되어 있지 않아요.';
-
-  updateCollapseUI();
-
-  const groupsEl=$('history-groups');
-  groupsEl.innerHTML='';
-  if(records.length===0){
-    const empty=document.createElement('div');
-    empty.className='card';
-    empty.innerHTML='<p class="empty">등록된 사용 내역이 없습니다.</p>';
-    groupsEl.appendChild(empty);
-  } else {
-    const byYear={};
-    records.forEach(r=>{
-      const y=r.date.slice(0,4);
-      if(!byYear[y])byYear[y]=[];
-      byYear[y].push(r);
-    });
-    const years=Object.keys(byYear).sort((a,b)=>b.localeCompare(a));
-    years.forEach(y=>{
-      const list=byYear[y].slice().sort((a,b)=>b.date.localeCompare(a.date));
-      const yearUsed=list.reduce((sum,r)=>sum+(r.type==='half'?0.5:1),0);
-
-      const card=document.createElement('div');
-      card.className='card';
-
-      const head=document.createElement('div');
-      head.className='year-card-head';
-      head.style.cursor='pointer';
-      head.innerHTML='<span class="year-label">'+y+'년</span><div style="display:flex;align-items:center;gap:8px;"><span class="year-count">'+fmtNum(yearUsed)+'일 사용 · '+list.length+'건</span><span class="ytoggle" style="color:var(--ink-soft);font-size:0.85rem;">▲</span></div>';
-      card.appendChild(head);
-
-      const ul=document.createElement('ul');
-      ul.className='history';
-      list.forEach(r=>{
-        const li=document.createElement('li');
-        const left=document.createElement('div');
-        left.className='h-left';
-        const tag=document.createElement('span');
-        tag.className='tag '+r.type;
-        tag.textContent=r.type==='half'?'반차':'연차';
-        const dateSpan=document.createElement('span');
-        dateSpan.textContent=r.date;
-        left.appendChild(tag);
-        left.appendChild(dateSpan);
-        const delBtn=document.createElement('button');
-        delBtn.className='btn-danger-text';
-        delBtn.textContent='삭제';
-        delBtn.onclick=()=>deleteRecord(r.id);
-        li.appendChild(left);
-        li.appendChild(delBtn);
-        ul.appendChild(li);
-      });
-      card.appendChild(ul);
-      head.addEventListener('click',function(){
-        var collapsed=ul.style.display==='none';
-        ul.style.display=collapsed?'':'none';
-        head.querySelector('.ytoggle').textContent=collapsed?'▲':'▼';
-      });
-      groupsEl.appendChild(card);
-    });
+  async function saveConfig(){
+    try {
+      localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
+    } catch(e){ console.error('설정 저장 실패', e); }
   }
-}
 
-async function saveConfig(){
-  await saveToSupabase();
-}
-async function saveRecords(){
-  await saveToSupabase();
-}
+  async function saveRecords(){
+    try {
+      localStorage.setItem(RECORDS_KEY, JSON.stringify(records));
+    } catch(e){ console.error('내역 저장 실패', e); }
+  }
 
-$('save-start').onclick=async()=>{
-  const v=$('start-date').value;
-  if(!v){alert('입사일을 선택해 주세요.');return;}
-  config.startDate=v;
-  const fy=$('first-year-override').value;
-  config.firstYearOverride=(fy===''||fy===null||fy===undefined)?null:Number(fy);
-  await saveConfig();
-  configCollapsed=true;
-  render();
-};
-
-$('config-toggle-btn').onclick=()=>{configCollapsed=!configCollapsed;updateCollapseUI();};
-$('config-toggle-row').onclick=()=>{configCollapsed=!configCollapsed;updateCollapseUI();};
-
-$('save-password').onclick=async()=>{
-  const pw=$('reset-password').value;
-  config.resetPassword=pw?pw:null;
-  await saveConfig();
-  $('reset-password').value='';
-  render();
-};
-
-document.querySelectorAll('.type-toggle button').forEach(btn=>{
-  btn.onclick=()=>{
-    selectedType=btn.dataset.type;
-    document.querySelectorAll('.type-toggle button').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
+  $('save-start').onclick = async () => {
+    const v = $('start-date').value;
+    if(!v){ alert('입사일을 선택해 주세요.'); return; }
+    config.startDate = v;
+    const fy = $('first-year-override').value;
+    config.firstYearOverride = (fy === '' || fy === null || fy === undefined) ? null : Number(fy);
+    await saveConfig();
+    configCollapsed = true;
+    render();
   };
-});
 
-$('add-record').onclick=async()=>{
-  const v=$('use-date').value;
-  if(!v){alert('사용 날짜를 선택해 주세요.');return;}
-  if(!config.startDate){alert('먼저 입사일을 등록해 주세요.');return;}
-  records.push({id:Date.now().toString(),date:v,type:selectedType});
-  await saveRecords();
-  render();
-};
+  $('config-toggle').onclick = () => {
+    configCollapsed = !configCollapsed;
+    updateCollapseUI();
+  };
 
-async function deleteRecord(id){
-  records=records.filter(r=>r.id!==id);
-  await saveRecords();
-  render();
-}
+  $('save-password').onclick = async () => {
+    const pw = $('reset-password').value;
+    config.resetPassword = pw ? pw : null;
+    await saveConfig();
+    $('reset-password').value = '';
+    render();
+  };
 
-$('reset-all').onclick=async()=>{
-  if(!confirm('입사일과 모든 사용 내역이 삭제됩니다. 계속할까요?'))return;
-  if(config.resetPassword){
-    const pw=prompt('초기화 비밀번호를 입력해줘.');
-    if(pw===null)return;
-    if(pw!==config.resetPassword){alert('비밀번호가 틀렸습니다.');return;}
+  document.querySelectorAll('.type-toggle button').forEach(btn => {
+    btn.onclick = () => {
+      selectedType = btn.dataset.type;
+      document.querySelectorAll('.type-toggle button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    };
+  });
+
+  $('add-record').onclick = async () => {
+    const v = $('use-date').value;
+    if(!v){ alert('사용 날짜를 선택해 주세요.'); return; }
+    if(!config.startDate){ alert('먼저 입사일을 등록해 주세요.'); return; }
+    records.push({ id: Date.now().toString(), date: v, type: selectedType });
+    await saveRecords();
+    render();
+  };
+
+  async function deleteRecord(id){
+    records = records.filter(r => r.id !== id);
+    await saveRecords();
+    render();
   }
-  config={startDate:null,firstYearOverride:null,resetPassword:config.resetPassword};
-  records=[];
-  await saveConfig();
-  await saveRecords();
-  configCollapsed=false;
-  render();
-};
 
-$('export-btn').onclick=async()=>{
-  const payload=JSON.stringify({config,records});
-  const code=btoa(unescape(encodeURIComponent(payload)));
-  $('sync-box').value=code;
-  let copied=false;
-  try{
-    if(navigator.clipboard&&navigator.clipboard.writeText){
-      await navigator.clipboard.writeText(code);
-      copied=true;
+  $('reset-all').onclick = async () => {
+    if(!confirm('입사일과 모든 사용 내역이 삭제됩니다. 계속할까요?')) return;
+    if(config.resetPassword){
+      const pw = prompt('초기화 비밀번호를 입력해줘.');
+      if(pw === null) return;
+      if(pw !== config.resetPassword){
+        alert('비밀번호가 틀렸습니다.');
+        return;
+      }
     }
-  }catch(e){}
-  $('sync-status').textContent=copied
-    ?'클립보드에 복사됐어요.'
-    :'아래 코드를 길게 눌러 직접 복사해줘.';
-};
-
-$('import-btn').onclick=async()=>{
-  const code=$('sync-box').value.trim();
-  if(!code){alert('가져올 코드를 붙여넣어 주세요.');return;}
-  if(!confirm('현재 데이터를 덮어씁니다. 계속할까요?'))return;
-  try{
-    const payload=JSON.parse(decodeURIComponent(escape(atob(code))));
-    config=payload.config||{startDate:null,firstYearOverride:null,resetPassword:null};
-    records=payload.records||[];
+    config = { startDate: null, firstYearOverride: null, resetPassword: config.resetPassword };
+    records = [];
     await saveConfig();
     await saveRecords();
-    configCollapsed=!!config.startDate;
+    configCollapsed = false;
     render();
-    $('sync-status').textContent='가져오기 완료!';
-  }catch(e){
-    alert('코드를 읽을 수 없어요.');
-  }
-};
+  };
 
-loadFromSupabase();
+  $('export-btn').onclick = async () => {
+    const payload = JSON.stringify({ config, records });
+    const code = btoa(unescape(encodeURIComponent(payload)));
+    $('sync-box').value = code;
+    let copied = false;
+    try {
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        await navigator.clipboard.writeText(code);
+        copied = true;
+      }
+    } catch(e){ /* 클립보드 권한 없음 - 수동 복사로 대체 */ }
+    $('sync-status').textContent = copied
+      ? '클립보드에 복사됐어요. 다른 기기의 "가져오기" 칸에 붙여넣어 주세요.'
+      : '아래 코드를 길게 눌러 직접 복사해줘. (자동 복사가 안 되는 환경이에요)';
+  };
+
+  $('import-btn').onclick = async () => {
+    const code = $('sync-box').value.trim();
+    if(!code){ alert('가져올 코드를 붙여넣어 주세요.'); return; }
+    if(!confirm('현재 이 기기에 저장된 데이터를 붙여넣은 코드로 덮어씁니다. 계속할까요?')) return;
+    try {
+      const payload = JSON.parse(decodeURIComponent(escape(atob(code))));
+      config = payload.config || { startDate: null, firstYearOverride: null, resetPassword: null };
+      records = payload.records || [];
+      await saveConfig();
+      await saveRecords();
+      configCollapsed = !!config.startDate;
+      render();
+      $('sync-status').textContent = '가져오기 완료! 데이터가 반영됐어요.';
+    } catch(e){
+      alert('코드를 읽을 수 없어요. 복사한 코드가 맞는지 확인해줘.');
+    }
+  };
+
+  loadData();
+})();
 </script>
 </body>
 </html>
