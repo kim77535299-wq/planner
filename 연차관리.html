@@ -379,21 +379,18 @@
       <div class="stat"><div class="num" id="stat-used">-</div><div class="lbl">사용 연차</div></div>
       <div class="stat warn"><div class="num" id="stat-remain">-</div><div class="lbl">잔여 연차</div></div>
     </div>
+    <div class="hint" style="margin-top:8px;">* 잔여 연차는 이월분 포함 누적 기준이에요.</div>
     <div class="bar-outer"><div class="bar-inner" id="bar-inner" style="width:0%"></div></div>
     <div class="bar-caption" id="bar-caption"></div>
 
     <div class="cum-section">
       <div class="cum-row">
-        <div class="cum-label"><span>총 발생 개수 (입사일부터 누적)</span><b id="cum-granted-label">-</b></div>
-        <div class="cum-bar-outer"><div class="cum-bar-inner granted" id="cum-granted-bar" style="width:0%"></div></div>
-      </div>
-      <div class="cum-row">
-        <div class="cum-label"><span>총 사용 개수 (입사일부터 누적)</span><b id="cum-used-label">-</b></div>
+        <div class="cum-label"><span>누적 발생 · 사용 (입사일부터)</span><b id="cum-combo-label">- / -</b></div>
         <div class="cum-bar-outer"><div class="cum-bar-inner used" id="cum-used-bar" style="width:0%"></div></div>
       </div>
     </div>
 
-    <div class="note">근로기준법 제60조 기준: 입사 1년 미만은 개근 시 매월 1일(최대 11일), 1년 이상은 15일이며 3년차부터 매 2년마다 1일 가산(최대 25일)으로 자동 계산됩니다. 위 3개 숫자는 현재 진행 중인 1년 주기 기준이고, 아래 막대그래프는 입사일부터 지금까지의 전체 누적입니다.</div>
+    <div class="note">근로기준법 제60조 기준: 입사 1년 미만은 개근 시 매월 1일(최대 11일), 1년 이상은 15일이며 3년차부터 매 2년마다 1일 가산(최대 25일)으로 자동 계산됩니다. 발생·사용 2개는 최근 1년 주기 기준이고, 잔여 연차는 입사일부터 지금까지 누적(이월 포함)해서 계산돼요.</div>
   </div>
 
   <div class="card">
@@ -522,7 +519,7 @@
 
   function computeLeave(startDate, refDate, firstYearOverride, recordList){
     if(!startDate){
-      return { currentIdx:0, currentGranted:0, currentUsed:0, currentRemain:0, totalGranted:0, totalUsed:0 };
+      return { currentIdx:0, currentGranted:0, currentUsed:0, currentRemain:0, totalRemain:0, totalGranted:0, totalUsed:0 };
     }
     const currentIdx = yearsCompleted(startDate, refDate);
     const currentGranted = grantForPeriod(currentIdx, startDate, refDate, firstYearOverride);
@@ -545,9 +542,13 @@
       totalGranted += grantForPeriod(i, startDate, refDate, firstYearOverride);
     }
 
+    const currentRemain = currentGranted - currentUsed;
+    // 이 병원은 이월제(소멸 없음) — 실제 잔여는 입사일부터 누적 발생 - 누적 사용
+    const totalRemain = totalGranted - totalUsed;
+
     return {
       currentIdx, currentGranted, currentUsed,
-      currentRemain: currentGranted - currentUsed,
+      currentRemain, totalRemain,
       totalGranted, totalUsed
     };
   }
@@ -582,7 +583,7 @@
 
     $('stat-granted').textContent = fmtNum(calc.currentGranted);
     $('stat-used').textContent = fmtNum(calc.currentUsed);
-    $('stat-remain').textContent = fmtNum(calc.currentRemain);
+    $('stat-remain').textContent = fmtNum(calc.totalRemain);
 
     const pct = calc.currentGranted > 0 ? Math.min(100, Math.max(0, (calc.currentUsed / calc.currentGranted) * 100)) : 0;
     $('bar-inner').style.width = pct + '%';
@@ -590,9 +591,7 @@
       ? fmtNum(calc.currentUsed) + ' / ' + fmtNum(calc.currentGranted) + '일 사용 (최근 1년)'
       : '입사일을 먼저 등록해 주세요.';
 
-    $('cum-granted-label').textContent = fmtNum(calc.totalGranted) + '일';
-    $('cum-used-label').textContent = fmtNum(calc.totalUsed) + '일';
-    $('cum-granted-bar').style.width = calc.totalGranted > 0 ? '100%' : '0%';
+    $('cum-combo-label').textContent = fmtNum(calc.totalGranted) + '개 중 ' + fmtNum(calc.totalUsed) + '개 사용';
     const usedPct = calc.totalGranted > 0 ? Math.min(100, (calc.totalUsed / calc.totalGranted) * 100) : 0;
     $('cum-used-bar').style.width = usedPct + '%';
 
