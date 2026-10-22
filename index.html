@@ -126,6 +126,21 @@
 
   .quick-hint{background:#fff;border:1px dashed var(--blue-soft);border-radius:12px;padding:12px 14px;font-size:12px;color:var(--muted);margin-bottom:16px;}
   .quick-hint b{color:var(--navy);}
+  /* 투데이 / 평가준비 */
+  .today-input-row{margin-bottom:14px;}
+  .today-input{width:100%;padding:13px 16px;border:2px solid var(--line);border-radius:12px;font-family:inherit;font-size:14px;color:var(--ink);background:#fff;outline:none;transition:border-color .15s;}
+  .today-input:focus{border-color:var(--navy);}
+  .today-list{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;}
+  .today-item{display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid var(--line);border-radius:11px;padding:11px 12px;transition:background .12s,opacity .12s;}
+  .today-item.done{background:var(--blue-pale);opacity:.7;}
+  .today-check{flex-shrink:0;width:26px;height:26px;border-radius:8px;border:2px solid var(--line);background:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--navy);transition:all .12s;}
+  .today-item.done .today-check{background:var(--navy);border-color:var(--navy);color:#fff;}
+  .today-text{flex:1;font-size:13.5px;color:var(--ink);word-break:break-all;}
+  .today-item.done .today-text{text-decoration:line-through;color:var(--muted);}
+  .today-del{flex-shrink:0;width:24px;height:24px;border-radius:6px;border:none;background:none;cursor:pointer;color:var(--muted);font-size:13px;display:flex;align-items:center;justify-content:center;transition:background .12s;}
+  .today-del:hover{background:#FCE8E8;color:var(--danger);}
+  .today-empty{text-align:center;color:var(--muted);font-size:13px;padding:30px 0;}
+  .today-hint{font-size:11.5px;color:var(--muted);text-align:center;margin-top:4px;}
 
   .st-btn{flex-shrink:0;border-radius:99px;cursor:pointer;font-family:inherit;font-size:11px;font-weight:700;padding:6px 12px;border:1.5px solid var(--line);background:#fff;color:var(--muted);transition:all .15s;min-width:62px;text-align:center;}
   .st-btn[data-s="1"]{background:var(--blue-soft);border-color:var(--blue-soft);color:var(--navy);}
@@ -273,6 +288,8 @@ async function loadFromSupabase(){
       const row=rows[0];
       statuses=row.statuses||{};
       customTasks=row.custom_tasks||{};
+      todayTasks=row.today_tasks||{};
+      evalDocs=row.eval_docs||[];
       if(row.current_year) currentYear=row.current_year;
       setSyncStatus('ok','동기화됨 · '+new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}));
     } else {
@@ -288,11 +305,11 @@ async function loadFromSupabase(){
 }
 let saveTimer=null;
 async function saveToSupabase(){
-  try{localStorage.setItem('psplanner2026_backup',JSON.stringify({statuses,customTasks,currentYear}));}catch(e){}
+  try{localStorage.setItem('psplanner2026_backup',JSON.stringify({statuses,customTasks,todayTasks,evalDocs,currentYear}));}catch(e){}
   clearTimeout(saveTimer);
   saveTimer=setTimeout(async()=>{
     setSyncStatus('loading','저장 중...');
-    const body=JSON.stringify({id:'main',statuses,custom_tasks:customTasks,current_year:currentYear,updated_at:new Date().toISOString()});
+    const body=JSON.stringify({id:'main',statuses,custom_tasks:customTasks,today_tasks:todayTasks,eval_docs:evalDocs,current_year:currentYear,updated_at:new Date().toISOString()});
     try{
       const res=await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}?apikey=${SUPABASE_KEY}`,{method:'POST',headers:{...sbHeaders(),'Prefer':'resolution=merge-duplicates,return=minimal'},body});
       if(!res.ok) throw new Error('HTTP '+res.status);
@@ -301,7 +318,7 @@ async function saveToSupabase(){
   },600);
 }
 function loadFromLocal(){
-  try{const raw=localStorage.getItem('psplanner2026_backup');if(raw){const p=JSON.parse(raw);statuses=p.statuses||{};customTasks=p.custom_tasks||{};if(p.currentYear)currentYear=p.currentYear;}}catch(e){}
+  try{const raw=localStorage.getItem('psplanner2026_backup');if(raw){const p=JSON.parse(raw);statuses=p.statuses||{};customTasks=p.custom_tasks||{};todayTasks=p.todayTasks||{};evalDocs=p.evalDocs||[];if(p.currentYear)currentYear=p.currentYear;}}catch(e){}
   if(!customTasks['material']||customTasks['material'].length===0){customTasks['material']=JSON.parse(JSON.stringify(MAT_DEFAULTS));}
 }
 function saveState(){saveToSupabase();}
@@ -419,6 +436,8 @@ const TODAY=new Date();TODAY.setHours(0,0,0,0);
 let currentYear=2026;
 let statuses={};
 let customTasks={};
+let todayTasks={};
+let evalDocs=[];
 let currentPage=0;
 let monthViewActive=null;
 let overdueViewActive=false;
@@ -565,15 +584,28 @@ function buildVside(){
     v.appendChild(b);
   }
 }
+const EXTRA_PAGES=2;
 function buildTabs(){
   const box=document.getElementById('tabs');box.innerHTML='';
-  const names=['요약',...DATA.map(c=>c.short)];
-  names.forEach((nm,i)=>{
+  // 고정 탭: 요약(0), 투데이(1), 평가준비(2)
+  [{nm:'📋 요약',key:'sum'},{nm:'📅 투데이',key:'today'},{nm:'📂 평가준비',key:'eval'}].forEach(({nm,key},i)=>{
     const b=document.createElement('button');
     b.className='tab'+(!monthViewActive&&!overdueViewActive&&i===currentPage?' active':'');
     b.id='tab-'+i;
-    if(i===0){b.textContent='📋 '+nm;}
-    else{const c=counts(allUnits(DATA[i-1]));b.innerHTML=nm+`<span class="tp">${c.total?pctOf(c)+'%':'—'}</span>`;}
+    if(key==='today'){const dk=todayKey();const items=todayTasks[dk]||[];const done=items.filter(x=>x.done).length;b.innerHTML=nm+`<span class="tp">${items.length?done+'/'+items.length:'오늘'}</span>`;}
+    else if(key==='eval'){const done=evalDocs.filter(x=>x.done).length;b.innerHTML=nm+`<span class="tp">${evalDocs.length?done+'/'+evalDocs.length:'—'}</span>`;}
+    else{b.textContent=nm;}
+    b.addEventListener('click',()=>{setMonthView(null);setOverdueView(false);goPage(i);});
+    box.appendChild(b);
+  });
+  // 업무 탭
+  DATA.forEach((cat,di)=>{
+    const i=di+1+EXTRA_PAGES;
+    const b=document.createElement('button');
+    b.className='tab'+(!monthViewActive&&!overdueViewActive&&i===currentPage?' active':'');
+    b.id='tab-'+i;
+    const c=counts(allUnits(cat));
+    b.innerHTML=cat.short+`<span class="tp">${c.total?pctOf(c)+'%':'—'}</span>`;
     b.addEventListener('click',()=>{setMonthView(null);setOverdueView(false);goPage(i);});
     box.appendChild(b);
   });
@@ -594,6 +626,64 @@ function statusBtn(unit){
   b.addEventListener('click',()=>cycle(unit.id,unit.toggle));
   return b;
 }
+
+// ---- 투데이 ----
+function todayKey(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function fmtDateKo(key){const [y,m,d]=key.split('-');const w=['일','월','화','수','목','금','토'][new Date(key).getDay()];return `${y}년 ${parseInt(m)}월 ${parseInt(d)}일 (${w})`;}
+function buildTodayPage(){
+  const page=document.createElement('div');page.className='page';page.id='todayPage';
+  page.innerHTML=`<div class="page-inner">
+    <div class="page-head"><h2>📅 투데이</h2><span class="meta" id="todayDateLabel"></span></div>
+    <div class="today-input-row"><input id="todayInput" class="today-input" type="text" placeholder="오늘 할 일을 입력하고 Enter →" autocomplete="off" maxlength="80"></div>
+    <div id="todayList" class="today-list"></div>
+    <div class="today-hint">항목 클릭 → 완료 · ✕ → 삭제</div>
+  </div>`;
+  return page;
+}
+function renderTodayPage(){
+  const key=todayKey();
+  const label=document.getElementById('todayDateLabel');if(label)label.textContent=fmtDateKo(key);
+  const list=document.getElementById('todayList');if(!list)return;
+  const items=todayTasks[key]||[];
+  list.innerHTML='';
+  if(items.length===0){list.innerHTML='<div class="today-empty">아직 항목이 없어요. 위에서 입력해보세요!</div>';return;}
+  items.forEach((item,idx)=>{
+    const row=document.createElement('div');row.className='today-item'+(item.done?' done':'');
+    row.innerHTML=`<button class="today-check" data-idx="${idx}"><span class="today-cb">${item.done?'✓':''}</span></button><span class="today-text">${item.text}</span><button class="today-del" data-idx="${idx}">✕</button>`;
+    list.appendChild(row);
+  });
+}
+function todayAddItem(text){const key=todayKey();if(!todayTasks[key])todayTasks[key]=[];todayTasks[key].push({id:Date.now().toString(36),text,done:false});saveState();renderTodayPage();buildTabs();}
+function todayToggle(idx){const key=todayKey();if(!todayTasks[key])return;todayTasks[key][idx].done=!todayTasks[key][idx].done;saveState();renderTodayPage();buildTabs();}
+function todayDelete(idx){const key=todayKey();if(!todayTasks[key])return;todayTasks[key].splice(idx,1);saveState();renderTodayPage();buildTabs();}
+
+// ---- 평가준비 ----
+function buildEvalPage(){
+  const page=document.createElement('div');page.className='page';page.id='evalPage';
+  page.innerHTML=`<div class="page-inner">
+    <div class="page-head"><h2>📂 평가준비</h2><span class="meta">인증평가 준비 서류 체크리스트</span></div>
+    <div class="today-input-row"><input id="evalInput" class="today-input" type="text" placeholder="준비해야 할 서류/항목을 입력하고 Enter →" autocomplete="off" maxlength="100"></div>
+    <div id="evalList" class="today-list"></div>
+    <div class="today-hint">항목 클릭 → 완료 · ✕ → 삭제 · 총 <span id="evalCount">0</span>개 중 <span id="evalDone">0</span>개 완료</div>
+  </div>`;
+  return page;
+}
+function renderEvalPage(){
+  const list=document.getElementById('evalList');if(!list)return;
+  const done=evalDocs.filter(x=>x.done).length;
+  const cnt=document.getElementById('evalCount');const dn=document.getElementById('evalDone');
+  if(cnt)cnt.textContent=evalDocs.length;if(dn)dn.textContent=done;
+  list.innerHTML='';
+  if(evalDocs.length===0){list.innerHTML='<div class="today-empty">아직 등록된 서류가 없어요. 위에서 입력해보세요!</div>';return;}
+  evalDocs.forEach((item,idx)=>{
+    const row=document.createElement('div');row.className='today-item'+(item.done?' done':'');
+    row.innerHTML=`<button class="today-check eval-chk" data-idx="${idx}"><span class="today-cb">${item.done?'✓':''}</span></button><span class="today-text">${item.text}</span><button class="today-del eval-del" data-idx="${idx}">✕</button>`;
+    list.appendChild(row);
+  });
+}
+function evalAddItem(text){evalDocs.push({id:Date.now().toString(36),text,done:false});saveState();renderEvalPage();buildTabs();}
+function evalToggle(idx){evalDocs[idx].done=!evalDocs[idx].done;saveState();renderEvalPage();buildTabs();}
+function evalDelete(idx){evalDocs.splice(idx,1);saveState();renderEvalPage();buildTabs();}
 
 function buildSummaryPage(){
   const page=document.createElement('div');page.className='page';
@@ -619,7 +709,7 @@ function renderSummary(){
     const isFull=c.total>0&&c.done===c.total;
     card.className='sum-card'+(isFull?' full':'')+(c.total===0?' empty':'');
     card.innerHTML='<div class="top"><span class="no">'+(idx+1)+'</span><span class="nm">'+cat.name+'</span></div><div class="pct">'+(c.total?p+'%':'—')+'<small>'+(c.total?('완료 '+c.done+'/'+c.total+(c.doing?' · 진행중 '+c.doing:'')):'등록 항목 없음')+'</small></div><div class="bar"><span class="sd" style="width:'+(c.total?(c.done/c.total*100):0)+'%"></span><span class="sg" style="width:'+(c.total?(c.doing/c.total*100):0)+'%"></span></div>';
-    card.addEventListener('click',()=>goPage(idx+1));
+    card.addEventListener('click',()=>goPage(idx+1+EXTRA_PAGES));
     grid.appendChild(card);
   });
 }
@@ -912,6 +1002,7 @@ function renderCatPage(cat){
 
 function refresh(){
   buildTabs();buildVside();renderOverall();renderSummary();
+  renderTodayPage();renderEvalPage();
   DATA.forEach(renderCatPage);
   if(monthViewActive)renderMonthView(monthViewActive);
   if(overdueViewActive)renderOverdueView();
@@ -952,8 +1043,27 @@ function init(){
   applyPlanTasks();updateYearLabel();
   const pager=document.getElementById('pager');
   pager.appendChild(buildSummaryPage());
+  pager.appendChild(buildTodayPage());
+  pager.appendChild(buildEvalPage());
   DATA.forEach(cat=>pager.appendChild(buildCatPage(cat)));
   pager.addEventListener('scroll',()=>{clearTimeout(scrollTimer);scrollTimer=setTimeout(syncTab,80);});
+  // 투데이/평가준비 Enter 입력
+  document.addEventListener('keydown',(e)=>{
+    if(e.key!=='Enter')return;
+    if(e.target.id==='todayInput'){const v=e.target.value.trim();if(v){todayAddItem(v);e.target.value='';}}
+    if(e.target.id==='evalInput'){const v=e.target.value.trim();if(v){evalAddItem(v);e.target.value='';}}
+  });
+  // 투데이/평가준비 체크·삭제
+  document.addEventListener('click',(e)=>{
+    const tc=e.target.closest('.today-check:not(.eval-chk)');
+    const td=e.target.closest('.today-del:not(.eval-del)');
+    const ec=e.target.closest('.eval-chk');
+    const ed=e.target.closest('.eval-del');
+    if(tc){todayToggle(parseInt(tc.dataset.idx));return;}
+    if(td){todayDelete(parseInt(td.dataset.idx));return;}
+    if(ec){evalToggle(parseInt(ec.dataset.idx));return;}
+    if(ed){evalDelete(parseInt(ed.dataset.idx));return;}
+  });
   document.body.addEventListener('click',(e)=>{
     if(e.target.id==='resetBtn'){if(confirm('모든 체크 상태를 초기화할까요? 직접 추가한 업무 항목도 같이 사라져요. 되돌릴 수 없어요.')){statuses={};customTasks={};saveState();refresh();}}
     if(e.target.id==='nextYearBtn'){nextYearMode();}
