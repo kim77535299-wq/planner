@@ -29,7 +29,9 @@
   .sync-retry{background:none;border:1px solid var(--line);color:var(--navy);font-family:inherit;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;cursor:pointer;}
   .sync-retry:hover{background:var(--blue-pale);}
 
-  header{background:var(--navy);color:#fff;padding:16px 18px 0;flex-shrink:0;}
+  header{background:var(--navy);color:#fff;padding:16px 18px 0;flex-shrink:0;cursor:default;}
+  .head-row{cursor:pointer;}
+  .head-row:active{opacity:.85;}
   .head-row{display:flex;justify-content:space-between;align-items:center;gap:10px;max-width:980px;margin:0 auto;width:100%;}
   .head-row h1{font-size:17px;font-weight:800;letter-spacing:-0.3px;}
   .head-row .sub{font-size:11px;color:var(--blue-soft);margin-top:1px;}
@@ -242,7 +244,6 @@
     </div>
     <div class="head-pct"><span id="overallPct">0%</span><small id="overallLbl">완료 0/0</small></div>
   </div>
-  <div class="tabs-wrap">
   <div class="tabs" id="tabs"></div>
 </header>
 
@@ -1048,6 +1049,14 @@ function init(){
   pager.appendChild(buildEvalPage());
   DATA.forEach(cat=>pager.appendChild(buildCatPage(cat)));
   pager.addEventListener('scroll',()=>{clearTimeout(scrollTimer);scrollTimer=setTimeout(syncTab,80);});
+  // 헤더 좌측 클릭 → 탭 맨 앞, 우측(진행률) 클릭 → 탭 맨 뒤
+  document.querySelector('.head-row').addEventListener('click',(e)=>{
+    const tabs=document.getElementById('tabs');
+    const rect=e.currentTarget.getBoundingClientRect();
+    const mid=rect.left+rect.width/2;
+    if(e.clientX < mid) tabs.scrollTo({left:0,behavior:'smooth'});
+    else tabs.scrollTo({left:tabs.scrollWidth,behavior:'smooth'});
+  });
   // 투데이/평가준비 Enter 입력
   document.addEventListener('keydown',(e)=>{
     if(e.key!=='Enter')return;
