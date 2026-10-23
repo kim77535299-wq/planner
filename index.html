@@ -143,6 +143,8 @@
   .today-del:hover{background:#FCE8E8;color:var(--danger);}
   .today-empty{text-align:center;color:var(--muted);font-size:13px;padding:30px 0;}
   .today-hint{font-size:11.5px;color:var(--muted);text-align:center;margin-top:4px;}
+  .today-date-sep{font-size:12px;font-weight:700;color:var(--muted);padding:14px 2px 6px;border-bottom:1px solid var(--line);margin-bottom:6px;}
+  .today-sep-today{color:var(--navy);border-bottom-color:var(--navy);}
 
   .st-btn{flex-shrink:0;border-radius:99px;cursor:pointer;font-family:inherit;font-size:11px;font-weight:700;padding:6px 12px;border:1.5px solid var(--line);background:#fff;color:var(--muted);transition:all .15s;min-width:62px;text-align:center;}
   .st-btn[data-s="1"]{background:var(--blue-soft);border-color:var(--blue-soft);color:var(--navy);}
@@ -599,7 +601,7 @@ function buildTabs(){
     const b=document.createElement('button');
     b.className='tab'+(!monthViewActive&&!overdueViewActive&&i===currentPage?' active':'');
     b.id='tab-'+i;
-    if(key==='today'){const dk=todayKey();const items=todayTasks[dk]||[];const done=items.filter(x=>x.done).length;b.innerHTML=nm+`<span class="tp">${items.length?done+'/'+items.length:'오늘'}</span>`;}
+    if(key==='today'){const allItems=Object.values(todayTasks).flat();const done=allItems.filter(x=>x.done).length;b.innerHTML=nm+`<span class="tp">${allItems.length?done+'/'+allItems.length:'오늘'}</span>`;}
     else if(key==='eval'){const done=evalDocs.filter(x=>x.done).length;b.innerHTML=nm+`<span class="tp">${evalDocs.length?done+'/'+evalDocs.length:'—'}</span>`;}
     else{b.textContent=nm;}
     b.addEventListener('click',()=>{setMonthView(null);setOverdueView(false);goPage(i);});
@@ -642,27 +644,40 @@ function buildTodayPage(){
   page.innerHTML=`<div class="page-inner">
     <div class="page-head"><h2>📅 투데이</h2><span class="meta" id="todayDateLabel"></span></div>
     <div class="today-input-row"><input id="todayInput" class="today-input" type="text" placeholder="오늘 할 일을 입력하고 Enter →" autocomplete="off" maxlength="80"></div>
-    <div id="todayList" class="today-list"></div>
+    <div id="todayList"></div>
     <div class="today-hint">항목 클릭 → 완료 · ✕ → 삭제</div>
   </div>`;
   return page;
 }
 function renderTodayPage(){
-  const key=todayKey();
-  const label=document.getElementById('todayDateLabel');if(label)label.textContent=fmtDateKo(key);
-  const list=document.getElementById('todayList');if(!list)return;
-  const items=todayTasks[key]||[];
-  list.innerHTML='';
-  if(items.length===0){list.innerHTML='<div class="today-empty">아직 항목이 없어요. 위에서 입력해보세요!</div>';return;}
-  items.forEach((item,idx)=>{
-    const row=document.createElement('div');row.className='today-item'+(item.done?' done':'');
-    row.innerHTML=`<button class="today-check" data-idx="${idx}"><span class="today-cb">${item.done?'✓':''}</span></button><span class="today-text">${item.text}</span><button class="today-del" data-idx="${idx}">✕</button>`;
-    list.appendChild(row);
+  const todayK=todayKey();
+  const label=document.getElementById('todayDateLabel');if(label)label.textContent=fmtDateKo(todayK);
+  const container=document.getElementById('todayList');if(!container)return;
+  container.innerHTML='';
+  // 날짜 내림차순 정렬 (오늘 맨 위)
+  const keys=Object.keys(todayTasks).filter(k=>todayTasks[k]&&todayTasks[k].length>0).sort((a,b)=>b.localeCompare(a));
+  if(keys.length===0){container.innerHTML='<div class="today-empty">아직 항목이 없어요. 위에서 입력해보세요!</div>';return;}
+  keys.forEach(dk=>{
+    const items=todayTasks[dk];
+    const isToday=dk===todayK;
+    // 날짜 구분선
+    const sep=document.createElement('div');
+    sep.className='today-date-sep'+(isToday?' today-sep-today':'');
+    sep.textContent=isToday?'📌 오늘 — '+fmtDateKo(dk):fmtDateKo(dk);
+    container.appendChild(sep);
+    // 항목들
+    const listDiv=document.createElement('div');listDiv.className='today-list';
+    items.forEach((item,idx)=>{
+      const row=document.createElement('div');row.className='today-item'+(item.done?' done':'');
+      row.innerHTML=`<button class="today-check" data-dk="${dk}" data-idx="${idx}"><span class="today-cb">${item.done?'✓':''}</span></button><span class="today-text">${item.text}</span><button class="today-del" data-dk="${dk}" data-idx="${idx}">✕</button>`;
+      listDiv.appendChild(row);
+    });
+    container.appendChild(listDiv);
   });
 }
 function todayAddItem(text){const key=todayKey();if(!todayTasks[key])todayTasks[key]=[];todayTasks[key].push({id:Date.now().toString(36),text,done:false});saveState();renderTodayPage();buildTabs();}
-function todayToggle(idx){const key=todayKey();if(!todayTasks[key])return;todayTasks[key][idx].done=!todayTasks[key][idx].done;saveState();renderTodayPage();buildTabs();}
-function todayDelete(idx){const key=todayKey();if(!todayTasks[key])return;todayTasks[key].splice(idx,1);saveState();renderTodayPage();buildTabs();}
+function todayToggle(dk,idx){if(!todayTasks[dk])return;todayTasks[dk][idx].done=!todayTasks[dk][idx].done;saveState();renderTodayPage();buildTabs();}
+function todayDelete(dk,idx){if(!todayTasks[dk])return;todayTasks[dk].splice(idx,1);if(todayTasks[dk].length===0)delete todayTasks[dk];saveState();renderTodayPage();buildTabs();}
 
 // ---- 평가준비 ----
 function buildEvalPage(){
@@ -1074,8 +1089,8 @@ function init(){
     const td=e.target.closest('.today-del:not(.eval-del)');
     const ec=e.target.closest('.eval-chk');
     const ed=e.target.closest('.eval-del');
-    if(tc){todayToggle(parseInt(tc.dataset.idx));return;}
-    if(td){todayDelete(parseInt(td.dataset.idx));return;}
+    if(tc){todayToggle(tc.dataset.dk,parseInt(tc.dataset.idx));return;}
+    if(td){todayDelete(td.dataset.dk,parseInt(td.dataset.idx));return;}
     if(ec){evalToggle(parseInt(ec.dataset.idx));return;}
     if(ed){evalDelete(parseInt(ed.dataset.idx));return;}
   });
