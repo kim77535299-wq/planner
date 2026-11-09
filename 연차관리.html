@@ -339,6 +339,22 @@
     margin-top: 8px;
     min-height: 1.2em;
   }
+
+  .sync-bar{
+    display:flex; align-items:center; gap:8px;
+    padding: 8px 14px; margin-bottom: 14px;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    font-size: 0.78rem; color: var(--ink-soft);
+  }
+  .sync-dot{ width:8px; height:8px; border-radius:50%; background: var(--ink-soft); flex-shrink:0; }
+  .sync-dot.ok{ background:#2ecc71; }
+  .sync-dot.err{ background: var(--danger); }
+  .sync-dot.loading{ background: var(--gold); }
+  .sync-msg{ flex:1; line-height:1.4; word-break: break-all; }
+  .sync-retry{
+    height: 26px; padding: 0 10px; font-size: 0.74rem;
+    background: transparent; color: var(--sage-deep); border: 1px solid var(--line); border-radius: 99px;
+  }
 </style>
 </head>
 <body>
@@ -346,6 +362,12 @@
   <div class="masthead">
     <h1>연차 관리</h1>
     <span id="today-label"></span>
+  </div>
+
+  <div class="sync-bar">
+    <span class="sync-dot" id="syncDot"></span>
+    <span class="sync-msg" id="syncMsg">연결 중...</span>
+    <button type="button" class="sync-retry" id="syncRetry" style="display:none">재시도</button>
   </div>
 
   <div class="card" id="config-card">
@@ -412,15 +434,15 @@
 
   <div class="card">
     <div class="card-head-row tight">
-      <h2>PC ↔ 폰 동기화 (내보내기 / 가져오기)</h2>
+      <h2>PC ↔ 폰 동기화</h2>
       <button type="button" class="collapse-btn collapsed" id="sync-toggle" aria-label="접기/펼치기">▼</button>
     </div>
     <div id="sync-body" class="config-body collapsed">
-      <div class="hint">이 앱은 기기(브라우저)마다 따로 저장돼. 다른 기기와 맞추려면, 데이터가 있는 쪽에서 "내보내기"로 코드를 복사한 다음, 다른 쪽에서 붙여넣고 "가져오기"를 눌러줘.</div>
+      <div class="hint">입력하면 자동으로 서버에 저장되고, 다른 기기에서 앱을 열면 최신 내용이 불러와져요. 동기화가 안 될 때는 "지금 동기화"를 눌러보세요. 내보내기/가져오기는 백업용이에요.</div>
       <div class="row sync-buttons">
-        <button class="btn-primary" id="export-btn">내보내기 (복사)</button>
+        <button class="btn-primary" id="sync-now-btn">지금 동기화</button>
+        <button class="btn-ghost" id="export-btn">내보내기 (복사)</button>
         <button class="btn-ghost" id="import-btn">가져오기</button>
-        <button class="btn-ghost" id="old-load-btn">예전 저장소에서 불러오기</button>
       </div>
       <textarea id="sync-box" placeholder="여기에 내보낸 코드가 표시돼요. 다른 기기에서 가져올 땐 여기에 붙여넣고 '가져오기'를 눌러주세요."></textarea>
       <div class="sync-status" id="sync-status"></div>
@@ -672,16 +694,18 @@
     render();
   }
 
-  async function saveConfig(){
+  async function saveConfig(noStamp){
     try {
       localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
     } catch(e){ console.error('설정 저장 실패', e); }
+    if(!noStamp) stampChange();
   }
 
-  async function saveRecords(){
+  async function saveRecords(noStamp){
     try {
       localStorage.setItem(RECORDS_KEY, JSON.stringify(records));
     } catch(e){ console.error('내역 저장 실패', e); }
+    if(!noStamp) stampChange();
   }
 
   $('save-start').onclick = async () => {
@@ -732,7 +756,7 @@
   }
 
   $('reset-all').onclick = async () => {
-    if(!confirm('입사일과 모든 사용 내역이 삭제됩니다. 계속할까요?')) return;
+    if(!confirm('입사일과 모든 사용 내역이 삭제되고, 다른 기기에도 반영돼요. 계속할까요?')) return;
     if(config.resetPassword){
       const pw = prompt('초기화 비밀번호를 입력해줘.');
       if(pw === null) return;
@@ -797,70 +821,157 @@
     }
   };
 
-  // 예전 버전(온라인 저장소)에 저장돼 있던 데이터를 읽어오기 (읽기 전용, 예전 데이터는 건드리지 않음)
-  const OLD_URL = 'https://oayfqapsnsaetnfocqga.supabase.co';
-  const OLD_KEY = 'sb_publishable_5KKTbArswzgMK3g0igPPBw_bdyF32ZU';
+  // ===== 서버 동기화 (플래너와 같은 Supabase 사용) =====
+  const SB_URL = 'https://oayfqapsnsaetnfocqga.supabase.co';
+  const SB_KEY = 'sb_publishable_5KKTbArswzgMK3g0igPPBw_bdyF32ZU';
+  const SB_TABLE = 'planner_state';   // 플래너가 쓰는 테이블, 연차는 id='leave' 행에 따로 저장
+  const SB_ROW = 'leave';
+  const TS_KEY = 'leave-updated-at';
+  const SYNCED_KEY = 'leave-synced-once';
+  let syncReady = false;   // 서버 확인이 끝나기 전에는 서버에 올리지 않아요
+  let pushTimer = null;
+  let syncing = false;
 
-  // 예전 앱은 저장할 때마다 이 기기 브라우저에도 'leave_backup'으로 사본을 남겼어요
-  function readLocalBackup(){
-    try {
-      const raw = localStorage.getItem('leave_backup');
-      if(!raw) return null;
-      const p = JSON.parse(raw);
-      if(p && ((p.records && p.records.length) || (p.config && p.config.startDate))) return p;
-    } catch(e){}
-    return null;
+  function sbHeaders(extra){
+    return Object.assign({ 'Content-Type':'application/json', 'apikey': SB_KEY, 'Authorization':'Bearer ' + SB_KEY }, extra || {});
+  }
+  function getTs(){ try { return Number(localStorage.getItem(TS_KEY)) || 0; } catch(e){ return 0; } }
+  function setTs(v){ try { localStorage.setItem(TS_KEY, String(v)); } catch(e){} }
+  function markSynced(){ try { localStorage.setItem(SYNCED_KEY, '1'); } catch(e){} }
+  function isFirstSync(){ try { return !localStorage.getItem(SYNCED_KEY); } catch(e){ return true; } }
+  function nowLabel(){ return new Date().toLocaleTimeString('ko-KR', { hour:'2-digit', minute:'2-digit' }); }
+  function hasData(){ return !!config.startDate || records.length > 0; }
+
+  function setSyncStatus(state, msg){
+    $('syncDot').className = 'sync-dot ' + state;
+    $('syncMsg').textContent = msg;
+    $('syncRetry').style.display = state === 'err' ? '' : 'none';
   }
 
-  async function applyBackup(p, auto){
-    const n = (p.records || []).length;
-    if(!auto){
-      if(!confirm('이 기기에 남아 있는 예전 백업(사용 내역 ' + n + '건)으로 현재 데이터를 덮어씁니다. 계속할까요?')) return;
-    }
-    config = Object.assign({ startDate: null, firstYearOverride: null, resetPassword: null }, p.config || {});
-    records = p.records || [];
-    await saveConfig();
-    await saveRecords();
+  function dataKey(cfg, recs){
+    const r = (recs || []).map(x => x.date + '|' + x.type).sort().join(',');
+    return (cfg.startDate || '') + '#' + (cfg.firstYearOverride === null || cfg.firstYearOverride === undefined ? '' : cfg.firstYearOverride) + '#' + r;
+  }
+
+  async function sbError(res){
+    let t = '';
+    try { t = (await res.text()).slice(0, 100); } catch(e){}
+    return new Error('HTTP ' + res.status + (t ? ' ' + t : ''));
+  }
+
+  async function pushRemote(ts){
+    setSyncStatus('loading', '저장 중...');
+    const payload = {
+      config: { startDate: config.startDate, firstYearOverride: config.firstYearOverride },
+      records: records,
+      ts: ts
+    };
+    const body = JSON.stringify({
+      id: SB_ROW, statuses: {}, custom_tasks: payload, today_tasks: {}, eval_docs: [],
+      current_year: new Date().getFullYear(), updated_at: new Date().toISOString()
+    });
+    const res = await fetch(SB_URL + '/rest/v1/' + SB_TABLE + '?apikey=' + SB_KEY, {
+      method: 'POST',
+      headers: sbHeaders({ 'Prefer': 'resolution=merge-duplicates,return=minimal' }),
+      body: body
+    });
+    if(!res.ok) throw await sbError(res);
+    markSynced();
+    setSyncStatus('ok', '저장됨 · ' + nowLabel());
+  }
+
+  function schedulePush(){
+    if(!syncReady) return;
+    clearTimeout(pushTimer);
+    pushTimer = setTimeout(async () => {
+      if(!syncReady) return;
+      try { await pushRemote(getTs()); }
+      catch(e){ console.error(e); setSyncStatus('err', '저장 실패 · 이 기기에는 저장됐어요 (' + e.message + ')'); }
+    }, 600);
+  }
+
+  function stampChange(){
+    setTs(Date.now());
+    schedulePush();
+  }
+
+  async function adoptRemote(remote){
+    const rc = remote.config || {};
+    config = Object.assign({}, config, {
+      startDate: rc.startDate || null,
+      firstYearOverride: (rc.firstYearOverride === undefined) ? null : rc.firstYearOverride
+    });
+    records = remote.records || [];
+    await saveConfig(true);
+    await saveRecords(true);
+    setTs(remote.ts || 0);
     configCollapsed = !!config.startDate;
     render();
-    $('sync-status').textContent = '이 기기의 예전 백업에서 ' + n + '건을 불러왔어요.';
+    markSynced();
+    setSyncStatus('ok', '동기화됨 · ' + nowLabel());
   }
 
-  async function loadFromOldStore(auto){
+  async function syncNow(){
+    if(syncing) return false;
+    syncing = true;
+    syncReady = false;
+    clearTimeout(pushTimer);
+    setSyncStatus('loading', '동기화 중...');
     try {
-      const res = await fetch(OLD_URL + '/rest/v1/leave_state?id=eq.main&select=*&apikey=' + OLD_KEY, {
-        headers: { 'apikey': OLD_KEY, 'Authorization': 'Bearer ' + OLD_KEY }
-      });
-      if(!res.ok) throw new Error('HTTP ' + res.status);
+      const res = await fetch(SB_URL + '/rest/v1/' + SB_TABLE + '?id=eq.' + SB_ROW + '&select=id,custom_tasks&apikey=' + SB_KEY, { headers: sbHeaders() });
+      if(!res.ok) throw await sbError(res);
       const rows = await res.json();
-      if(!rows || rows.length === 0){
-        const bk = readLocalBackup();
-        if(bk){ await applyBackup(bk, auto); return; }
-        if(!auto) $('sync-status').textContent = '예전 저장소에 데이터가 없어요.';
-        return;
+      const row = rows && rows[0] ? rows[0] : null;
+      const remote = (row && row.custom_tasks && typeof row.custom_tasks.ts === 'number') ? row.custom_tasks : null;
+      const localTs = getTs();
+
+      if(!remote){
+        if(hasData()){
+          const ts = localTs || Date.now();
+          setTs(ts);
+          await pushRemote(ts);
+        } else {
+          setSyncStatus('ok', '연결됨 · 서버에 저장된 기록이 아직 없어요');
+        }
+      } else if(dataKey(remote.config || {}, remote.records) === dataKey(config, records)){
+        setTs(Math.max(localTs, remote.ts));
+        markSynced();
+        setSyncStatus('ok', '동기화됨 · ' + nowLabel());
+      } else if(!hasData()){
+        await adoptRemote(remote);
+      } else if(isFirstSync()){
+        const useRemote = confirm('서버에 저장된 연차 기록(' + (remote.records || []).length + '건)과 이 기기의 기록(' + records.length + '건)이 달라요.\n\n[확인] 서버 기록으로 바꾸기\n[취소] 이 기기 기록을 서버에 올리기');
+        if(useRemote){ await adoptRemote(remote); }
+        else { const ts = Date.now(); setTs(ts); await pushRemote(ts); }
+      } else if(localTs > remote.ts){
+        await pushRemote(localTs);
+      } else {
+        await adoptRemote(remote);
       }
-      const row = rows[0];
-      const oldRecords = row.records || [];
-      const oldConfig = row.config || {};
-      if(!auto){
-        if(!confirm('예전 저장소의 데이터(사용 내역 ' + oldRecords.length + '건)로 현재 데이터를 덮어씁니다. 계속할까요?')) return;
-      }
-      config = Object.assign({ startDate: null, firstYearOverride: null, resetPassword: null }, oldConfig);
-      records = oldRecords;
-      await saveConfig();
-      await saveRecords();
-      configCollapsed = !!config.startDate;
-      render();
-      $('sync-status').textContent = '예전 데이터 ' + oldRecords.length + '건을 불러왔어요.';
+      syncReady = true;
+      return true;
     } catch(e){
-      console.error('예전 저장소 불러오기 실패', e);
-      const bk = readLocalBackup();
-      if(bk){ await applyBackup(bk, auto); return; }
-      if(!auto) $('sync-status').textContent = '예전 저장소에 연결이 안 되고, 이 기기에도 남은 백업이 없어요.';
+      console.error('동기화 실패', e);
+      setSyncStatus('err', '연결 실패 · 이 기기에만 저장돼요 (' + e.message + ')');
+      return false;
+    } finally {
+      syncing = false;
     }
   }
 
-  $('old-load-btn').onclick = () => loadFromOldStore(false);
+  $('syncRetry').onclick = () => syncNow();
+  $('sync-now-btn').onclick = async () => {
+    const ok = await syncNow();
+    $('sync-status').textContent = ok ? '동기화를 마쳤어요.' : '동기화에 실패했어요. 맨 위 상태 표시줄의 메시지를 확인해줘.';
+  };
+
+  let lastVisibleSync = 0;
+  document.addEventListener('visibilitychange', () => {
+    if(document.visibilityState === 'visible' && Date.now() - lastVisibleSync > 5000){
+      lastVisibleSync = Date.now();
+      syncNow();
+    }
+  });
 
   // 예전 기록(이미지 자료 기준)을 처음 한 번만 채워 넣기
   const SEED_FLAG = 'leave-seeded-v1';
@@ -870,6 +981,7 @@
     let done = false;
     try { done = !!localStorage.getItem(SEED_FLAG); } catch(e){}
     if(done) return false;
+    if(hasData()){ try { localStorage.setItem(SEED_FLAG, '1'); } catch(e){} return false; }
     const have = new Set(records.map(r => r.date + '|' + r.type));
     SEED.forEach((s, i) => {
       if(!have.has(s[0] + '|' + s[1])){
@@ -878,8 +990,8 @@
     });
     config.startDate = '2023-08-01';
     config.firstYearOverride = 11;
-    await saveConfig();
-    await saveRecords();
+    await saveConfig(true);
+    await saveRecords(true);
     try { localStorage.setItem(SEED_FLAG, '1'); } catch(e){}
     configCollapsed = true;
     render();
@@ -888,9 +1000,12 @@
   }
 
   loadData().then(async () => {
-    const seeded = await seedOnce();
-    // 채워 넣을 게 없고 데이터도 비어 있을 때만 예전 저장소 시도
-    if(!seeded && !config.startDate && records.length === 0){ loadFromOldStore(true); }
+    const ok = await syncNow();                 // 서버 먼저 확인
+    const seeded = await seedOnce();            // 서버에도 이 기기에도 기록이 없을 때만
+    if(seeded && ok){
+      try { const ts = Date.now(); setTs(ts); await pushRemote(ts); }
+      catch(e){ setSyncStatus('err', '저장 실패 (' + e.message + ')'); }
+    }
   });
 })();
 </script>
